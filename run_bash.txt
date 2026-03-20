@@ -1,0 +1,9 @@
+ nohup python train_V5.py  --dataset_name Computers --log_dir ./logs/log_Computers.txt --e1_lr 0.0001  --e2_lr 0.0001 --num_epochs 700  --hidden_dim 1024  --num_hop 1 --trials 20 --use_gb --gb_quity detach --gb_sim dot --gb_alpha 0.7 > ./nohup_logs/computers.log 2>&1 &
+
+nohup python train_V5.py --dataset_name CS --log_dir ./logs/log_cs.txt --e1_lr 0.001 --e2_lr 0.001 --num_epochs 700 --hidden_dim 1024 --num_hop 1 --trials 20 --use_gb --gb_quity detach --gb_sim dot --gb_alpha 0.3 > ./nohup_logs/cs_DD3.log 2>&1 &
+ 
+nohup python train_V5.py  --dataset_name Photo --log_dir ./logs/log_photo.txt --e1_lr 0.001  --e2_lr 0.001 --num_epochs 700  --hidden_dim 1024  --num_hop 1 --trials 1 --use_gb --gb_quity detach --gb_sim dot --gb_alpha 0.3 > ./nohup_logs/photo_deatch0.3.log 2>&1 &
+
+nohup python train_V5.py  --dataset_name Physics --log_dir ./logs/log_physics.txt --e1_lr 0.0001  --e2_lr 0.00001 --num_epochs 1000  --hidden_dim 1024  --num_hop 1 --trials 20 --use_gb --gb_quity homo --gb_sim dot --gb_alpha 0.3 > ./nohup_logs/Physics.log 2>&1 &
+
+

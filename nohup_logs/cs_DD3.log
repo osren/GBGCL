@@ -1,0 +1,706 @@
+nohup: ignoring input
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+[09:03:59] Trial 1/20 • Epoch 1/700 • loss=-0.0014 • sim=0.0014  train_V5.py:227
+           • Granule Rebuild | Significant Loss ↓                               
+[09:12:16] Trial 1/20 • Epoch 100/700 • loss=-0.9394 •           train_V5.py:227
+           sim=0.9394 • log                                                     
+[09:12:24] Trial 1/20 • Epoch 101/700 • loss=-0.8615 •           train_V5.py:227
+           sim=0.8615 • Granule Rebuild                                         
+[09:20:36] Trial 1/20 • Epoch 200/700 • loss=-0.9726 •           train_V5.py:227
+           sim=0.9726 • log                                                     
+[09:20:43] Trial 1/20 • Epoch 201/700 • loss=-0.8736 •           train_V5.py:227
+           sim=0.8736 • Granule Rebuild                                         
+[09:28:53] Trial 1/20 • Epoch 300/700 • loss=-0.9776 •           train_V5.py:227
+           sim=0.9776 • log                                                     
+[09:29:02] Trial 1/20 • Epoch 301/700 • loss=-0.8693 •           train_V5.py:227
+           sim=0.8693 • Granule Rebuild                                         
+[09:36:55] Trial 1/20 • Epoch 400/700 • loss=-0.9775 •           train_V5.py:227
+           sim=0.9775 • log                                                     
+[09:37:03] Trial 1/20 • Epoch 401/700 • loss=-0.8623 •           train_V5.py:227
+           sim=0.8623 • Granule Rebuild                                         
+[09:45:01] Trial 1/20 • Epoch 500/700 • loss=-0.9753 •           train_V5.py:227
+           sim=0.9753 • log                                                     
+[09:45:10] Trial 1/20 • Epoch 501/700 • loss=-0.8557 •           train_V5.py:227
+           sim=0.8557 • Granule Rebuild                                         
+[09:53:06] Trial 1/20 • Epoch 600/700 • loss=-0.9758 •           train_V5.py:227
+           sim=0.9758 • log                                                     
+[09:53:15] Trial 1/20 • Epoch 601/700 • loss=-0.8541 •           train_V5.py:227
+           sim=0.8541 • Granule Rebuild                                         
+[10:01:05] Trial 1/20 • Epoch 700/700 • loss=-0.9720 •           train_V5.py:227
+           sim=0.9720 • log                                                     
+[10:06:36] Trial 1 summary → best_loss=-0.9778, clf_mean=0.9423, train_V5.py:260
+           clf_var=0.000001                                                     
+Trials 1/20                       ━━━━━━━━━━━━━━━━━━━━━ 100% • 1:02:45 • 0:00:00
+Epoch 700/700 | best_loss=-0.9778 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:33:04 • 0:00:00
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+[10:06:45] Trial 2/20 • Epoch 1/700 • loss=-0.0154 • sim=0.0154  train_V5.py:227
+           • Granule Rebuild | Significant Loss ↓                               
+[10:15:08] Trial 2/20 • Epoch 100/700 • loss=-0.9273 •           train_V5.py:227
+           sim=0.9273 • log                                                     
+[10:15:16] Trial 2/20 • Epoch 101/700 • loss=-0.8542 •           train_V5.py:227
+           sim=0.8542 • Granule Rebuild                                         
+[10:23:29] Trial 2/20 • Epoch 200/700 • loss=-0.9743 •           train_V5.py:227
+           sim=0.9743 • log                                                     
+[10:23:37] Trial 2/20 • Epoch 201/700 • loss=-0.8786 •           train_V5.py:227
+           sim=0.8786 • Granule Rebuild                                         
+[10:31:49] Trial 2/20 • Epoch 300/700 • loss=-0.9814 •           train_V5.py:227
+           sim=0.9814 • log                                                     
+[10:31:57] Trial 2/20 • Epoch 301/700 • loss=-0.8770 •           train_V5.py:227
+           sim=0.8770 • Granule Rebuild                                         
+[10:40:08] Trial 2/20 • Epoch 400/700 • loss=-0.9821 •           train_V5.py:227
+           sim=0.9821 • log                                                     
+[10:40:17] Trial 2/20 • Epoch 401/700 • loss=-0.8721 •           train_V5.py:227
+           sim=0.8721 • Granule Rebuild                                         
+[10:48:06] Trial 2/20 • Epoch 500/700 • loss=-0.9819 •           train_V5.py:227
+           sim=0.9819 • log                                                     
+[10:48:14] Trial 2/20 • Epoch 501/700 • loss=-0.8672 •           train_V5.py:227
+           sim=0.8672 • Granule Rebuild                                         
+[10:56:16] Trial 2/20 • Epoch 600/700 • loss=-0.9809 •           train_V5.py:227
+           sim=0.9809 • log                                                     
+[10:56:24] Trial 2/20 • Epoch 601/700 • loss=-0.8648 •           train_V5.py:227
+           sim=0.8648 • Granule Rebuild                                         
+[11:04:27] Trial 2/20 • Epoch 700/700 • loss=-0.9798 •           train_V5.py:227
+           sim=0.9798 • log                                                     
+[11:10:00] Trial 2 summary → best_loss=-0.9823, clf_mean=0.9410, train_V5.py:260
+           clf_var=0.000001                                                     
+Trials 2/20                       ━━━━━━━━━━━━━━━━━━━━━ 100% • 1:03:23 • 0:00:00
+Epoch 700/700 | best_loss=-0.9823 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:33:31 • 0:00:00
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+[11:10:10] Trial 3/20 • Epoch 1/700 • loss=-0.0118 • sim=0.0118  train_V5.py:227
+           • Granule Rebuild | Significant Loss ↓                               
+[11:18:33] Trial 3/20 • Epoch 100/700 • loss=-0.9368 •           train_V5.py:227
+           sim=0.9368 • log                                                     
+[11:18:45] Trial 3/20 • Epoch 101/700 • loss=-0.8604 •           train_V5.py:227
+           sim=0.8604 • Granule Rebuild                                         
+[11:26:50] Trial 3/20 • Epoch 200/700 • loss=-0.9739 •           train_V5.py:227
+           sim=0.9739 • log                                                     
+[11:26:58] Trial 3/20 • Epoch 201/700 • loss=-0.8786 •           train_V5.py:227
+           sim=0.8786 • Granule Rebuild                                         
+[11:35:01] Trial 3/20 • Epoch 300/700 • loss=-0.9794 •           train_V5.py:227
+           sim=0.9794 • log                                                     
+[11:35:09] Trial 3/20 • Epoch 301/700 • loss=-0.8707 •           train_V5.py:227
+           sim=0.8707 • Granule Rebuild                                         
+[11:42:58] Trial 3/20 • Epoch 400/700 • loss=-0.9793 •           train_V5.py:227
+           sim=0.9793 • log                                                     
+[11:43:05] Trial 3/20 • Epoch 401/700 • loss=-0.8651 •           train_V5.py:227
+           sim=0.8651 • Granule Rebuild                                         
+[11:51:07] Trial 3/20 • Epoch 500/700 • loss=-0.9785 •           train_V5.py:227
+           sim=0.9785 • log                                                     
+[11:51:14] Trial 3/20 • Epoch 501/700 • loss=-0.8592 •           train_V5.py:227
+           sim=0.8592 • Granule Rebuild                                         
+[11:59:03] Trial 3/20 • Epoch 600/700 • loss=-0.9769 •           train_V5.py:227
+           sim=0.9769 • log                                                     
+[11:59:11] Trial 3/20 • Epoch 601/700 • loss=-0.8560 •           train_V5.py:227
+           sim=0.8560 • Granule Rebuild                                         
+[12:07:06] Trial 3/20 • Epoch 700/700 • loss=-0.9762 •           train_V5.py:227
+           sim=0.9762 • log                                                     
+[12:12:37] Trial 3 summary → best_loss=-0.9797, clf_mean=0.9411, train_V5.py:260
+           clf_var=0.000001                                                     
+Trials 3/20                       ━━━━━━━━━━━━━━━━━━━━━ 100% • 1:02:35 • 0:00:00
+Epoch 700/700 | best_loss=-0.9797 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:32:55 • 0:00:00
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+[12:12:46] Trial 4/20 • Epoch 1/700 • loss=-0.0068 • sim=0.0068  train_V5.py:227
+           • Granule Rebuild | Significant Loss ↓                               
+[12:21:01] Trial 4/20 • Epoch 100/700 • loss=-0.9306 •           train_V5.py:227
+           sim=0.9306 • log                                                     
+[12:21:09] Trial 4/20 • Epoch 101/700 • loss=-0.8564 •           train_V5.py:227
+           sim=0.8564 • Granule Rebuild                                         
+[12:29:25] Trial 4/20 • Epoch 200/700 • loss=-0.9735 •           train_V5.py:227
+           sim=0.9735 • log                                                     
+[12:29:32] Trial 4/20 • Epoch 201/700 • loss=-0.8764 •           train_V5.py:227
+           sim=0.8764 • Granule Rebuild                                         
+[12:37:39] Trial 4/20 • Epoch 300/700 • loss=-0.9801 •           train_V5.py:227
+           sim=0.9801 • log                                                     
+[12:37:46] Trial 4/20 • Epoch 301/700 • loss=-0.8736 •           train_V5.py:227
+           sim=0.8736 • Granule Rebuild                                         
+[12:45:37] Trial 4/20 • Epoch 400/700 • loss=-0.9806 •           train_V5.py:227
+           sim=0.9806 • log                                                     
+[12:45:46] Trial 4/20 • Epoch 401/700 • loss=-0.8679 •           train_V5.py:227
+           sim=0.8679 • Granule Rebuild                                         
+[12:53:44] Trial 4/20 • Epoch 500/700 • loss=-0.9795 •           train_V5.py:227
+           sim=0.9795 • log                                                     
+[12:53:53] Trial 4/20 • Epoch 501/700 • loss=-0.8616 •           train_V5.py:227
+           sim=0.8616 • Granule Rebuild                                         
+[13:01:43] Trial 4/20 • Epoch 600/700 • loss=-0.9772 •           train_V5.py:227
+           sim=0.9772 • log                                                     
+[13:01:51] Trial 4/20 • Epoch 601/700 • loss=-0.8587 •           train_V5.py:227
+           sim=0.8587 • Granule Rebuild                                         
+[13:09:43] Trial 4/20 • Epoch 700/700 • loss=-0.9774 •           train_V5.py:227
+           sim=0.9774 • log                                                     
+[13:15:11] Trial 4 summary → best_loss=-0.9806, clf_mean=0.9413, train_V5.py:260
+           clf_var=0.000000                                                     
+Trials 4/20                       ━━━━━━━━━━━━━━━━━━━━━ 100% • 1:02:33 • 0:00:00
+Epoch 700/700 | best_loss=-0.9806 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:32:59 • 0:00:00
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+[13:15:20] Trial 5/20 • Epoch 1/700 • loss=0.0230 • sim=-0.0230  train_V5.py:227
+           • Granule Rebuild | Significant Loss ↓                               
+[13:23:29] Trial 5/20 • Epoch 100/700 • loss=-0.9368 •           train_V5.py:227
+           sim=0.9368 • log                                                     
+[13:23:37] Trial 5/20 • Epoch 101/700 • loss=-0.8593 •           train_V5.py:227
+           sim=0.8593 • Granule Rebuild                                         
+[13:31:43] Trial 5/20 • Epoch 200/700 • loss=-0.9741 •           train_V5.py:227
+           sim=0.9741 • log                                                     
+[13:31:51] Trial 5/20 • Epoch 201/700 • loss=-0.8749 •           train_V5.py:227
+           sim=0.8749 • Granule Rebuild                                         
+[13:39:51] Trial 5/20 • Epoch 300/700 • loss=-0.9759 •           train_V5.py:227
+           sim=0.9759 • log                                                     
+[13:39:58] Trial 5/20 • Epoch 301/700 • loss=-0.8628 •           train_V5.py:227
+           sim=0.8628 • Granule Rebuild                                         
+[13:48:00] Trial 5/20 • Epoch 400/700 • loss=-0.9788 •           train_V5.py:227
+           sim=0.9788 • log                                                     
+[13:48:08] Trial 5/20 • Epoch 401/700 • loss=-0.8604 •           train_V5.py:227
+           sim=0.8604 • Granule Rebuild                                         
+[13:55:51] Trial 5/20 • Epoch 500/700 • loss=-0.9779 •           train_V5.py:227
+           sim=0.9779 • log                                                     
+[13:55:59] Trial 5/20 • Epoch 501/700 • loss=-0.8547 •           train_V5.py:227
+           sim=0.8547 • Granule Rebuild                                         
+[14:03:53] Trial 5/20 • Epoch 600/700 • loss=-0.9687 •           train_V5.py:227
+           sim=0.9687 • log                                                     
+[14:04:01] Trial 5/20 • Epoch 601/700 • loss=-0.8429 •           train_V5.py:227
+           sim=0.8429 • Granule Rebuild                                         
+[14:11:52] Trial 5/20 • Epoch 700/700 • loss=-0.9725 •           train_V5.py:227
+           sim=0.9725 • log                                                     
+[14:16:44] Trial 5 summary → best_loss=-0.9791, clf_mean=0.9411, train_V5.py:260
+           clf_var=0.000001                                                     
+Trials 5/20                       ━━━━━━━━━━━━━━━━━━━━━ 100% • 1:01:30 • 0:00:00
+Epoch 700/700 | best_loss=-0.9791 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:32:47 • 0:00:00
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+[14:16:51] Trial 6/20 • Epoch 1/700 • loss=0.0042 • sim=-0.0042  train_V5.py:227
+           • Granule Rebuild | Significant Loss ↓                               
+[14:22:40] Trial 6/20 • Epoch 100/700 • loss=-0.9309 •           train_V5.py:227
+           sim=0.9309 • log                                                     
+[14:22:46] Trial 6/20 • Epoch 101/700 • loss=-0.8588 •           train_V5.py:227
+           sim=0.8588 • Granule Rebuild                                         
+[14:28:30] Trial 6/20 • Epoch 200/700 • loss=-0.9752 •           train_V5.py:227
+           sim=0.9752 • log                                                     
+[14:28:36] Trial 6/20 • Epoch 201/700 • loss=-0.8801 •           train_V5.py:227
+           sim=0.8801 • Granule Rebuild                                         
+[14:34:12] Trial 6/20 • Epoch 300/700 • loss=-0.9812 •           train_V5.py:227
+           sim=0.9812 • log                                                     
+[14:34:18] Trial 6/20 • Epoch 301/700 • loss=-0.8768 •           train_V5.py:227
+           sim=0.8768 • Granule Rebuild                                         
+[14:39:43] Trial 6/20 • Epoch 400/700 • loss=-0.9815 •           train_V5.py:227
+           sim=0.9815 • log                                                     
+[14:39:49] Trial 6/20 • Epoch 401/700 • loss=-0.8728 •           train_V5.py:227
+           sim=0.8728 • Granule Rebuild                                         
+[14:45:08] Trial 6/20 • Epoch 500/700 • loss=-0.9813 •           train_V5.py:227
+           sim=0.9813 • log                                                     
+[14:45:14] Trial 6/20 • Epoch 501/700 • loss=-0.8683 •           train_V5.py:227
+           sim=0.8683 • Granule Rebuild                                         
+[14:50:35] Trial 6/20 • Epoch 600/700 • loss=-0.9804 •           train_V5.py:227
+           sim=0.9804 • log                                                     
+[14:50:41] Trial 6/20 • Epoch 601/700 • loss=-0.8644 •           train_V5.py:227
+           sim=0.8644 • Granule Rebuild                                         
+[14:56:06] Trial 6/20 • Epoch 700/700 • loss=-0.9792 •           train_V5.py:227
+           sim=0.9792 • log                                                     
+[15:00:24] Trial 6 summary → best_loss=-0.9818, clf_mean=0.9412, train_V5.py:260
+           clf_var=0.000000                                                     
+Trials 6/20                       ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:43:39 • 0:00:00
+Epoch 700/700 | best_loss=-0.9818 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:22:58 • 0:00:00
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+[15:00:30] Trial 7/20 • Epoch 1/700 • loss=0.0007 • sim=-0.0007  train_V5.py:227
+           • Granule Rebuild | Significant Loss ↓                               
+[15:06:13] Trial 7/20 • Epoch 100/700 • loss=-0.9376 •           train_V5.py:227
+           sim=0.9376 • log                                                     
+[15:06:19] Trial 7/20 • Epoch 101/700 • loss=-0.8604 •           train_V5.py:227
+           sim=0.8604 • Granule Rebuild                                         
+[15:12:02] Trial 7/20 • Epoch 200/700 • loss=-0.9727 •           train_V5.py:227
+           sim=0.9727 • log                                                     
+[15:12:07] Trial 7/20 • Epoch 201/700 • loss=-0.8732 •           train_V5.py:227
+           sim=0.8732 • Granule Rebuild                                         
+[15:17:44] Trial 7/20 • Epoch 300/700 • loss=-0.9769 •           train_V5.py:227
+           sim=0.9769 • log                                                     
+[15:17:50] Trial 7/20 • Epoch 301/700 • loss=-0.8669 •           train_V5.py:227
+           sim=0.8669 • Granule Rebuild                                         
+[15:23:20] Trial 7/20 • Epoch 400/700 • loss=-0.9776 •           train_V5.py:227
+           sim=0.9776 • log                                                     
+[15:23:26] Trial 7/20 • Epoch 401/700 • loss=-0.8605 •           train_V5.py:227
+           sim=0.8605 • Granule Rebuild                                         
+[15:28:57] Trial 7/20 • Epoch 500/700 • loss=-0.9770 •           train_V5.py:227
+           sim=0.9770 • log                                                     
+[15:29:02] Trial 7/20 • Epoch 501/700 • loss=-0.8560 •           train_V5.py:227
+           sim=0.8560 • Granule Rebuild                                         
+[15:34:33] Trial 7/20 • Epoch 600/700 • loss=-0.9758 •           train_V5.py:227
+           sim=0.9758 • log                                                     
+[15:34:39] Trial 7/20 • Epoch 601/700 • loss=-0.8501 •           train_V5.py:227
+           sim=0.8501 • Granule Rebuild                                         
+[15:40:07] Trial 7/20 • Epoch 700/700 • loss=-0.9686 •           train_V5.py:227
+           sim=0.9686 • log                                                     
+[15:44:33] Trial 7 summary → best_loss=-0.9780, clf_mean=0.9404, train_V5.py:260
+           clf_var=0.000001                                                     
+Trials 7/20                       ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:44:07 • 0:00:00
+Epoch 700/700 | best_loss=-0.9780 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:22:55 • 0:00:00
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+[15:44:39] Trial 8/20 • Epoch 1/700 • loss=0.0073 • sim=-0.0073  train_V5.py:227
+           • Granule Rebuild | Significant Loss ↓                               
+[15:50:11] Trial 8/20 • Epoch 100/700 • loss=-0.9384 •           train_V5.py:227
+           sim=0.9384 • log                                                     
+[15:50:17] Trial 8/20 • Epoch 101/700 • loss=-0.8614 •           train_V5.py:227
+           sim=0.8614 • Granule Rebuild                                         
+[15:55:48] Trial 8/20 • Epoch 200/700 • loss=-0.9730 •           train_V5.py:227
+           sim=0.9730 • log                                                     
+[15:55:53] Trial 8/20 • Epoch 201/700 • loss=-0.8754 •           train_V5.py:227
+           sim=0.8754 • Granule Rebuild                                         
+[16:01:19] Trial 8/20 • Epoch 300/700 • loss=-0.9768 •           train_V5.py:227
+           sim=0.9768 • log                                                     
+[16:01:25] Trial 8/20 • Epoch 301/700 • loss=-0.8720 •           train_V5.py:227
+           sim=0.8720 • Granule Rebuild                                         
+[16:06:44] Trial 8/20 • Epoch 400/700 • loss=-0.9777 •           train_V5.py:227
+           sim=0.9777 • log                                                     
+[16:06:50] Trial 8/20 • Epoch 401/700 • loss=-0.8650 •           train_V5.py:227
+           sim=0.8650 • Granule Rebuild                                         
+[16:12:07] Trial 8/20 • Epoch 500/700 • loss=-0.9775 •           train_V5.py:227
+           sim=0.9775 • log                                                     
+[16:12:13] Trial 8/20 • Epoch 501/700 • loss=-0.8612 •           train_V5.py:227
+           sim=0.8612 • Granule Rebuild                                         
+[16:17:32] Trial 8/20 • Epoch 600/700 • loss=-0.9734 •           train_V5.py:227
+           sim=0.9734 • log                                                     
+[16:17:38] Trial 8/20 • Epoch 601/700 • loss=-0.8545 •           train_V5.py:227
+           sim=0.8545 • Granule Rebuild                                         
+[16:22:53] Trial 8/20 • Epoch 700/700 • loss=-0.9756 •           train_V5.py:227
+           sim=0.9756 • log                                                     
+[16:27:09] Trial 8 summary → best_loss=-0.9784, clf_mean=0.9419, train_V5.py:260
+           clf_var=0.000000                                                     
+Trials 8/20                       ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:42:35 • 0:00:00
+Epoch 700/700 | best_loss=-0.9784 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:22:10 • 0:00:00
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+[16:27:15] Trial 9/20 • Epoch 1/700 • loss=-0.0232 • sim=0.0232  train_V5.py:227
+           • Granule Rebuild | Significant Loss ↓                               
+[16:32:57] Trial 9/20 • Epoch 100/700 • loss=-0.9400 •           train_V5.py:227
+           sim=0.9400 • log                                                     
+[16:33:03] Trial 9/20 • Epoch 101/700 • loss=-0.8607 •           train_V5.py:227
+           sim=0.8607 • Granule Rebuild                                         
+[16:38:47] Trial 9/20 • Epoch 200/700 • loss=-0.9735 •           train_V5.py:227
+           sim=0.9735 • log                                                     
+[16:38:53] Trial 9/20 • Epoch 201/700 • loss=-0.8740 •           train_V5.py:227
+           sim=0.8740 • Granule Rebuild                                         
+[16:44:30] Trial 9/20 • Epoch 300/700 • loss=-0.9777 •           train_V5.py:227
+           sim=0.9777 • log                                                     
+[16:44:36] Trial 9/20 • Epoch 301/700 • loss=-0.8700 •           train_V5.py:227
+           sim=0.8700 • Granule Rebuild                                         
+[16:50:06] Trial 9/20 • Epoch 400/700 • loss=-0.9777 •           train_V5.py:227
+           sim=0.9777 • log                                                     
+[16:50:12] Trial 9/20 • Epoch 401/700 • loss=-0.8625 •           train_V5.py:227
+           sim=0.8625 • Granule Rebuild                                         
+[16:55:42] Trial 9/20 • Epoch 500/700 • loss=-0.9770 •           train_V5.py:227
+           sim=0.9770 • log                                                     
+[16:55:48] Trial 9/20 • Epoch 501/700 • loss=-0.8574 •           train_V5.py:227
+           sim=0.8574 • Granule Rebuild                                         
+[17:01:17] Trial 9/20 • Epoch 600/700 • loss=-0.9755 •           train_V5.py:227
+           sim=0.9755 • log                                                     
+[17:01:23] Trial 9/20 • Epoch 601/700 • loss=-0.8536 •           train_V5.py:227
+           sim=0.8536 • Granule Rebuild                                         
+[17:06:53] Trial 9/20 • Epoch 700/700 • loss=-0.9728 •           train_V5.py:227
+           sim=0.9728 • log                                                     
+[17:11:08] Trial 9 summary → best_loss=-0.9783, clf_mean=0.9418, train_V5.py:260
+           clf_var=0.000001                                                     
+Trials 9/20                       ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:43:58 • 0:00:00
+Epoch 700/700 | best_loss=-0.9783 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:22:56 • 0:00:00
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+[17:11:14] Trial 10/20 • Epoch 1/700 • loss=-0.0171 • sim=0.0171 train_V5.py:227
+           • Granule Rebuild | Significant Loss ↓                               
+[17:16:52] Trial 10/20 • Epoch 100/700 • loss=-0.9372 •          train_V5.py:227
+           sim=0.9372 • log                                                     
+[17:16:58] Trial 10/20 • Epoch 101/700 • loss=-0.8597 •          train_V5.py:227
+           sim=0.8597 • Granule Rebuild                                         
+[17:22:35] Trial 10/20 • Epoch 200/700 • loss=-0.9734 •          train_V5.py:227
+           sim=0.9734 • log                                                     
+[17:22:41] Trial 10/20 • Epoch 201/700 • loss=-0.8759 •          train_V5.py:227
+           sim=0.8759 • Granule Rebuild                                         
+[17:28:17] Trial 10/20 • Epoch 300/700 • loss=-0.9764 •          train_V5.py:227
+           sim=0.9764 • log                                                     
+[17:28:23] Trial 10/20 • Epoch 301/700 • loss=-0.8691 •          train_V5.py:227
+           sim=0.8691 • Granule Rebuild                                         
+[17:33:49] Trial 10/20 • Epoch 400/700 • loss=-0.9788 •          train_V5.py:227
+           sim=0.9788 • log                                                     
+[17:33:55] Trial 10/20 • Epoch 401/700 • loss=-0.8655 •          train_V5.py:227
+           sim=0.8655 • Granule Rebuild                                         
+[17:39:22] Trial 10/20 • Epoch 500/700 • loss=-0.9754 •          train_V5.py:227
+           sim=0.9754 • log                                                     
+[17:39:28] Trial 10/20 • Epoch 501/700 • loss=-0.8594 •          train_V5.py:227
+           sim=0.8594 • Granule Rebuild                                         
+[17:44:55] Trial 10/20 • Epoch 600/700 • loss=-0.9751 •          train_V5.py:227
+           sim=0.9751 • log                                                     
+[17:45:01] Trial 10/20 • Epoch 601/700 • loss=-0.8583 •          train_V5.py:227
+           sim=0.8583 • Granule Rebuild                                         
+[17:50:24] Trial 10/20 • Epoch 700/700 • loss=-0.9756 •          train_V5.py:227
+           sim=0.9756 • log                                                     
+[17:54:57] Trial 10 summary → best_loss=-0.9792,                 train_V5.py:260
+           clf_mean=0.9420, clf_var=0.000001                                    
+Trials 10/20                      ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:43:48 • 0:00:00
+Epoch 700/700 | best_loss=-0.9792 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:22:40 • 0:00:00
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+[17:55:04] Trial 11/20 • Epoch 1/700 • loss=-0.0220 • sim=0.0220 train_V5.py:227
+           • Granule Rebuild | Significant Loss ↓                               
+[18:00:42] Trial 11/20 • Epoch 100/700 • loss=-0.9374 •          train_V5.py:227
+           sim=0.9374 • log                                                     
+[18:00:48] Trial 11/20 • Epoch 101/700 • loss=-0.8607 •          train_V5.py:227
+           sim=0.8607 • Granule Rebuild                                         
+[18:06:27] Trial 11/20 • Epoch 200/700 • loss=-0.9720 •          train_V5.py:227
+           sim=0.9720 • log                                                     
+[18:06:33] Trial 11/20 • Epoch 201/700 • loss=-0.8738 •          train_V5.py:227
+           sim=0.8738 • Granule Rebuild                                         
+[18:12:08] Trial 11/20 • Epoch 300/700 • loss=-0.9768 •          train_V5.py:227
+           sim=0.9768 • log                                                     
+[18:12:14] Trial 11/20 • Epoch 301/700 • loss=-0.8684 •          train_V5.py:227
+           sim=0.8684 • Granule Rebuild                                         
+[18:17:39] Trial 11/20 • Epoch 400/700 • loss=-0.9756 •          train_V5.py:227
+           sim=0.9756 • log                                                     
+[18:17:44] Trial 11/20 • Epoch 401/700 • loss=-0.8641 •          train_V5.py:227
+           sim=0.8641 • Granule Rebuild                                         
+[18:23:01] Trial 11/20 • Epoch 500/700 • loss=-0.9761 •          train_V5.py:227
+           sim=0.9761 • log                                                     
+[18:23:07] Trial 11/20 • Epoch 501/700 • loss=-0.8583 •          train_V5.py:227
+           sim=0.8583 • Granule Rebuild                                         
+[18:28:31] Trial 11/20 • Epoch 600/700 • loss=-0.9753 •          train_V5.py:227
+           sim=0.9753 • log                                                     
+[18:28:37] Trial 11/20 • Epoch 601/700 • loss=-0.8542 •          train_V5.py:227
+           sim=0.8542 • Granule Rebuild                                         
+[18:33:52] Trial 11/20 • Epoch 700/700 • loss=-0.9749 •          train_V5.py:227
+           sim=0.9749 • log                                                     
+[18:38:13] Trial 11 summary → best_loss=-0.9774,                 train_V5.py:260
+           clf_mean=0.9413, clf_var=0.000000                                    
+Trials 11/20                      ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:43:15 • 0:00:00
+Epoch 700/700 | best_loss=-0.9774 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:22:40 • 0:00:00
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+[18:38:20] Trial 12/20 • Epoch 1/700 • loss=-0.0090 • sim=0.0090 train_V5.py:227
+           • Granule Rebuild | Significant Loss ↓                               
+[18:43:54] Trial 12/20 • Epoch 100/700 • loss=-0.9297 •          train_V5.py:227
+           sim=0.9297 • log                                                     
+[18:43:59] Trial 12/20 • Epoch 101/700 • loss=-0.8569 •          train_V5.py:227
+           sim=0.8569 • Granule Rebuild                                         
+[18:49:27] Trial 12/20 • Epoch 200/700 • loss=-0.9744 •          train_V5.py:227
+           sim=0.9744 • log                                                     
+[18:49:32] Trial 12/20 • Epoch 201/700 • loss=-0.8790 •          train_V5.py:227
+           sim=0.8790 • Granule Rebuild                                         
+[18:54:53] Trial 12/20 • Epoch 300/700 • loss=-0.9813 •          train_V5.py:227
+           sim=0.9813 • log                                                     
+[18:54:59] Trial 12/20 • Epoch 301/700 • loss=-0.8774 •          train_V5.py:227
+           sim=0.8774 • Granule Rebuild                                         
+[19:00:08] Trial 12/20 • Epoch 400/700 • loss=-0.9820 •          train_V5.py:227
+           sim=0.9820 • log                                                     
+[19:00:13] Trial 12/20 • Epoch 401/700 • loss=-0.8704 •          train_V5.py:227
+           sim=0.8704 • Granule Rebuild                                         
+[19:05:41] Trial 12/20 • Epoch 500/700 • loss=-0.9808 •          train_V5.py:227
+           sim=0.9808 • log                                                     
+[19:05:47] Trial 12/20 • Epoch 501/700 • loss=-0.8680 •          train_V5.py:227
+           sim=0.8680 • Granule Rebuild                                         
+[19:11:24] Trial 12/20 • Epoch 600/700 • loss=-0.9804 •          train_V5.py:227
+           sim=0.9804 • log                                                     
+[19:11:29] Trial 12/20 • Epoch 601/700 • loss=-0.8633 •          train_V5.py:227
+           sim=0.8633 • Granule Rebuild                                         
+[19:17:07] Trial 12/20 • Epoch 700/700 • loss=-0.9785 •          train_V5.py:227
+           sim=0.9785 • log                                                     
+[19:21:35] Trial 12 summary → best_loss=-0.9821,                 train_V5.py:260
+           clf_mean=0.9405, clf_var=0.000000                                    
+Trials 12/20                      ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:43:20 • 0:00:00
+Epoch 700/700 | best_loss=-0.9821 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:21:53 • 0:00:00
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+[19:21:42] Trial 13/20 • Epoch 1/700 • loss=0.0143 • sim=-0.0143 train_V5.py:227
+           • Granule Rebuild | Significant Loss ↓                               
+[19:27:23] Trial 13/20 • Epoch 100/700 • loss=-0.9418 •          train_V5.py:227
+           sim=0.9418 • log                                                     
+[19:27:29] Trial 13/20 • Epoch 101/700 • loss=-0.8646 •          train_V5.py:227
+           sim=0.8646 • Granule Rebuild                                         
+[19:33:10] Trial 13/20 • Epoch 200/700 • loss=-0.9753 •          train_V5.py:227
+           sim=0.9753 • log                                                     
+[19:33:16] Trial 13/20 • Epoch 201/700 • loss=-0.8779 •          train_V5.py:227
+           sim=0.8779 • Granule Rebuild                                         
+[19:38:54] Trial 13/20 • Epoch 300/700 • loss=-0.9768 •          train_V5.py:227
+           sim=0.9768 • log                                                     
+[19:39:00] Trial 13/20 • Epoch 301/700 • loss=-0.8694 •          train_V5.py:227
+           sim=0.8694 • Granule Rebuild                                         
+[19:44:27] Trial 13/20 • Epoch 400/700 • loss=-0.9801 •          train_V5.py:227
+           sim=0.9801 • log                                                     
+[19:44:33] Trial 13/20 • Epoch 401/700 • loss=-0.8692 •          train_V5.py:227
+           sim=0.8692 • Granule Rebuild                                         
+[19:50:00] Trial 13/20 • Epoch 500/700 • loss=-0.9796 •          train_V5.py:227
+           sim=0.9796 • log                                                     
+[19:50:06] Trial 13/20 • Epoch 501/700 • loss=-0.8635 •          train_V5.py:227
+           sim=0.8635 • Granule Rebuild                                         
+[19:55:34] Trial 13/20 • Epoch 600/700 • loss=-0.9784 •          train_V5.py:227
+           sim=0.9784 • log                                                     
+[19:55:40] Trial 13/20 • Epoch 601/700 • loss=-0.8608 •          train_V5.py:227
+           sim=0.8608 • Granule Rebuild                                         
+[20:01:07] Trial 13/20 • Epoch 700/700 • loss=-0.9768 •          train_V5.py:227
+           sim=0.9768 • log                                                     
+[20:05:36] Trial 13 summary → best_loss=-0.9803,                 train_V5.py:260
+           clf_mean=0.9414, clf_var=0.000003                                    
+Trials 13/20                      ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:43:59 • 0:00:00
+Epoch 700/700 | best_loss=-0.9803 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:22:51 • 0:00:00
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+[20:05:42] Trial 14/20 • Epoch 1/700 • loss=0.0305 • sim=-0.0305 train_V5.py:227
+           • Granule Rebuild | Significant Loss ↓                               
+[20:11:30] Trial 14/20 • Epoch 100/700 • loss=-0.9322 •          train_V5.py:227
+           sim=0.9322 • log                                                     
+[20:11:36] Trial 14/20 • Epoch 101/700 • loss=-0.8588 •          train_V5.py:227
+           sim=0.8588 • Granule Rebuild                                         
+[20:17:23] Trial 14/20 • Epoch 200/700 • loss=-0.9743 •          train_V5.py:227
+           sim=0.9743 • log                                                     
+[20:17:29] Trial 14/20 • Epoch 201/700 • loss=-0.8799 •          train_V5.py:227
+           sim=0.8799 • Granule Rebuild                                         
+[20:23:15] Trial 14/20 • Epoch 300/700 • loss=-0.9813 •          train_V5.py:227
+           sim=0.9813 • log                                                     
+[20:23:21] Trial 14/20 • Epoch 301/700 • loss=-0.8783 •          train_V5.py:227
+           sim=0.8783 • Granule Rebuild                                         
+[20:28:56] Trial 14/20 • Epoch 400/700 • loss=-0.9820 •          train_V5.py:227
+           sim=0.9820 • log                                                     
+[20:29:02] Trial 14/20 • Epoch 401/700 • loss=-0.8712 •          train_V5.py:227
+           sim=0.8712 • Granule Rebuild                                         
+[20:34:32] Trial 14/20 • Epoch 500/700 • loss=-0.9810 •          train_V5.py:227
+           sim=0.9810 • log                                                     
+[20:34:38] Trial 14/20 • Epoch 501/700 • loss=-0.8689 •          train_V5.py:227
+           sim=0.8689 • Granule Rebuild                                         
+[20:40:13] Trial 14/20 • Epoch 600/700 • loss=-0.9804 •          train_V5.py:227
+           sim=0.9804 • log                                                     
+[20:40:19] Trial 14/20 • Epoch 601/700 • loss=-0.8661 •          train_V5.py:227
+           sim=0.8661 • Granule Rebuild                                         
+[20:45:54] Trial 14/20 • Epoch 700/700 • loss=-0.9795 •          train_V5.py:227
+           sim=0.9795 • log                                                     
+[20:50:23] Trial 14 summary → best_loss=-0.9821,                 train_V5.py:260
+           clf_mean=0.9416, clf_var=0.000000                                    
+Trials 14/20                      ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:44:46 • 0:00:00
+Epoch 700/700 | best_loss=-0.9821 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:23:19 • 0:00:00
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+[20:50:30] Trial 15/20 • Epoch 1/700 • loss=-0.0045 • sim=0.0045 train_V5.py:227
+           • Granule Rebuild | Significant Loss ↓                               
+[20:56:21] Trial 15/20 • Epoch 100/700 • loss=-0.9321 •          train_V5.py:227
+           sim=0.9321 • log                                                     
+[20:56:27] Trial 15/20 • Epoch 101/700 • loss=-0.8582 •          train_V5.py:227
+           sim=0.8582 • Granule Rebuild                                         
+[21:02:11] Trial 15/20 • Epoch 200/700 • loss=-0.9742 •          train_V5.py:227
+           sim=0.9742 • log                                                     
+[21:02:16] Trial 15/20 • Epoch 201/700 • loss=-0.8778 •          train_V5.py:227
+           sim=0.8778 • Granule Rebuild                                         
+[21:07:58] Trial 15/20 • Epoch 300/700 • loss=-0.9809 •          train_V5.py:227
+           sim=0.9809 • log                                                     
+[21:08:04] Trial 15/20 • Epoch 301/700 • loss=-0.8761 •          train_V5.py:227
+           sim=0.8761 • Granule Rebuild                                         
+[21:13:42] Trial 15/20 • Epoch 400/700 • loss=-0.9817 •          train_V5.py:227
+           sim=0.9817 • log                                                     
+[21:13:48] Trial 15/20 • Epoch 401/700 • loss=-0.8726 •          train_V5.py:227
+           sim=0.8726 • Granule Rebuild                                         
+[21:19:22] Trial 15/20 • Epoch 500/700 • loss=-0.9806 •          train_V5.py:227
+           sim=0.9806 • log                                                     
+[21:19:28] Trial 15/20 • Epoch 501/700 • loss=-0.8628 •          train_V5.py:227
+           sim=0.8628 • Granule Rebuild                                         
+[21:25:05] Trial 15/20 • Epoch 600/700 • loss=-0.9800 •          train_V5.py:227
+           sim=0.9800 • log                                                     
+[21:25:11] Trial 15/20 • Epoch 601/700 • loss=-0.8644 •          train_V5.py:227
+           sim=0.8644 • Granule Rebuild                                         
+[21:30:47] Trial 15/20 • Epoch 700/700 • loss=-0.9792 •          train_V5.py:227
+           sim=0.9792 • log                                                     
+[21:35:10] Trial 15 summary → best_loss=-0.9817,                 train_V5.py:260
+           clf_mean=0.9414, clf_var=0.000001                                    
+Trials 15/20                      ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:44:46 • 0:00:00
+Epoch 700/700 | best_loss=-0.9817 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:23:18 • 0:00:00
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+[21:35:17] Trial 16/20 • Epoch 1/700 • loss=-0.0167 • sim=0.0167 train_V5.py:227
+           • Granule Rebuild | Significant Loss ↓                               
+[21:41:02] Trial 16/20 • Epoch 100/700 • loss=-0.9348 •          train_V5.py:227
+           sim=0.9348 • log                                                     
+[21:41:07] Trial 16/20 • Epoch 101/700 • loss=-0.8603 •          train_V5.py:227
+           sim=0.8603 • Granule Rebuild                                         
+[21:46:51] Trial 16/20 • Epoch 200/700 • loss=-0.9755 •          train_V5.py:227
+           sim=0.9755 • log                                                     
+[21:46:57] Trial 16/20 • Epoch 201/700 • loss=-0.8794 •          train_V5.py:227
+           sim=0.8794 • Granule Rebuild                                         
+[21:52:41] Trial 16/20 • Epoch 300/700 • loss=-0.9820 •          train_V5.py:227
+           sim=0.9820 • log                                                     
+[21:52:47] Trial 16/20 • Epoch 301/700 • loss=-0.8779 •          train_V5.py:227
+           sim=0.8779 • Granule Rebuild                                         
+[21:58:23] Trial 16/20 • Epoch 400/700 • loss=-0.9812 •          train_V5.py:227
+           sim=0.9812 • log                                                     
+[21:58:29] Trial 16/20 • Epoch 401/700 • loss=-0.8696 •          train_V5.py:227
+           sim=0.8696 • Granule Rebuild                                         
+[22:03:58] Trial 16/20 • Epoch 500/700 • loss=-0.9827 •          train_V5.py:227
+           sim=0.9827 • log                                                     
+[22:04:04] Trial 16/20 • Epoch 501/700 • loss=-0.8672 •          train_V5.py:227
+           sim=0.8672 • Granule Rebuild                                         
+[22:09:34] Trial 16/20 • Epoch 600/700 • loss=-0.9823 •          train_V5.py:227
+           sim=0.9823 • log                                                     
+[22:09:40] Trial 16/20 • Epoch 601/700 • loss=-0.8649 •          train_V5.py:227
+           sim=0.8649 • Granule Rebuild                                         
+[22:15:09] Trial 16/20 • Epoch 700/700 • loss=-0.9808 •          train_V5.py:227
+           sim=0.9808 • log                                                     
+[22:19:33] Trial 16 summary → best_loss=-0.9830,                 train_V5.py:260
+           clf_mean=0.9405, clf_var=0.000000                                    
+Trials 16/20                      ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:44:22 • 0:00:00
+Epoch 700/700 | best_loss=-0.9830 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:23:12 • 0:00:00
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+[22:19:40] Trial 17/20 • Epoch 1/700 • loss=0.0460 • sim=-0.0460 train_V5.py:227
+           • Granule Rebuild | Significant Loss ↓                               
+[22:25:35] Trial 17/20 • Epoch 100/700 • loss=-0.9340 •          train_V5.py:227
+           sim=0.9340 • log                                                     
+[22:25:41] Trial 17/20 • Epoch 101/700 • loss=-0.8604 •          train_V5.py:227
+           sim=0.8604 • Granule Rebuild                                         
+[22:31:36] Trial 17/20 • Epoch 200/700 • loss=-0.9747 •          train_V5.py:227
+           sim=0.9747 • log                                                     
+[22:31:42] Trial 17/20 • Epoch 201/700 • loss=-0.8787 •          train_V5.py:227
+           sim=0.8787 • Granule Rebuild                                         
+[22:37:35] Trial 17/20 • Epoch 300/700 • loss=-0.9809 •          train_V5.py:227
+           sim=0.9809 • log                                                     
+[22:37:41] Trial 17/20 • Epoch 301/700 • loss=-0.8764 •          train_V5.py:227
+           sim=0.8764 • Granule Rebuild                                         
+[22:43:25] Trial 17/20 • Epoch 400/700 • loss=-0.9812 •          train_V5.py:227
+           sim=0.9812 • log                                                     
+[22:43:32] Trial 17/20 • Epoch 401/700 • loss=-0.8715 •          train_V5.py:227
+           sim=0.8715 • Granule Rebuild                                         
+[22:49:14] Trial 17/20 • Epoch 500/700 • loss=-0.9807 •          train_V5.py:227
+           sim=0.9807 • log                                                     
+[22:49:20] Trial 17/20 • Epoch 501/700 • loss=-0.8672 •          train_V5.py:227
+           sim=0.8672 • Granule Rebuild                                         
+[22:55:04] Trial 17/20 • Epoch 600/700 • loss=-0.9796 •          train_V5.py:227
+           sim=0.9796 • log                                                     
+[22:55:10] Trial 17/20 • Epoch 601/700 • loss=-0.8630 •          train_V5.py:227
+           sim=0.8630 • Granule Rebuild                                         
+[23:00:53] Trial 17/20 • Epoch 700/700 • loss=-0.9781 •          train_V5.py:227
+           sim=0.9781 • log                                                     
+[23:05:24] Trial 17 summary → best_loss=-0.9814,                 train_V5.py:260
+           clf_mean=0.9401, clf_var=0.000000                                    
+Trials 17/20                      ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:45:49 • 0:00:00
+Epoch 700/700 | best_loss=-0.9814 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:23:51 • 0:00:00
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+[23:05:30] Trial 18/20 • Epoch 1/700 • loss=-0.0142 • sim=0.0142 train_V5.py:227
+           • Granule Rebuild | Significant Loss ↓                               
+[23:11:26] Trial 18/20 • Epoch 100/700 • loss=-0.9353 •          train_V5.py:227
+           sim=0.9353 • log                                                     
+[23:11:32] Trial 18/20 • Epoch 101/700 • loss=-0.8609 •          train_V5.py:227
+           sim=0.8609 • Granule Rebuild                                         
+[23:17:28] Trial 18/20 • Epoch 200/700 • loss=-0.9739 •          train_V5.py:227
+           sim=0.9739 • log                                                     
+[23:17:34] Trial 18/20 • Epoch 201/700 • loss=-0.8754 •          train_V5.py:227
+           sim=0.8754 • Granule Rebuild                                         
+[23:23:24] Trial 18/20 • Epoch 300/700 • loss=-0.9793 •          train_V5.py:227
+           sim=0.9793 • log                                                     
+[23:23:30] Trial 18/20 • Epoch 301/700 • loss=-0.8714 •          train_V5.py:227
+           sim=0.8714 • Granule Rebuild                                         
+[23:29:12] Trial 18/20 • Epoch 400/700 • loss=-0.9784 •          train_V5.py:227
+           sim=0.9784 • log                                                     
+[23:29:18] Trial 18/20 • Epoch 401/700 • loss=-0.8660 •          train_V5.py:227
+           sim=0.8660 • Granule Rebuild                                         
+[23:34:59] Trial 18/20 • Epoch 500/700 • loss=-0.9757 •          train_V5.py:227
+           sim=0.9757 • log                                                     
+[23:35:05] Trial 18/20 • Epoch 501/700 • loss=-0.8604 •          train_V5.py:227
+           sim=0.8604 • Granule Rebuild                                         
+[23:40:46] Trial 18/20 • Epoch 600/700 • loss=-0.9769 •          train_V5.py:227
+           sim=0.9769 • log                                                     
+[23:40:53] Trial 18/20 • Epoch 601/700 • loss=-0.8574 •          train_V5.py:227
+           sim=0.8574 • Granule Rebuild                                         
+[23:46:35] Trial 18/20 • Epoch 700/700 • loss=-0.9762 •          train_V5.py:227
+           sim=0.9762 • log                                                     
+[23:51:00] Trial 18 summary → best_loss=-0.9795,                 train_V5.py:260
+           clf_mean=0.9421, clf_var=0.000000                                    
+Trials 18/20                      ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:45:35 • 0:00:00
+Epoch 700/700 | best_loss=-0.9795 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:23:46 • 0:00:00
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+[23:51:07] Trial 19/20 • Epoch 1/700 • loss=0.0072 • sim=-0.0072 train_V5.py:227
+           • Granule Rebuild | Significant Loss ↓                               
+[23:56:53] Trial 19/20 • Epoch 100/700 • loss=-0.9320 •          train_V5.py:227
+           sim=0.9320 • log                                                     
+[23:56:59] Trial 19/20 • Epoch 101/700 • loss=-0.8576 •          train_V5.py:227
+           sim=0.8576 • Granule Rebuild                                         
+[00:02:44] Trial 19/20 • Epoch 200/700 • loss=-0.9746 •          train_V5.py:227
+           sim=0.9746 • log                                                     
+[00:02:50] Trial 19/20 • Epoch 201/700 • loss=-0.8778 •          train_V5.py:227
+           sim=0.8778 • Granule Rebuild                                         
+[00:08:32] Trial 19/20 • Epoch 300/700 • loss=-0.9812 •          train_V5.py:227
+           sim=0.9812 • log                                                     
+[00:08:38] Trial 19/20 • Epoch 301/700 • loss=-0.8751 •          train_V5.py:227
+           sim=0.8751 • Granule Rebuild                                         
+[00:14:13] Trial 19/20 • Epoch 400/700 • loss=-0.9823 •          train_V5.py:227
+           sim=0.9823 • log                                                     
+[00:14:19] Trial 19/20 • Epoch 401/700 • loss=-0.8695 •          train_V5.py:227
+           sim=0.8695 • Granule Rebuild                                         
+[00:19:46] Trial 19/20 • Epoch 500/700 • loss=-0.9819 •          train_V5.py:227
+           sim=0.9819 • log                                                     
+[00:19:52] Trial 19/20 • Epoch 501/700 • loss=-0.8646 •          train_V5.py:227
+           sim=0.8646 • Granule Rebuild                                         
+[00:25:25] Trial 19/20 • Epoch 600/700 • loss=-0.9782 •          train_V5.py:227
+           sim=0.9782 • log                                                     
+[00:25:31] Trial 19/20 • Epoch 601/700 • loss=-0.8591 •          train_V5.py:227
+           sim=0.8591 • Granule Rebuild                                         
+[00:31:00] Trial 19/20 • Epoch 700/700 • loss=-0.9759 •          train_V5.py:227
+           sim=0.9759 • log                                                     
+[00:35:26] Trial 19 summary → best_loss=-0.9824,                 train_V5.py:260
+           clf_mean=0.9417, clf_var=0.000000                                    
+Trials 19/20                      ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:44:25 • 0:00:00
+Epoch 700/700 | best_loss=-0.9824 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:23:12 • 0:00:00
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+[00:35:33] Trial 20/20 • Epoch 1/700 • loss=0.0065 • sim=-0.0065 train_V5.py:227
+           • Granule Rebuild | Significant Loss ↓                               
+[00:41:25] Trial 20/20 • Epoch 100/700 • loss=-0.9397 •          train_V5.py:227
+           sim=0.9397 • log                                                     
+[00:41:30] Trial 20/20 • Epoch 101/700 • loss=-0.8609 •          train_V5.py:227
+           sim=0.8609 • Granule Rebuild                                         
+[00:47:19] Trial 20/20 • Epoch 200/700 • loss=-0.9725 •          train_V5.py:227
+           sim=0.9725 • log                                                     
+[00:47:25] Trial 20/20 • Epoch 201/700 • loss=-0.8737 •          train_V5.py:227
+           sim=0.8737 • Granule Rebuild                                         
+[00:53:06] Trial 20/20 • Epoch 300/700 • loss=-0.9768 •          train_V5.py:227
+           sim=0.9768 • log                                                     
+[00:53:12] Trial 20/20 • Epoch 301/700 • loss=-0.8680 •          train_V5.py:227
+           sim=0.8680 • Granule Rebuild                                         
+[00:58:46] Trial 20/20 • Epoch 400/700 • loss=-0.9765 •          train_V5.py:227
+           sim=0.9765 • log                                                     
+[00:58:52] Trial 20/20 • Epoch 401/700 • loss=-0.8618 •          train_V5.py:227
+           sim=0.8618 • Granule Rebuild                                         
+[01:04:26] Trial 20/20 • Epoch 500/700 • loss=-0.9618 •          train_V5.py:227
+           sim=0.9618 • log                                                     
+[01:04:32] Trial 20/20 • Epoch 501/700 • loss=-0.8513 •          train_V5.py:227
+           sim=0.8513 • Granule Rebuild                                         
+[01:10:03] Trial 20/20 • Epoch 600/700 • loss=-0.9740 •          train_V5.py:227
+           sim=0.9740 • log                                                     
+[01:10:08] Trial 20/20 • Epoch 601/700 • loss=-0.8518 •          train_V5.py:227
+           sim=0.8518 • Granule Rebuild                                         
+[01:15:38] Trial 20/20 • Epoch 700/700 • loss=-0.9730 •          train_V5.py:227
+           sim=0.9730 • log                                                     
+[01:19:57] Trial 20 summary → best_loss=-0.9770,                 train_V5.py:260
+           clf_mean=0.9412, clf_var=0.000001                                    
+Trials 20/20                      ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:44:29 • 0:00:00
+Epoch 700/700 | best_loss=-0.9770 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:23:18 • 0:00:00
+==== Overall Summary ====
+Trials: 20 | Dataset: CS
+Classifier mean (across trials): 0.9413 ± 0.000000
+Best trial: #1 | mean=0.9423 | loss=-0.9778
+Worst trial: #17 | mean=0.9401 | loss=-0.9814

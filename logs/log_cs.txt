@@ -1,0 +1,82 @@
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='./logs/log_cs.txt', e1_lr=0.001, e2_lr=0.001, momentum=0.99, weight_decay=0.0, num_epochs=100, seed=66666, hidden_dim=1024, num_layers=1, num_hop=1, trials=1, use_gb=True, gb_quity='homo', gb_sim='dot', gb_alpha=0.5)
+
+
+sgrl_mean: 0.92613 sgrl_std: 1.3770035239219885e-06
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='./logs/log_cs.txt', e1_lr=0.001, e2_lr=0.001, momentum=0.99, weight_decay=0.0, num_epochs=500, seed=66666, hidden_dim=1024, num_layers=1, num_hop=1, trials=5, use_gb=True, gb_quity='homo', gb_sim='dot', gb_alpha=0.3)
+
+
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='./logs/log_cs.txt', e1_lr=0.001, e2_lr=0.001, momentum=0.99, weight_decay=0.0, num_epochs=700, seed=66666, hidden_dim=1024, num_layers=1, num_hop=1, trials=20, use_gb=True, gb_quity='homo', gb_sim='dot', gb_alpha=0.3)
+
+
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='./logs/log_cs.txt', e1_lr=0.001, e2_lr=0.001, momentum=0.99, weight_decay=0.0, num_epochs=500, seed=66666, hidden_dim=1024, num_layers=1, num_hop=1, trials=1, use_gb=True, gb_quity='homo', gb_sim='dot', gb_alpha=0.3)
+
+
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='./logs/log_cs.txt', e1_lr=0.001, e2_lr=0.001, momentum=0.99, weight_decay=0.0, num_epochs=700, seed=66666, hidden_dim=1024, num_layers=1, num_hop=1, trials=20, use_gb=True, gb_quity='homo', gb_sim='dot', gb_alpha=0.3)
+
+
+sgrl_mean: 0.93895 sgrl_std: 4.782840446930801e-07
+sgrl_mean: 0.94061 sgrl_std: 1.8222312199537012e-06
+sgrl_mean: 0.94102 sgrl_std: 7.747581717490225e-08
+sgrl_mean: 0.93936 sgrl_std: 1.4358851449747205e-07
+sgrl_mean: 0.94066 sgrl_std: 1.7767787405444252e-07
+sgrl_mean: 0.93975 sgrl_std: 1.559846452454665e-07
+sgrl_mean: 0.93934 sgrl_std: 1.6001338773857002e-06
+sgrl_mean: 0.94063 sgrl_std: 3.140353122822705e-07
+sgrl_mean: 0.94034 sgrl_std: 3.09903268699609e-07
+sgrl_mean: 0.93929 sgrl_std: 7.014143981567851e-07
+sgrl_mean: 0.94031 sgrl_std: 6.580279405388786e-07
+sgrl_mean: 0.94009 sgrl_std: 4.968782408150685e-07
+sgrl_mean: 0.93972 sgrl_std: 5.423307202242905e-07
+sgrl_mean: 0.94113 sgrl_std: 1.2809335106250509e-07
+sgrl_mean: 0.93941 sgrl_std: 7.633950518967171e-07
+sgrl_mean: 0.93959 sgrl_std: 1.4906347224450793e-06
+sgrl_mean: 0.93991 sgrl_std: 3.605208025872236e-07
+sgrl_mean: 0.94070 sgrl_std: 1.2220518895721906e-06
+sgrl_mean: 0.94063 sgrl_std: 1.4699745045317954e-06
+sgrl_mean: 0.93947 sgrl_std: 3.357285410912347e-07
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='./logs/log_cs.txt', e1_lr=0.001, e2_lr=0.001, momentum=0.99, weight_decay=0.0, num_epochs=700, seed=66666, hidden_dim=1024, num_layers=1, num_hop=1, trials=20, log_every=100, imp_thresh=0.5, gb_rebuild_every=100, use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3)
+
+
+sgrl_mean: 0.94225 sgrl_std: 1.0412749828306865e-06
+sgrl_mean: 0.94104 sgrl_std: 1.3955977200438693e-06
+sgrl_mean: 0.94106 sgrl_std: 1.054704124474427e-06
+sgrl_mean: 0.94129 sgrl_std: 9.607001329689396e-08
+sgrl_mean: 0.94109 sgrl_std: 9.514030349078453e-07
+sgrl_mean: 0.94118 sgrl_std: 3.605208025872001e-07
+sgrl_mean: 0.94043 sgrl_std: 6.394337444168869e-07
+sgrl_mean: 0.94191 sgrl_std: 3.470916609436227e-07
+sgrl_mean: 0.94175 sgrl_std: 5.402646984330508e-07
+sgrl_mean: 0.94200 sgrl_std: 7.478998884618106e-07
+sgrl_mean: 0.94127 sgrl_std: 1.3739044912348494e-07
+sgrl_mean: 0.94050 sgrl_std: 4.906801754410813e-07
+sgrl_mean: 0.94136 sgrl_std: 2.689960372312778e-06
+sgrl_mean: 0.94163 sgrl_std: 3.192003667605923e-07
+sgrl_mean: 0.94138 sgrl_std: 1.2437451183810977e-06
+sgrl_mean: 0.94045 sgrl_std: 2.892430507863018e-08
+sgrl_mean: 0.94009 sgrl_std: 1.9627207017635177e-08
+sgrl_mean: 0.94213 sgrl_std: 4.627888812581501e-07
+sgrl_mean: 0.94166 sgrl_std: 2.1796529898542702e-07
+sgrl_mean: 0.94122 sgrl_std: 8.305407601150229e-07
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='./logs/log_cs.txt', e1_lr=0.001, e2_lr=0.001, momentum=0.99, weight_decay=0.0, num_epochs=700, seed=66666, hidden_dim=1024, num_layers=1, num_hop=1, trials=20, log_every=100, imp_thresh=0.5, gb_rebuild_every=100, use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.7)
+
+
+sgrl_mean: 0.94250 sgrl_std: 1.008218634169489e-06
+sgrl_mean: 0.94072 sgrl_std: 7.262066596527068e-07
+sgrl_mean: 0.94202 sgrl_std: 3.5432273721325504e-07
+sgrl_mean: 0.94131 sgrl_std: 7.2310762696609084e-09
+sgrl_mean: 0.94156 sgrl_std: 4.679539357364198e-07
+sgrl_mean: 0.94141 sgrl_std: 1.1972596280762133e-06
+sgrl_mean: 0.94136 sgrl_std: 2.7891294182964813e-08
+sgrl_mean: 0.94220 sgrl_std: 9.958225034214104e-07
+sgrl_mean: 0.94136 sgrl_std: 1.509228918567091e-06
+sgrl_mean: 0.94222 sgrl_std: 6.487308424779324e-07
+sgrl_mean: 0.94086 sgrl_std: 1.745788413674683e-07
+sgrl_mean: 0.94045 sgrl_std: 5.247695349980046e-07
+sgrl_mean: 0.94204 sgrl_std: 5.330336221633983e-07
+sgrl_mean: 0.94100 sgrl_std: 2.551536912293616e-07
+sgrl_mean: 0.94150 sgrl_std: 1.0040865905868243e-06
+sgrl_mean: 0.94045 sgrl_std: 6.301366463559895e-08
+sgrl_mean: 0.93979 sgrl_std: 6.445987988951869e-07
+sgrl_mean: 0.94195 sgrl_std: 2.9854014884731864e-07
+sgrl_mean: 0.94134 sgrl_std: 3.4192660646520846e-07
+sgrl_mean: 0.94120 sgrl_std: 2.675498219773224e-07

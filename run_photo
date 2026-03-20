@@ -1,0 +1,11 @@
+e1_lr=(0.001)
+e2_lr=(0.001)
+hidden_dim=(1024)
+num_epochs=(700)
+num_hop=1
+dataset_name="Photo"
+log_dir="./log/log_photo.txt"
+trial=(20)
+
+python train.py  --dataset_name Photo --log_dir ./log/log_photo.txt --e1_lr 0.001  --e2_lr 0.001 --num_epochs 700  --hidden_dim 1024  --num_hop 1 --trials 20
+python train.py  --dataset_name Photo --log_dir ./logs/log_photo.txt --e1_lr 0.001  --e2_lr 0.001 --num_epochs 700  --hidden_dim 1024  --num_hop 1 --trials 20 --use_gb --gb_quity homo --gb_sim dot --gb_alpha 0.5

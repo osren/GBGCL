@@ -1,0 +1,52 @@
+Namespace(dataset_name='Photo', data_dir='../../datasets', log_dir='./log/log_photo.txt', e1_lr=0.001, e2_lr=0.001, momentum=0.99, weight_decay=0.0, num_epochs=100, seed=66666, hidden_dim=1024, num_layers=1, num_hop=1, trials=1, use_gb=True, gb_quity='homo', gb_sim='dot', gb_alpha=0.5)
+
+
+sgrl_mean: 0.93562 sgrl_std: 1.2459595312344166e-07Namespace(dataset_name='Photo', data_dir='../../datasets', log_dir='./logs/log_photo.txt', e1_lr=0.001, e2_lr=0.001, momentum=0.99, weight_decay=0.0, num_epochs=700, seed=66666, hidden_dim=1024, num_layers=1, num_hop=1, trials=20, use_gb=True, gb_quity='homo', gb_sim='dot', gb_alpha=0.3)
+
+
+Namespace(dataset_name='Photo', data_dir='../../datasets', log_dir='./logs/log_photo.txt', e1_lr=0.001, e2_lr=0.001, momentum=0.99, weight_decay=0.0, num_epochs=700, seed=66666, hidden_dim=1024, num_layers=1, num_hop=1, trials=20, use_gb=True, gb_quity='homo', gb_sim='dot', gb_alpha=0.3)
+
+
+sgrl_mean: 0.92815 sgrl_std: 6.4493238592943385e-06
+sgrl_mean: 0.92968 sgrl_std: 2.6046487343424236e-06
+sgrl_mean: 0.92897 sgrl_std: 6.5205215467934485e-06
+sgrl_mean: 0.92717 sgrl_std: 1.465485734356671e-06
+sgrl_mean: 0.92968 sgrl_std: 1.8570730156017733e-06
+sgrl_mean: 0.93175 sgrl_std: 4.010803062449836e-06
+sgrl_mean: 0.93278 sgrl_std: 7.303696109283653e-06
+sgrl_mean: 0.92772 sgrl_std: 1.429886890607116e-06
+sgrl_mean: 0.93202 sgrl_std: 6.425591296794635e-06
+sgrl_mean: 0.93393 sgrl_std: 6.342527328045673e-06
+sgrl_mean: 0.93420 sgrl_std: 3.298826187458741e-06
+sgrl_mean: 0.92821 sgrl_std: 6.111134843673568e-07
+sgrl_mean: 0.93153 sgrl_std: 3.008102296837377e-06
+sgrl_mean: 0.93333 sgrl_std: 4.770245062440338e-06
+sgrl_mean: 0.93197 sgrl_std: 1.8570730156017733e-06
+sgrl_mean: 0.93082 sgrl_std: 3.7794105780777307e-06
+sgrl_mean: 0.93153 sgrl_std: 4.859242171814225e-06
+sgrl_mean: 0.92799 sgrl_std: 5.238963171809476e-06
+sgrl_mean: 0.92805 sgrl_std: 3.6192157812047345e-07
+sgrl_mean: 0.92647 sgrl_std: 4.058268187449243e-06
+Namespace(dataset_name='Photo', data_dir='../../datasets', log_dir='./logs/log_photo.txt', e1_lr=0.001, e2_lr=0.001, momentum=0.99, weight_decay=0.0, num_epochs=700, seed=66666, hidden_dim=1024, num_layers=1, num_hop=1, trials=10, log_every=100, imp_thresh=0.5, gb_rebuild_every=70, use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3)
+
+
+Namespace(dataset_name='Photo', data_dir='../../datasets', log_dir='./logs/log_photo.txt', e1_lr=0.001, e2_lr=0.001, momentum=0.99, weight_decay=0.0, num_epochs=700, seed=66666, hidden_dim=1024, num_layers=1, num_hop=1, trials=10, log_every=100, imp_thresh=1, gb_rebuild_every=100, use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3)
+
+
+Namespace(dataset_name='Photo', data_dir='../../datasets', log_dir='./logs/log_photo.txt', e1_lr=0.001, e2_lr=0.001, momentum=0.99, weight_decay=0.0, num_epochs=700, seed=66666, hidden_dim=1024, num_layers=1, num_hop=1, trials=1, log_every=100, imp_thresh=1, gb_rebuild_every=100, use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3)
+
+
+Namespace(dataset_name='Photo', data_dir='../../datasets', log_dir='./logs/log_photo.txt', e1_lr=0.001, e2_lr=0.001, momentum=0.99, weight_decay=0.0, num_epochs=700, seed=66666, hidden_dim=1024, num_layers=1, num_hop=1, trials=1, log_every=100, imp_thresh=0.5, gb_rebuild_every=100, use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3)
+
+
+sgrl_mean: 0.93905 sgrl_std: 8.721716718640918e-07
+Namespace(dataset_name='Photo', data_dir='../../datasets', log_dir='./logs/log_photo.txt', e1_lr=0.001, e2_lr=0.001, momentum=0.99, weight_decay=0.0, num_epochs=700, seed=66666, hidden_dim=1024, num_layers=1, num_hop=1, trials=1, log_every=100, imp_thresh=0.5, gb_rebuild_every=100, use_gb=True, gb_quity='detach', gb_sim='cos', gb_alpha=0.3)
+
+
+Namespace(dataset_name='Photo', data_dir='../../datasets', log_dir='./logs/log_photo.txt', e1_lr=0.001, e2_lr=0.001, momentum=0.99, weight_decay=0.0, num_epochs=700, seed=66666, hidden_dim=1024, num_layers=1, num_hop=1, trials=1, log_every=100, imp_thresh=0.5, gb_rebuild_every=100, use_gb=True, gb_quity='homo', gb_sim='cos', gb_alpha=0.3)
+
+
+sgrl_mean: 0.93779 sgrl_std: 4.6871810936913775e-07
+Namespace(dataset_name='Photo', data_dir='../../datasets', log_dir='./logs/log_photo.txt', e1_lr=0.001, e2_lr=0.001, momentum=0.99, weight_decay=0.0, num_epochs=700, seed=66666, hidden_dim=1024, num_layers=1, num_hop=1, trials=1, log_every=100, imp_thresh=0.5, gb_rebuild_every=100, use_gb=True, gb_quity='detach', gb_sim='cos', gb_alpha=0.3)
+
+

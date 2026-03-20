@@ -1,0 +1,268 @@
+nohup: ignoring input
+[SKIP] CS homo-dot-0.3 已存在结果，跳过。
+[SKIP] CS homo-dot-0.7 已存在结果，跳过。
+[SKIP] CS homo-cos-0.3 已存在结果，跳过。
+[SKIP] CS homo-cos-0.7 已存在结果，跳过。
+[SKIP] CS detach-dot-0.3 已存在结果，跳过。
+[SKIP] CS detach-dot-0.7 已存在结果，跳过。
+[INFO] 总任务数: 10 | 并发度: 2 | stage=A
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+[05:04:09] Trial 1/1 • Epoch 1/150 • loss=-0.0014 • sim=0.0014 • train_V5.py:227
+           Granule Rebuild | Significant Loss ↓                                 
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+[05:04:11] Trial 1/1 • Epoch 1/150 • loss=-0.0014 • sim=0.0014 • train_V5.py:227
+           Granule Rebuild | Significant Loss ↓                                 
+[05:12:35] Trial 1/1 • Epoch 50/150 • loss=-0.2700 • sim=0.2700  train_V5.py:227
+           • log                                                                
+[05:12:50] Trial 1/1 • Epoch 50/150 • loss=-0.2707 • sim=0.2707  train_V5.py:227
+           • log                                                                
+[05:12:57] Trial 1/1 • Epoch 51/150 • loss=-0.2723 • sim=0.2723  train_V5.py:227
+           • Granule Rebuild                                                    
+[05:13:05] Trial 1/1 • Epoch 51/150 • loss=-0.2870 • sim=0.2870  train_V5.py:227
+           • Granule Rebuild                                                    
+[05:17:40] Trial 1/1 • Epoch 100/150 • loss=-0.7292 • sim=0.7292 train_V5.py:227
+           • log                                                                
+[05:17:51] Trial 1/1 • Epoch 101/150 • loss=-0.6876 • sim=0.6876 train_V5.py:227
+           • Granule Rebuild                                                    
+[05:18:07] Trial 1/1 • Epoch 100/150 • loss=-0.7294 • sim=0.7294 train_V5.py:227
+           • log                                                                
+[05:18:18] Trial 1/1 • Epoch 101/150 • loss=-0.7243 • sim=0.7243 train_V5.py:227
+           • Granule Rebuild                                                    
+[05:22:44] Trial 1/1 • Epoch 150/150 • loss=-0.8218 • sim=0.8218 train_V5.py:227
+           • log                                                                
+[05:23:11] Trial 1/1 • Epoch 150/150 • loss=-0.8220 • sim=0.8220 train_V5.py:227
+           • log                                                                
+[05:28:02] Trial 1 summary → best_loss=-0.8218, clf_mean=0.9398, train_V5.py:260
+           clf_var=0.000000                                                     
+Trials 1/1                        ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:24:27 • 0:00:00
+Epoch 150/150 | best_loss=-0.8218 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:14:05 • 0:00:00
+==== Overall Summary ====
+Trials: 1 | Dataset: CS
+Classifier mean (across trials): 0.9398 ± 0.000000
+Best trial: #1 | mean=0.9398 | loss=-0.8218
+Worst trial: #1 | mean=0.9398 | loss=-0.8218
+Dataloader: Loading Dataset Physics
+Dataloader: Loading success.
+Data(x=[34493, 8415], edge_index=[2, 495924], y=[34493])
+[05:28:23] Trial 1/1 • Epoch 1/150 • loss=-0.0259 • sim=0.0259 • train_V5.py:227
+           Granule Rebuild | Significant Loss ↓                                 
+[05:28:28] Trial 1 summary → best_loss=-0.8220, clf_mean=0.9400, train_V5.py:260
+           clf_var=0.000000                                                     
+Trials 1/1                        ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:24:52 • 0:00:00
+Epoch 150/150 | best_loss=-0.8220 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:14:31 • 0:00:00
+==== Overall Summary ====
+Trials: 1 | Dataset: CS
+Classifier mean (across trials): 0.9400 ± 0.000000
+Best trial: #1 | mean=0.9400 | loss=-0.8220
+Worst trial: #1 | mean=0.9400 | loss=-0.8220
+Dataloader: Loading Dataset Physics
+Dataloader: Loading success.
+Data(x=[34493, 8415], edge_index=[2, 495924], y=[34493])
+[05:28:57] Trial 1/1 • Epoch 1/150 • loss=-0.0259 • sim=0.0259 • train_V5.py:227
+           Granule Rebuild | Significant Loss ↓                                 
+[05:38:31] Trial 1/1 • Epoch 50/150 • loss=-0.3108 • sim=0.3108  train_V5.py:227
+           • log                                                                
+[05:38:51] Trial 1/1 • Epoch 51/150 • loss=-0.2639 • sim=0.2639  train_V5.py:227
+           • Granule Rebuild                                                    
+[05:39:08] Trial 1/1 • Epoch 50/150 • loss=-0.3126 • sim=0.3126  train_V5.py:227
+           • log                                                                
+[05:39:30] Trial 1/1 • Epoch 51/150 • loss=-0.3137 • sim=0.3137  train_V5.py:227
+           • Granule Rebuild                                                    
+[05:49:18] Trial 1/1 • Epoch 100/150 • loss=-0.6929 • sim=0.6929 train_V5.py:227
+           • log                                                                
+[05:49:34] Trial 1/1 • Epoch 100/150 • loss=-0.6940 • sim=0.6940 train_V5.py:227
+           • log                                                                
+[05:49:37] Trial 1/1 • Epoch 101/150 • loss=-0.5890 • sim=0.5890 train_V5.py:227
+           • Granule Rebuild                                                    
+[05:49:51] Trial 1/1 • Epoch 101/150 • loss=-0.6831 • sim=0.6831 train_V5.py:227
+           • Granule Rebuild                                                    
+[05:59:47] Trial 1/1 • Epoch 150/150 • loss=-0.8018 • sim=0.8018 train_V5.py:227
+           • log                                                                
+[05:59:58] Trial 1/1 • Epoch 150/150 • loss=-0.8042 • sim=0.8042 train_V5.py:227
+           • log                                                                
+[06:03:56] Trial 1 summary → best_loss=-0.8018, clf_mean=0.9619, train_V5.py:260
+           clf_var=0.000002                                                     
+Trials 1/1                        ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:35:47 • 0:00:00
+Epoch 150/150 | best_loss=-0.8018 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:21:10 • 0:00:00
+==== Overall Summary ====
+Trials: 1 | Dataset: Physics
+Classifier mean (across trials): 0.9619 ± 0.000000
+Best trial: #1 | mean=0.9619 | loss=-0.8018
+Worst trial: #1 | mean=0.9619 | loss=-0.8018
+[06:03:58] Trial 1 summary → best_loss=-0.8042, clf_mean=0.9619, train_V5.py:260
+           clf_var=0.000002                                                     
+Trials 1/1                        ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:35:21 • 0:00:00
+Epoch 150/150 | best_loss=-0.8042 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:20:57 • 0:00:00
+==== Overall Summary ====
+Trials: 1 | Dataset: Physics
+Classifier mean (across trials): 0.9619 ± 0.000000
+Best trial: #1 | mean=0.9619 | loss=-0.8042
+Worst trial: #1 | mean=0.9619 | loss=-0.8042
+Dataloader: Loading Dataset Physics
+Dataloader: Loading success.
+Data(x=[34493, 8415], edge_index=[2, 495924], y=[34493])
+[06:04:27] Trial 1/1 • Epoch 1/150 • loss=-0.0259 • sim=0.0259 • train_V5.py:227
+           Granule Rebuild | Significant Loss ↓                                 
+Dataloader: Loading Dataset Physics
+Dataloader: Loading success.
+Data(x=[34493, 8415], edge_index=[2, 495924], y=[34493])
+[06:04:27] Trial 1/1 • Epoch 1/150 • loss=-0.0259 • sim=0.0259 • train_V5.py:227
+           Granule Rebuild | Significant Loss ↓                                 
+[06:14:31] Trial 1/1 • Epoch 50/150 • loss=-0.3127 • sim=0.3127  train_V5.py:227
+           • log                                                                
+[06:14:54] Trial 1/1 • Epoch 51/150 • loss=-0.3151 • sim=0.3151  train_V5.py:227
+           • Granule Rebuild                                                    
+[06:14:59] Trial 1/1 • Epoch 50/150 • loss=-0.3112 • sim=0.3112  train_V5.py:227
+           • log                                                                
+[06:15:20] Trial 1/1 • Epoch 51/150 • loss=-0.2695 • sim=0.2695  train_V5.py:227
+           • Granule Rebuild                                                    
+[06:25:02] Trial 1/1 • Epoch 100/150 • loss=-0.6941 • sim=0.6941 train_V5.py:227
+           • log                                                                
+[06:25:23] Trial 1/1 • Epoch 101/150 • loss=-0.6833 • sim=0.6833 train_V5.py:227
+           • Granule Rebuild                                                    
+[06:25:32] Trial 1/1 • Epoch 100/150 • loss=-0.6931 • sim=0.6931 train_V5.py:227
+           • log                                                                
+[06:25:51] Trial 1/1 • Epoch 101/150 • loss=-0.5876 • sim=0.5876 train_V5.py:227
+           • Granule Rebuild                                                    
+[06:35:36] Trial 1/1 • Epoch 150/150 • loss=-0.8043 • sim=0.8043 train_V5.py:227
+           • log                                                                
+[06:35:52] Trial 1/1 • Epoch 150/150 • loss=-0.8018 • sim=0.8018 train_V5.py:227
+           • log                                                                
+[06:39:44] Trial 1 summary → best_loss=-0.8043, clf_mean=0.9619, train_V5.py:260
+           clf_var=0.000002                                                     
+Trials 1/1                        ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:35:40 • 0:00:00
+Epoch 150/150 | best_loss=-0.8043 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:20:58 • 0:00:00
+==== Overall Summary ====
+Trials: 1 | Dataset: Physics
+Classifier mean (across trials): 0.9619 ± 0.000000
+Best trial: #1 | mean=0.9619 | loss=-0.8043
+Worst trial: #1 | mean=0.9619 | loss=-0.8043
+[06:39:52] Trial 1 summary → best_loss=-0.8018, clf_mean=0.9620, train_V5.py:260
+           clf_var=0.000002                                                     
+Trials 1/1                        ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:35:49 • 0:00:00
+Epoch 150/150 | best_loss=-0.8018 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:21:30 • 0:00:00
+==== Overall Summary ====
+Trials: 1 | Dataset: Physics
+Classifier mean (across trials): 0.9620 ± 0.000000
+Best trial: #1 | mean=0.9620 | loss=-0.8018
+Worst trial: #1 | mean=0.9620 | loss=-0.8018
+Dataloader: Loading Dataset Physics
+Dataloader: Loading success.
+Data(x=[34493, 8415], edge_index=[2, 495924], y=[34493])
+[06:40:10] Trial 1/1 • Epoch 1/150 • loss=-0.0259 • sim=0.0259 • train_V5.py:227
+           Granule Rebuild | Significant Loss ↓                                 
+Dataloader: Loading Dataset Physics
+Dataloader: Loading success.
+Data(x=[34493, 8415], edge_index=[2, 495924], y=[34493])
+[06:40:20] Trial 1/1 • Epoch 1/150 • loss=-0.0259 • sim=0.0259 • train_V5.py:227
+           Granule Rebuild | Significant Loss ↓                                 
+[06:50:17] Trial 1/1 • Epoch 50/150 • loss=-0.3105 • sim=0.3105  train_V5.py:227
+           • log                                                                
+[06:50:26] Trial 1/1 • Epoch 50/150 • loss=-0.3125 • sim=0.3125  train_V5.py:227
+           • log                                                                
+[06:50:39] Trial 1/1 • Epoch 51/150 • loss=-0.2646 • sim=0.2646  train_V5.py:227
+           • Granule Rebuild                                                    
+[06:50:48] Trial 1/1 • Epoch 51/150 • loss=-0.3139 • sim=0.3139  train_V5.py:227
+           • Granule Rebuild                                                    
+[07:00:37] Trial 1/1 • Epoch 100/150 • loss=-0.6929 • sim=0.6929 train_V5.py:227
+           • log                                                                
+[07:00:56] Trial 1/1 • Epoch 100/150 • loss=-0.6940 • sim=0.6940 train_V5.py:227
+           • log                                                                
+[07:00:58] Trial 1/1 • Epoch 101/150 • loss=-0.5911 • sim=0.5911 train_V5.py:227
+           • Granule Rebuild                                                    
+[07:01:20] Trial 1/1 • Epoch 101/150 • loss=-0.6832 • sim=0.6832 train_V5.py:227
+           • Granule Rebuild                                                    
+[07:11:19] Trial 1/1 • Epoch 150/150 • loss=-0.8020 • sim=0.8020 train_V5.py:227
+           • log                                                                
+[07:11:21] Trial 1/1 • Epoch 150/150 • loss=-0.8042 • sim=0.8042 train_V5.py:227
+           • log                                                                
+[07:15:24] Trial 1 summary → best_loss=-0.8042, clf_mean=0.9619, train_V5.py:260
+           clf_var=0.000002                                                     
+Trials 1/1                        ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:35:26 • 0:00:00
+Epoch 150/150 | best_loss=-0.8042 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:20:58 • 0:00:00
+==== Overall Summary ====
+Trials: 1 | Dataset: Physics
+Classifier mean (across trials): 0.9619 ± 0.000000
+Best trial: #1 | mean=0.9619 | loss=-0.8042
+Worst trial: #1 | mean=0.9619 | loss=-0.8042
+[07:15:25] Trial 1 summary → best_loss=-0.8020, clf_mean=0.9620, train_V5.py:260
+           clf_var=0.000002                                                     
+Trials 1/1                        ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:35:35 • 0:00:00
+Epoch 150/150 | best_loss=-0.8020 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:20:47 • 0:00:00
+==== Overall Summary ====
+Trials: 1 | Dataset: Physics
+Classifier mean (across trials): 0.9620 ± 0.000000
+Best trial: #1 | mean=0.9620 | loss=-0.8020
+Worst trial: #1 | mean=0.9620 | loss=-0.8020
+Dataloader: Loading Dataset Physics
+Dataloader: Loading success.
+Data(x=[34493, 8415], edge_index=[2, 495924], y=[34493])
+[07:15:51] Trial 1/1 • Epoch 1/150 • loss=-0.0259 • sim=0.0259 • train_V5.py:227
+           Granule Rebuild | Significant Loss ↓                                 
+Dataloader: Loading Dataset Physics
+Dataloader: Loading success.
+Data(x=[34493, 8415], edge_index=[2, 495924], y=[34493])
+[07:15:55] Trial 1/1 • Epoch 1/150 • loss=-0.0259 • sim=0.0259 • train_V5.py:227
+           Granule Rebuild | Significant Loss ↓                                 
+[07:25:41] Trial 1/1 • Epoch 50/150 • loss=-0.3110 • sim=0.3110  train_V5.py:227
+           • log                                                                
+[07:26:05] Trial 1/1 • Epoch 51/150 • loss=-0.2727 • sim=0.2727  train_V5.py:227
+           • Granule Rebuild                                                    
+[07:26:11] Trial 1/1 • Epoch 50/150 • loss=-0.3127 • sim=0.3127  train_V5.py:227
+           • log                                                                
+[07:26:33] Trial 1/1 • Epoch 51/150 • loss=-0.3155 • sim=0.3155  train_V5.py:227
+           • Granule Rebuild                                                    
+[07:35:51] Trial 1/1 • Epoch 100/150 • loss=-0.6941 • sim=0.6941 train_V5.py:227
+           • log                                                                
+[07:36:04] Trial 1/1 • Epoch 100/150 • loss=-0.6932 • sim=0.6932 train_V5.py:227
+           • log                                                                
+[07:36:12] Trial 1/1 • Epoch 101/150 • loss=-0.6837 • sim=0.6837 train_V5.py:227
+           • Granule Rebuild                                                    
+[07:36:28] Trial 1/1 • Epoch 101/150 • loss=-0.5919 • sim=0.5919 train_V5.py:227
+           • Granule Rebuild                                                    
+[07:45:31] Trial 1/1 • Epoch 150/150 • loss=-0.8043 • sim=0.8043 train_V5.py:227
+           • log                                                                
+[07:46:18] Trial 1/1 • Epoch 150/150 • loss=-0.8018 • sim=0.8018 train_V5.py:227
+           • log                                                                
+[07:49:37] Trial 1 summary → best_loss=-0.8043, clf_mean=0.9619, train_V5.py:260
+           clf_var=0.000002                                                     
+Trials 1/1                        ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:34:06 • 0:00:00
+Epoch 150/150 | best_loss=-0.8043 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:20:19 • 0:00:00
+==== Overall Summary ====
+Trials: 1 | Dataset: Physics
+Classifier mean (across trials): 0.9619 ± 0.000000
+Best trial: #1 | mean=0.9619 | loss=-0.8043
+Worst trial: #1 | mean=0.9619 | loss=-0.8043
+[07:50:09] Trial 1 summary → best_loss=-0.8018, clf_mean=0.9620, train_V5.py:260
+           clf_var=0.000002                                                     
+Trials 1/1                        ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:34:39 • 0:00:00
+Epoch 150/150 | best_loss=-0.8018 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:20:34 • 0:00:00
+==== Overall Summary ====
+Trials: 1 | Dataset: Physics
+Classifier mean (across trials): 0.9620 ± 0.000000
+Best trial: #1 | mean=0.9620 | loss=-0.8018
+Worst trial: #1 | mean=0.9620 | loss=-0.8018
+[RUN] CS | detach-cos-0.7 | stage=A
+[RUN] Physics | homo-dot-0.7 | stage=A
+[RUN] Physics | homo-cos-0.7 | stage=A
+[RUN] Physics | detach-dot-0.3 | stage=A
+[RUN] Physics | detach-cos-0.7 | stage=A
+[RUN] CS | detach-cos-0.3 | stage=A
+[RUN] Physics | homo-dot-0.3 | stage=A
+[RUN] Physics | homo-cos-0.3 | stage=A
+[RUN] Physics | detach-dot-0.7 | stage=A
+[RUN] Physics | detach-cos-0.3 | stage=A
+[DONE] ('CS', 'detach', 'cos', 0.3, 'A') → return 0
+[DONE] ('CS', 'detach', 'cos', 0.7, 'A') → return 0
+[DONE] ('Physics', 'homo', 'dot', 0.3, 'A') → return 0
+[DONE] ('Physics', 'homo', 'dot', 0.7, 'A') → return 0
+[DONE] ('Physics', 'homo', 'cos', 0.7, 'A') → return 0
+[DONE] ('Physics', 'homo', 'cos', 0.3, 'A') → return 0
+[DONE] ('Physics', 'detach', 'dot', 0.7, 'A') → return 0
+[DONE] ('Physics', 'detach', 'dot', 0.3, 'A') → return 0
+[DONE] ('Physics', 'detach', 'cos', 0.7, 'A') → return 0
+[DONE] ('Physics', 'detach', 'cos', 0.3, 'A') → return 0

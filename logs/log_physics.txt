@@ -1,0 +1,45 @@
+Namespace(dataset_name='Physics', data_dir='../../datasets', log_dir='./logs/log_physics.txt', e1_lr=0.0001, e2_lr=1e-05, momentum=0.99, weight_decay=0.0, num_epochs=1000, seed=66666, hidden_dim=1024, num_layers=1, num_hop=1, trials=20)
+
+
+Namespace(dataset_name='Physics', data_dir='../../datasets', log_dir='./logs/log_physics.txt', e1_lr=0.0001, e2_lr=1e-05, momentum=0.99, weight_decay=0.0, num_epochs=1000, seed=66666, hidden_dim=1024, num_layers=1, num_hop=1, trials=20)
+
+
+sgrl_mean: 0.96215 sgrl_std: 7.356979317093904e-07
+sgrl_mean: 0.96239 sgrl_std: 2.5593299726657044e-07
+sgrl_mean: 0.96232 sgrl_std: 1.1681867594734703e-06
+sgrl_mean: 0.96211 sgrl_std: 5.124496501712058e-07
+sgrl_mean: 0.96215 sgrl_std: 7.330714813383401e-07
+sgrl_mean: 0.96196 sgrl_std: 5.483444719086692e-07
+Namespace(dataset_name='Physics', data_dir='../../datasets', log_dir='./logs/log_physics.txt', e1_lr=0.0001, e2_lr=1e-05, momentum=0.99, weight_decay=0.0, num_epochs=100, seed=66666, hidden_dim=1024, num_layers=1, num_hop=1, trials=1, use_gb=True, gb_quity='homo', gb_sim='dot', gb_alpha=0.5)
+
+
+sgrl_mean: 0.95847 sgrl_std: 2.635205205607121e-07
+Namespace(dataset_name='Physics', data_dir='../../datasets', log_dir='./logs/log_physics.txt', e1_lr=0.0001, e2_lr=1e-05, momentum=0.99, weight_decay=0.0, num_epochs=700, seed=66666, hidden_dim=1024, num_layers=1, num_hop=1, trials=20, use_gb=True, gb_quity='homo', gb_sim='dot', gb_alpha=0.3)
+
+
+Namespace(dataset_name='Physics', data_dir='../../datasets', log_dir='./logs/log_physics.txt', e1_lr=0.0001, e2_lr=1e-05, momentum=0.99, weight_decay=0.0, num_epochs=700, seed=66666, hidden_dim=1024, num_layers=1, num_hop=1, trials=20, use_gb=True, gb_quity='homo', gb_sim='dot', gb_alpha=0.3)
+
+
+sgrl_mean: 0.96175 sgrl_std: 3.4523230988187426e-07
+sgrl_mean: 0.96238 sgrl_std: 5.287920080354523e-07
+sgrl_mean: 0.96267 sgrl_std: 5.892003665693213e-07
+sgrl_mean: 0.96185 sgrl_std: 1.2268441510932492e-06
+sgrl_mean: 0.96192 sgrl_std: 8.76650768288367e-07
+sgrl_mean: 0.96147 sgrl_std: 4.281114104790167e-07
+sgrl_mean: 0.96269 sgrl_std: 3.714968135922498e-07
+sgrl_mean: 0.96135 sgrl_std: 1.2312215683784235e-06
+sgrl_mean: 0.96172 sgrl_std: 4.2490130446997397e-07
+sgrl_mean: 0.96251 sgrl_std: 3.6099101210810784e-07
+sgrl_mean: 0.96229 sgrl_std: 8.171178932114692e-07
+sgrl_mean: 0.96169 sgrl_std: 4.2811141047906227e-07
+sgrl_mean: 0.96163 sgrl_std: 1.0167281214103267e-06
+sgrl_mean: 0.96214 sgrl_std: 1.0438681085777049e-06
+sgrl_mean: 0.96176 sgrl_std: 1.04795369804375e-06
+sgrl_mean: 0.96188 sgrl_std: 5.798618763611793e-07
+sgrl_mean: 0.96225 sgrl_std: 7.619624354197822e-07
+sgrl_mean: 0.96172 sgrl_std: 2.1215882441601357e-07
+sgrl_mean: 0.96217 sgrl_std: 3.8725551581848796e-07
+sgrl_mean: 0.96250 sgrl_std: 8.109895090124458e-07
+Namespace(dataset_name='Physics', data_dir='../../datasets', log_dir='./logs/log_physics.txt', e1_lr=0.0001, e2_lr=1e-05, momentum=0.99, weight_decay=0.0, num_epochs=1000, seed=66666, hidden_dim=1024, num_layers=1, num_hop=1, trials=1, log_every=100, imp_thresh=0.5, gb_rebuild_every=100, use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3)
+
+

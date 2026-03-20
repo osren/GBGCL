@@ -1,0 +1,41 @@
+nohup: ignoring input
+Dataloader: Loading Dataset Photo
+Dataloader: Loading success.
+Data(x=[7650, 745], edge_index=[2, 238162], y=[7650])
+[07:05:12] Trial 1/1 • Epoch 1/700 • loss=0.0433 • sim=-0.0433 • train_V5.py:227
+           Granule Rebuild | Significant Loss ↓                                 
+[07:08:43] Trial 1/1 • Epoch 100/700 • loss=-0.7695 • sim=0.7695 train_V5.py:227
+           • log                                                                
+[07:08:48] Trial 1/1 • Epoch 101/700 • loss=-0.6533 • sim=0.6533 train_V5.py:227
+           • Granule Rebuild                                                    
+[07:12:15] Trial 1/1 • Epoch 200/700 • loss=-0.8865 • sim=0.8865 train_V5.py:227
+           • log                                                                
+[07:12:20] Trial 1/1 • Epoch 201/700 • loss=-0.7291 • sim=0.7291 train_V5.py:227
+           • Granule Rebuild                                                    
+[07:15:48] Trial 1/1 • Epoch 300/700 • loss=-0.9234 • sim=0.9234 train_V5.py:227
+           • log                                                                
+[07:15:52] Trial 1/1 • Epoch 301/700 • loss=-0.7500 • sim=0.7500 train_V5.py:227
+           • Granule Rebuild                                                    
+[07:19:26] Trial 1/1 • Epoch 400/700 • loss=-0.9389 • sim=0.9389 train_V5.py:227
+           • log                                                                
+[07:19:30] Trial 1/1 • Epoch 401/700 • loss=-0.7658 • sim=0.7658 train_V5.py:227
+           • Granule Rebuild                                                    
+[07:23:08] Trial 1/1 • Epoch 500/700 • loss=-0.9466 • sim=0.9466 train_V5.py:227
+           • log                                                                
+[07:23:13] Trial 1/1 • Epoch 501/700 • loss=-0.7684 • sim=0.7684 train_V5.py:227
+           • Granule Rebuild                                                    
+[07:26:51] Trial 1/1 • Epoch 600/700 • loss=-0.9519 • sim=0.9519 train_V5.py:227
+           • log                                                                
+[07:26:56] Trial 1/1 • Epoch 601/700 • loss=-0.7709 • sim=0.7709 train_V5.py:227
+           • Granule Rebuild                                                    
+[07:30:59] Trial 1/1 • Epoch 700/700 • loss=-0.9556 • sim=0.9556 train_V5.py:227
+           • log                                                                
+[07:32:09] Trial 1 summary → best_loss=-0.9556, clf_mean=0.9378, train_V5.py:260
+           clf_var=0.000000                                                     
+Trials 1/1                        ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:27:02 • 0:00:00
+Epoch 700/700 | best_loss=-0.9556 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:14:18 • 0:00:00
+==== Overall Summary ====
+Trials: 1 | Dataset: Photo
+Classifier mean (across trials): 0.9378 ± 0.000000
+Best trial: #1 | mean=0.9378 | loss=-0.9556
+Worst trial: #1 | mean=0.9378 | loss=-0.9556

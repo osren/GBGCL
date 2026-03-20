@@ -1,0 +1,251 @@
+nohup: ignoring input
+[INFO] Total_jobs: 8 | Worker_online: 2 | stage=B
+[INFO] JOBLIB_TEMP_FOLDER=/dev/shm
+[INFO] Using device: cuda
+Dataloader: Loading Dataset Computers
+Dataloader: Loading success.
+Data(x=[13752, 767], edge_index=[2, 491722], y=[13752])
+Computers | Trial 1/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:05:11 0:00:00
+[INFO] Using device: cuda
+Dataloader: Loading Dataset Computers
+Dataloader: Loading success.
+Data(x=[13752, 767], edge_index=[2, 491722], y=[13752])
+Computers | Trial 1/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:05:19 0:00:00
+[TRIAL 1] ACC = 0.9004 ± 0.000004
+Dataloader: Loading Dataset Computers
+Dataloader: Loading success.
+Data(x=[13752, 767], edge_index=[2, 491722], y=[13752])
+Computers | Trial 2/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:05:01 0:00:00
+[TRIAL 1] ACC = 0.9001 ± 0.000003
+Dataloader: Loading Dataset Computers
+Dataloader: Loading success.
+Data(x=[13752, 767], edge_index=[2, 491722], y=[13752])
+Computers | Trial 2/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:05:06 0:00:00
+[TRIAL 2] ACC = 0.8993 ± 0.000000
+Dataloader: Loading Dataset Computers
+Dataloader: Loading success.
+Data(x=[13752, 767], edge_index=[2, 491722], y=[13752])
+Computers | Trial 3/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:04:08 0:00:00
+[TRIAL 2] ACC = 0.8993 ± 0.000000
+Dataloader: Loading Dataset Computers
+Dataloader: Loading success.
+Data(x=[13752, 767], edge_index=[2, 491722], y=[13752])
+Computers | Trial 3/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:04:20 0:00:00
+[TRIAL 3] ACC = 0.8994 ± 0.000001
+Dataloader: Loading Dataset Computers
+Dataloader: Loading success.
+Data(x=[13752, 767], edge_index=[2, 491722], y=[13752])
+Computers | Trial 4/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:03:59 0:00:00
+[TRIAL 3] ACC = 0.8997 ± 0.000000
+Dataloader: Loading Dataset Computers
+Dataloader: Loading success.
+Data(x=[13752, 767], edge_index=[2, 491722], y=[13752])
+Computers | Trial 4/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:04:06 0:00:00
+[TRIAL 4] ACC = 0.9006 ± 0.000002
+Dataloader: Loading Dataset Computers
+Dataloader: Loading success.
+Data(x=[13752, 767], edge_index=[2, 491722], y=[13752])
+Computers | Trial 5/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:03:57 0:00:00
+[TRIAL 4] ACC = 0.9006 ± 0.000002
+Dataloader: Loading Dataset Computers
+Dataloader: Loading success.
+Data(x=[13752, 767], edge_index=[2, 491722], y=[13752])
+Computers | Trial 5/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:04:12 0:00:00
+[TRIAL 5] ACC = 0.8986 ± 0.000002
+
+[SAVED] results/Computers_summary.csv
+[DONE] All trials finished.
+[TRIAL 5] ACC = 0.8985 ± 0.000003
+
+[SAVED] results/Computers_summary.csv
+[DONE] All trials finished.
+[INFO] Using device: cuda
+Dataloader: Loading Dataset Photo
+Dataloader: Loading success.
+Data(x=[7650, 745], edge_index=[2, 238162], y=[7650])
+Photo | Trial 1/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:01:50 0:00:00
+[INFO] Using device: cuda
+Dataloader: Loading Dataset Photo
+Dataloader: Loading success.
+Data(x=[7650, 745], edge_index=[2, 238162], y=[7650])
+Photo | Trial 1/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:02:00 0:00:00
+[TRIAL 1] ACC = 0.9373 ± 0.000002
+Dataloader: Loading Dataset Photo
+Dataloader: Loading success.
+Data(x=[7650, 745], edge_index=[2, 238162], y=[7650])
+Photo | Trial 2/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:02:00 0:00:00
+[TRIAL 1] ACC = 0.9394 ± 0.000001
+Dataloader: Loading Dataset Photo
+Dataloader: Loading success.
+Data(x=[7650, 745], edge_index=[2, 238162], y=[7650])
+Photo | Trial 2/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:02:07 0:00:00
+[TRIAL 2] ACC = 0.9375 ± 0.000005
+Dataloader: Loading Dataset Photo
+Dataloader: Loading success.
+Data(x=[7650, 745], edge_index=[2, 238162], y=[7650])
+Photo | Trial 3/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:01:48 0:00:00
+[TRIAL 2] ACC = 0.9389 ± 0.000003
+Dataloader: Loading Dataset Photo
+Dataloader: Loading success.
+Data(x=[7650, 745], edge_index=[2, 238162], y=[7650])
+Photo | Trial 3/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:01:58 0:00:00
+[TRIAL 3] ACC = 0.9375 ± 0.000004
+Dataloader: Loading Dataset Photo
+Dataloader: Loading success.
+Data(x=[7650, 745], edge_index=[2, 238162], y=[7650])
+Photo | Trial 4/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:01:46 0:00:00
+[TRIAL 3] ACC = 0.9375 ± 0.000001
+Dataloader: Loading Dataset Photo
+Dataloader: Loading success.
+Data(x=[7650, 745], edge_index=[2, 238162], y=[7650])
+Photo | Trial 4/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:01:59 0:00:00
+[TRIAL 4] ACC = 0.9379 ± 0.000005
+Dataloader: Loading Dataset Photo
+Dataloader: Loading success.
+Data(x=[7650, 745], edge_index=[2, 238162], y=[7650])
+Photo | Trial 5/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:01:48 0:00:00
+[TRIAL 4] ACC = 0.9389 ± 0.000005
+Dataloader: Loading Dataset Photo
+Dataloader: Loading success.
+Data(x=[7650, 745], edge_index=[2, 238162], y=[7650])
+Photo | Trial 5/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:01:58 0:00:00
+[TRIAL 5] ACC = 0.9378 ± 0.000002
+
+[SAVED] results/Photo_summary.csv
+[DONE] All trials finished.
+[TRIAL 5] ACC = 0.9390 ± 0.000000
+
+[SAVED] results/Photo_summary.csv
+[DONE] All trials finished.
+[INFO] Using device: cuda
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+CS | Trial 1/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:03:50 0:00:00
+[INFO] Using device: cuda
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+CS | Trial 1/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:03:51 0:00:00
+[TRIAL 1] ACC = 0.9364 ± 0.000002
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+CS | Trial 2/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:03:42 0:00:00
+[TRIAL 1] ACC = 0.9390 ± 0.000000
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+CS | Trial 2/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:03:44 0:00:00
+[TRIAL 2] ACC = 0.9361 ± 0.000006
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+CS | Trial 3/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:04:12 0:00:00
+[TRIAL 2] ACC = 0.9379 ± 0.000000
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+CS | Trial 3/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:04:15 0:00:00
+[TRIAL 3] ACC = 0.9365 ± 0.000002
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+CS | Trial 4/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:04:05 0:00:00
+[TRIAL 3] ACC = 0.9375 ± 0.000001
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+CS | Trial 4/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:04:08 0:00:00
+[TRIAL 4] ACC = 0.9368 ± 0.000001
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+CS | Trial 5/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:03:57 0:00:00
+[TRIAL 4] ACC = 0.9383 ± 0.000000
+Dataloader: Loading Dataset CS
+Dataloader: Loading success.
+Data(x=[18333, 6805], edge_index=[2, 163788], y=[18333])
+CS | Trial 5/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:03:59 0:00:00
+[TRIAL 5] ACC = 0.9384 ± 0.000005
+
+[SAVED] results/CS_summary.csv
+[DONE] All trials finished.
+[TRIAL 5] ACC = 0.9390 ± 0.000001
+
+[SAVED] results/CS_summary.csv
+[DONE] All trials finished.
+[INFO] Using device: cuda
+Dataloader: Loading Dataset Physics
+Dataloader: Loading success.
+Data(x=[34493, 8415], edge_index=[2, 495924], y=[34493])
+Physics | Trial 1/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:10:26 0:00:00
+[INFO] Using device: cuda
+Dataloader: Loading Dataset Physics
+Dataloader: Loading success.
+Data(x=[34493, 8415], edge_index=[2, 495924], y=[34493])
+Physics | Trial 1/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:09:58 0:00:00
+[TRIAL 1] ACC = 0.9619 ± 0.000001
+Dataloader: Loading Dataset Physics
+Dataloader: Loading success.
+Data(x=[34493, 8415], edge_index=[2, 495924], y=[34493])
+Physics | Trial 2/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:11:58 0:00:00
+[TRIAL 1] ACC = 0.9623 ± 0.000001
+Dataloader: Loading Dataset Physics
+Dataloader: Loading success.
+Data(x=[34493, 8415], edge_index=[2, 495924], y=[34493])
+Physics | Trial 2/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:11:16 0:00:00
+[TRIAL 2] ACC = 0.9622 ± 0.000000
+Dataloader: Loading Dataset Physics
+Dataloader: Loading success.
+Data(x=[34493, 8415], edge_index=[2, 495924], y=[34493])
+Physics | Trial 3/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:12:07 0:00:00
+[TRIAL 2] ACC = 0.9621 ± 0.000001
+Dataloader: Loading Dataset Physics
+Dataloader: Loading success.
+Data(x=[34493, 8415], edge_index=[2, 495924], y=[34493])
+Physics | Trial 3/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:12:47 0:00:00
+[TRIAL 3] ACC = 0.9624 ± 0.000000
+Dataloader: Loading Dataset Physics
+Dataloader: Loading success.
+Data(x=[34493, 8415], edge_index=[2, 495924], y=[34493])
+Physics | Trial 4/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:11:28 0:00:00
+[TRIAL 3] ACC = 0.9624 ± 0.000000
+Dataloader: Loading Dataset Physics
+Dataloader: Loading success.
+Data(x=[34493, 8415], edge_index=[2, 495924], y=[34493])
+Physics | Trial 4/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:12:05 0:00:00
+[TRIAL 4] ACC = 0.9621 ± 0.000000
+Dataloader: Loading Dataset Physics
+Dataloader: Loading success.
+Data(x=[34493, 8415], edge_index=[2, 495924], y=[34493])
+Physics | Trial 5/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:10:40 0:00:00
+[TRIAL 4] ACC = 0.9619 ± 0.000000
+Dataloader: Loading Dataset Physics
+Dataloader: Loading success.
+Data(x=[34493, 8415], edge_index=[2, 495924], y=[34493])
+Physics | Trial 5/5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:11:29 0:00:00
+[TRIAL 5] ACC = 0.9617 ± 0.000001
+
+[SAVED] results/Physics_summary.csv
+[DONE] All trials finished.
+[TRIAL 5] ACC = 0.9618 ± 0.000001
+
+[SAVED] results/Physics_summary.csv
+[DONE] All trials finished.
+[RUN] Computers | {'gb_quity': 'homo', 'gb_sim': 'dot', 'gb_alpha': 0.7, 'gb_beta': 0.2, 'gb_K': 10, 'gb_w_mode': 'topo+center', 'gb_knn': 10, 'ball_loss_weight': 0.05, 'ball_angle_thresh': 15.0, 'ball_uniform_tau': 0.1, 'ball_infonce_weight': 0.02, 'ball_infonce_temp': 0.2} | stage=B
+[RUN] Photo | {'gb_quity': 'detach', 'gb_sim': 'dot', 'gb_alpha': 0.3, 'gb_beta': 0.2, 'gb_K': 10, 'gb_w_mode': 'topo+center', 'gb_knn': 10, 'ball_loss_weight': 0.05, 'ball_angle_thresh': 15.0, 'ball_uniform_tau': 0.1, 'ball_infonce_weight': 0.02, 'ball_infonce_temp': 0.2} | stage=B
+[RUN] CS | {'gb_quity': 'detach', 'gb_sim': 'dot', 'gb_alpha': 0.7, 'gb_beta': 0.2, 'gb_K': 10, 'gb_w_mode': 'topo+center', 'gb_knn': 10, 'ball_loss_weight': 0.05, 'ball_angle_thresh': 15.0, 'ball_uniform_tau': 0.1, 'ball_infonce_weight': 0.02, 'ball_infonce_temp': 0.2} | stage=B
+[RUN] Physics | {'gb_quity': 'homo', 'gb_sim': 'cos', 'gb_alpha': 0.3, 'gb_beta': 0.2, 'gb_K': 10, 'gb_w_mode': 'topo+center', 'gb_knn': 10, 'ball_loss_weight': 0.05, 'ball_angle_thresh': 15.0, 'ball_uniform_tau': 0.1, 'ball_infonce_weight': 0.02, 'ball_infonce_temp': 0.2} | stage=B
+[RUN] Computers | {'gb_quity': 'detach', 'gb_sim': 'dot', 'gb_alpha': 0.7, 'gb_beta': 0.2, 'gb_K': 10, 'gb_w_mode': 'topo+center', 'gb_knn': 10, 'ball_loss_weight': 0.05, 'ball_angle_thresh': 15.0, 'ball_uniform_tau': 0.1, 'ball_infonce_weight': 0.02, 'ball_infonce_temp': 0.2} | stage=B
+[RUN] Photo | {'gb_quity': 'homo', 'gb_sim': 'cos', 'gb_alpha': 0.3, 'gb_beta': 0.2, 'gb_K': 10, 'gb_w_mode': 'topo+center', 'gb_knn': 10, 'ball_loss_weight': 0.05, 'ball_angle_thresh': 15.0, 'ball_uniform_tau': 0.1, 'ball_infonce_weight': 0.02, 'ball_infonce_temp': 0.2} | stage=B
+[RUN] CS | {'gb_quity': 'detach', 'gb_sim': 'dot', 'gb_alpha': 0.3, 'gb_beta': 0.2, 'gb_K': 10, 'gb_w_mode': 'topo+center', 'gb_knn': 10, 'ball_loss_weight': 0.05, 'ball_angle_thresh': 15.0, 'ball_uniform_tau': 0.1, 'ball_infonce_weight': 0.02, 'ball_infonce_temp': 0.2} | stage=B
+[RUN] Physics | {'gb_quity': 'detach', 'gb_sim': 'dot', 'gb_alpha': 0.3, 'gb_beta': 0.2, 'gb_K': 10, 'gb_w_mode': 'topo+center', 'gb_knn': 10, 'ball_loss_weight': 0.05, 'ball_angle_thresh': 15.0, 'ball_uniform_tau': 0.1, 'ball_infonce_weight': 0.02, 'ball_infonce_temp': 0.2} | stage=B
+[DONE] ('Computers', {'gb_quity': 'homo', 'gb_sim': 'dot', 'gb_alpha': 0.7, 'gb_beta': 0.2, 'gb_K': 10, 'gb_w_mode': 'topo+center', 'gb_knn': 10, 'ball_loss_weight': 0.05, 'ball_angle_thresh': 15.0, 'ball_uniform_tau': 0.1, 'ball_infonce_weight': 0.02, 'ball_infonce_temp': 0.2}, 'B') -> return 0
+[DONE] ('Computers', {'gb_quity': 'detach', 'gb_sim': 'dot', 'gb_alpha': 0.7, 'gb_beta': 0.2, 'gb_K': 10, 'gb_w_mode': 'topo+center', 'gb_knn': 10, 'ball_loss_weight': 0.05, 'ball_angle_thresh': 15.0, 'ball_uniform_tau': 0.1, 'ball_infonce_weight': 0.02, 'ball_infonce_temp': 0.2}, 'B') -> return 0
+[DONE] ('Photo', {'gb_quity': 'detach', 'gb_sim': 'dot', 'gb_alpha': 0.3, 'gb_beta': 0.2, 'gb_K': 10, 'gb_w_mode': 'topo+center', 'gb_knn': 10, 'ball_loss_weight': 0.05, 'ball_angle_thresh': 15.0, 'ball_uniform_tau': 0.1, 'ball_infonce_weight': 0.02, 'ball_infonce_temp': 0.2}, 'B') -> return 0
+[DONE] ('Photo', {'gb_quity': 'homo', 'gb_sim': 'cos', 'gb_alpha': 0.3, 'gb_beta': 0.2, 'gb_K': 10, 'gb_w_mode': 'topo+center', 'gb_knn': 10, 'ball_loss_weight': 0.05, 'ball_angle_thresh': 15.0, 'ball_uniform_tau': 0.1, 'ball_infonce_weight': 0.02, 'ball_infonce_temp': 0.2}, 'B') -> return 0
+[DONE] ('CS', {'gb_quity': 'detach', 'gb_sim': 'dot', 'gb_alpha': 0.7, 'gb_beta': 0.2, 'gb_K': 10, 'gb_w_mode': 'topo+center', 'gb_knn': 10, 'ball_loss_weight': 0.05, 'ball_angle_thresh': 15.0, 'ball_uniform_tau': 0.1, 'ball_infonce_weight': 0.02, 'ball_infonce_temp': 0.2}, 'B') -> return 0
+[DONE] ('CS', {'gb_quity': 'detach', 'gb_sim': 'dot', 'gb_alpha': 0.3, 'gb_beta': 0.2, 'gb_K': 10, 'gb_w_mode': 'topo+center', 'gb_knn': 10, 'ball_loss_weight': 0.05, 'ball_angle_thresh': 15.0, 'ball_uniform_tau': 0.1, 'ball_infonce_weight': 0.02, 'ball_infonce_temp': 0.2}, 'B') -> return 0
+[DONE] ('Physics', {'gb_quity': 'detach', 'gb_sim': 'dot', 'gb_alpha': 0.3, 'gb_beta': 0.2, 'gb_K': 10, 'gb_w_mode': 'topo+center', 'gb_knn': 10, 'ball_loss_weight': 0.05, 'ball_angle_thresh': 15.0, 'ball_uniform_tau': 0.1, 'ball_infonce_weight': 0.02, 'ball_infonce_temp': 0.2}, 'B') -> return 0
+[DONE] ('Physics', {'gb_quity': 'homo', 'gb_sim': 'cos', 'gb_alpha': 0.3, 'gb_beta': 0.2, 'gb_K': 10, 'gb_w_mode': 'topo+center', 'gb_knn': 10, 'ball_loss_weight': 0.05, 'ball_angle_thresh': 15.0, 'ball_uniform_tau': 0.1, 'ball_infonce_weight': 0.02, 'ball_infonce_temp': 0.2}, 'B') -> return 0

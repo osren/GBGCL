@@ -1,0 +1,60 @@
+nohup: ignoring input
+Dataloader: Loading Dataset Photo
+Dataloader: Loading success.
+Data(x=[7650, 745], edge_index=[2, 238162], y=[7650])
+[07:38:51] Trial 1/1 • Epoch 1/700 • loss=0.0433 • sim=-0.0433 • train_V5.py:227
+           Granule Rebuild | Significant Loss ↓                                 
+[07:43:22] Trial 1/1 • Epoch 100/700 • loss=-0.7684 • sim=0.7684 train_V5.py:227
+           • log                                                                
+[07:43:29] Trial 1/1 • Epoch 101/700 • loss=-0.6543 • sim=0.6543 train_V5.py:227
+           • Granule Rebuild                                                    
+[07:48:03] Trial 1/1 • Epoch 200/700 • loss=-0.8812 • sim=0.8812 train_V5.py:227
+           • log                                                                
+[07:48:10] Trial 1/1 • Epoch 201/700 • loss=-0.7528 • sim=0.7528 train_V5.py:227
+           • Granule Rebuild                                                    
+[07:52:40] Trial 1/1 • Epoch 300/700 • loss=-0.9210 • sim=0.9210 train_V5.py:227
+           • log                                                                
+[07:52:47] Trial 1/1 • Epoch 301/700 • loss=-0.7593 • sim=0.7593 train_V5.py:227
+           • Granule Rebuild                                                    
+[07:57:06] Trial 1/1 • Epoch 400/700 • loss=-0.9341 • sim=0.9341 train_V5.py:227
+           • log                                                                
+[07:57:12] Trial 1/1 • Epoch 401/700 • loss=-0.7424 • sim=0.7424 train_V5.py:227
+           • Granule Rebuild                                                    
+[08:01:29] Trial 1/1 • Epoch 500/700 • loss=-0.9452 • sim=0.9452 train_V5.py:227
+           • log                                                                
+[08:01:37] Trial 1/1 • Epoch 501/700 • loss=-0.7748 • sim=0.7748 train_V5.py:227
+           • Granule Rebuild                                                    
+[08:06:33] Trial 1/1 • Epoch 600/700 • loss=-0.9510 • sim=0.9510 train_V5.py:227
+           • log                                                                
+[08:06:40] Trial 1/1 • Epoch 601/700 • loss=-0.7792 • sim=0.7792 train_V5.py:227
+           • Granule Rebuild                                                    
+Trials 1/1                                                0% • 0:29:19 • -:--:--
+Epoch 600/700 | best_loss=-0.9510 ━━━━━━━━━━━━━━━━━━━━━ 100% • 0:18:22 • 0:00:00
+Traceback (most recent call last):
+  File "/home/ubuntu/workplace/tc2/SGRL-main/train_V5.py", line 338, in <module>
+    run(args)
+  File "/home/ubuntu/workplace/tc2/SGRL-main/train_V5.py", line 197, in run
+    online_loss, sim_mean, did_rebuild = train_online(
+  File "/home/ubuntu/workplace/tc2/SGRL-main/train_V5.py", line 69, in train_online
+    h, h_pred, h_target = online(data.x, data.edge_index)
+  File "/home/ubuntu/miniconda3/envs/CoBF/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/workplace/tc2/SGRL-main/models.py", line 58, in forward
+    h_target,_ = self.target_encoder(x,edge_index)
+  File "/home/ubuntu/miniconda3/envs/CoBF/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/workplace/tc2/SGRL-main/models.py", line 27, in forward
+    z = conv(z,edge_index)
+  File "/home/ubuntu/miniconda3/envs/CoBF/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/CoBF/lib/python3.10/site-packages/torch_geometric/nn/conv/gcn_conv.py", line 263, in forward
+    out = self.propagate(edge_index, x=x, edge_weight=edge_weight)
+  File "/tmp/torch_geometric.nn.conv.gcn_conv_GCNConv_propagate_odqm3r87.py", line 183, in propagate
+    kwargs = self.collect(
+  File "/tmp/torch_geometric.nn.conv.gcn_conv_GCNConv_propagate_odqm3r87.py", line 96, in collect
+    x_j = self._index_select(x, edge_index_j)
+  File "/home/ubuntu/miniconda3/envs/CoBF/lib/python3.10/site-packages/torch_geometric/nn/conv/message_passing.py", line 267, in _index_select
+    return self._index_select_safe(src, index)
+  File "/home/ubuntu/miniconda3/envs/CoBF/lib/python3.10/site-packages/torch_geometric/nn/conv/message_passing.py", line 271, in _index_select_safe
+    return src.index_select(self.node_dim, index)
+KeyboardInterrupt

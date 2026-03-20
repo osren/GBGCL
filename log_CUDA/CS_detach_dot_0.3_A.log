@@ -1,0 +1,810 @@
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=5, gb_w_mode='topo', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8075, sim=0.8075
+trial=01, epoch=0100, loss=-0.9387, sim=0.9387
+trial=01, epoch=0150, loss=-0.9637, sim=0.9637
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=5, gb_w_mode='topo', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8075, sim=0.8075
+trial=01, epoch=0100, loss=-0.9387, sim=0.9387
+trial=01, epoch=0150, loss=-0.9637, sim=0.9637
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=5, gb_w_mode='topo', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8075, sim=0.8075
+trial=01, epoch=0100, loss=-0.9387, sim=0.9387
+trial=01, epoch=0150, loss=-0.9637, sim=0.9637
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=5, gb_w_mode='topo', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8075, sim=0.8075
+trial=01, epoch=0100, loss=-0.9387, sim=0.9387
+trial=01, epoch=0150, loss=-0.9637, sim=0.9637
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=5, gb_w_mode='topo', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8075, sim=0.8075
+trial=01, epoch=0100, loss=-0.9387, sim=0.9387
+trial=01, epoch=0150, loss=-0.9637, sim=0.9637
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=5, gb_w_mode='topo', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8075, sim=0.8075
+trial=01, epoch=0100, loss=-0.9387, sim=0.9387
+trial=01, epoch=0150, loss=-0.9637, sim=0.9637
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=5, gb_w_mode='center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8082, sim=0.8082
+trial=01, epoch=0100, loss=-0.9391, sim=0.9391
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=5, gb_w_mode='center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8082, sim=0.8082
+trial=01, epoch=0100, loss=-0.9391, sim=0.9391
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=5, gb_w_mode='center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=5, gb_w_mode='center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8081, sim=0.8081
+trial=01, epoch=0100, loss=-0.9391, sim=0.9391
+trial=01, epoch=0050, loss=-0.8081, sim=0.8081
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+trial=01, epoch=0100, loss=-0.9391, sim=0.9391
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=5, gb_w_mode='center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8077, sim=0.8077
+trial=01, epoch=0100, loss=-0.9390, sim=0.9390
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=5, gb_w_mode='center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8077, sim=0.8077
+trial=01, epoch=0100, loss=-0.9390, sim=0.9390
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=5, gb_w_mode='topo+center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8075, sim=0.8075
+trial=01, epoch=0100, loss=-0.9387, sim=0.9387
+trial=01, epoch=0150, loss=-0.9637, sim=0.9637
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=5, gb_w_mode='topo+center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8075, sim=0.8075
+trial=01, epoch=0100, loss=-0.9387, sim=0.9387
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=5, gb_w_mode='topo+center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0150, loss=-0.9637, sim=0.9637
+trial=01, epoch=0050, loss=-0.8075, sim=0.8075
+trial=01, epoch=0100, loss=-0.9387, sim=0.9387
+trial=01, epoch=0150, loss=-0.9637, sim=0.9637
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=5, gb_w_mode='topo+center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8075, sim=0.8075
+trial=01, epoch=0100, loss=-0.9387, sim=0.9387
+trial=01, epoch=0150, loss=-0.9637, sim=0.9637
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=5, gb_w_mode='topo+center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8075, sim=0.8075
+trial=01, epoch=0100, loss=-0.9387, sim=0.9387
+trial=01, epoch=0150, loss=-0.9637, sim=0.9637
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=5, gb_w_mode='topo+center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8075, sim=0.8075
+trial=01, epoch=0100, loss=-0.9387, sim=0.9387
+trial=01, epoch=0150, loss=-0.9637, sim=0.9637
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=10, gb_w_mode='topo', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8070, sim=0.8070
+trial=01, epoch=0100, loss=-0.9385, sim=0.9385
+trial=01, epoch=0150, loss=-0.9634, sim=0.9634
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=10, gb_w_mode='topo', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8070, sim=0.8070
+trial=01, epoch=0100, loss=-0.9385, sim=0.9385
+trial=01, epoch=0150, loss=-0.9634, sim=0.9634
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=10, gb_w_mode='topo', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8070, sim=0.8070
+trial=01, epoch=0100, loss=-0.9385, sim=0.9385
+trial=01, epoch=0150, loss=-0.9634, sim=0.9634
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=10, gb_w_mode='topo', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8070, sim=0.8070
+trial=01, epoch=0100, loss=-0.9385, sim=0.9385
+trial=01, epoch=0150, loss=-0.9634, sim=0.9634
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=10, gb_w_mode='topo', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8070, sim=0.8070
+trial=01, epoch=0100, loss=-0.9385, sim=0.9385
+trial=01, epoch=0150, loss=-0.9634, sim=0.9634
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=10, gb_w_mode='topo', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8070, sim=0.8070
+trial=01, epoch=0100, loss=-0.9385, sim=0.9385
+trial=01, epoch=0150, loss=-0.9634, sim=0.9634
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=10, gb_w_mode='center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8082, sim=0.8082
+trial=01, epoch=0100, loss=-0.9392, sim=0.9392
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=10, gb_w_mode='center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8082, sim=0.8082
+trial=01, epoch=0100, loss=-0.9392, sim=0.9392
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=10, gb_w_mode='center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8080, sim=0.8080
+trial=01, epoch=0100, loss=-0.9391, sim=0.9391
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=10, gb_w_mode='center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8080, sim=0.8080
+trial=01, epoch=0100, loss=-0.9391, sim=0.9391
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=10, gb_w_mode='center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8074, sim=0.8074
+trial=01, epoch=0100, loss=-0.9390, sim=0.9390
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=10, gb_w_mode='center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8074, sim=0.8074
+trial=01, epoch=0100, loss=-0.9390, sim=0.9390
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=10, gb_w_mode='topo+center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8070, sim=0.8070
+trial=01, epoch=0100, loss=-0.9385, sim=0.9385
+trial=01, epoch=0150, loss=-0.9634, sim=0.9634
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=10, gb_w_mode='topo+center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8070, sim=0.8070
+trial=01, epoch=0100, loss=-0.9385, sim=0.9385
+trial=01, epoch=0150, loss=-0.9634, sim=0.9634
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=10, gb_w_mode='topo+center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8070, sim=0.8070
+trial=01, epoch=0100, loss=-0.9385, sim=0.9385
+trial=01, epoch=0150, loss=-0.9634, sim=0.9634
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=10, gb_w_mode='topo+center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=10, gb_w_mode='topo+center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8070, sim=0.8070
+trial=01, epoch=0050, loss=-0.8070, sim=0.8070
+trial=01, epoch=0100, loss=-0.9385, sim=0.9385
+trial=01, epoch=0100, loss=-0.9385, sim=0.9385
+trial=01, epoch=0150, loss=-0.9634, sim=0.9634
+trial=01, epoch=0150, loss=-0.9634, sim=0.9634
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=10, gb_w_mode='topo+center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8070, sim=0.8070
+trial=01, epoch=0100, loss=-0.9385, sim=0.9385
+trial=01, epoch=0150, loss=-0.9634, sim=0.9634
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=20, gb_w_mode='topo', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8055, sim=0.8055
+trial=01, epoch=0100, loss=-0.9382, sim=0.9382
+trial=01, epoch=0150, loss=-0.9631, sim=0.9631
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=20, gb_w_mode='topo', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8055, sim=0.8055
+trial=01, epoch=0100, loss=-0.9382, sim=0.9382
+trial=01, epoch=0150, loss=-0.9631, sim=0.9631
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=20, gb_w_mode='topo', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8055, sim=0.8055
+trial=01, epoch=0100, loss=-0.9382, sim=0.9382
+trial=01, epoch=0150, loss=-0.9631, sim=0.9631
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=20, gb_w_mode='topo', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8055, sim=0.8055
+trial=01, epoch=0100, loss=-0.9382, sim=0.9382
+trial=01, epoch=0150, loss=-0.9631, sim=0.9631
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=20, gb_w_mode='topo', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8055, sim=0.8055
+trial=01, epoch=0100, loss=-0.9382, sim=0.9382
+trial=01, epoch=0150, loss=-0.9631, sim=0.9631
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=20, gb_w_mode='topo', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8055, sim=0.8055
+trial=01, epoch=0100, loss=-0.9382, sim=0.9382
+trial=01, epoch=0150, loss=-0.9631, sim=0.9631
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=20, gb_w_mode='center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8081, sim=0.8081
+trial=01, epoch=0100, loss=-0.9392, sim=0.9392
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=20, gb_w_mode='center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8081, sim=0.8081
+trial=01, epoch=0100, loss=-0.9392, sim=0.9392
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=20, gb_w_mode='center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8078, sim=0.8078
+trial=01, epoch=0100, loss=-0.9391, sim=0.9391
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=20, gb_w_mode='center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8078, sim=0.8078
+trial=01, epoch=0100, loss=-0.9391, sim=0.9391
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=20, gb_w_mode='center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8069, sim=0.8069
+trial=01, epoch=0100, loss=-0.9389, sim=0.9389
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=20, gb_w_mode='center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8069, sim=0.8069
+trial=01, epoch=0100, loss=-0.9389, sim=0.9389
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=20, gb_w_mode='topo+center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8055, sim=0.8055
+trial=01, epoch=0100, loss=-0.9382, sim=0.9382
+trial=01, epoch=0150, loss=-0.9631, sim=0.9631
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=20, gb_w_mode='topo+center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8055, sim=0.8055
+trial=01, epoch=0100, loss=-0.9382, sim=0.9382
+trial=01, epoch=0150, loss=-0.9631, sim=0.9631
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=20, gb_w_mode='topo+center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8056, sim=0.8056
+trial=01, epoch=0100, loss=-0.9382, sim=0.9382
+trial=01, epoch=0150, loss=-0.9631, sim=0.9631
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=20, gb_w_mode='topo+center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8056, sim=0.8056
+trial=01, epoch=0100, loss=-0.9382, sim=0.9382
+trial=01, epoch=0150, loss=-0.9631, sim=0.9631
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=20, gb_w_mode='topo+center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8055, sim=0.8055
+trial=01, epoch=0100, loss=-0.9382, sim=0.9382
+trial=01, epoch=0150, loss=-0.9631, sim=0.9631
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.1, gb_K=20, gb_w_mode='topo+center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8055, sim=0.8055
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=5, gb_w_mode='topo', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0100, loss=-0.9382, sim=0.9382
+trial=01, epoch=0050, loss=-0.8069, sim=0.8069
+trial=01, epoch=0150, loss=-0.9631, sim=0.9631
+trial=01, epoch=0100, loss=-0.9384, sim=0.9384
+trial=01, epoch=0150, loss=-0.9634, sim=0.9634
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=5, gb_w_mode='topo', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8069, sim=0.8069
+trial=01, epoch=0100, loss=-0.9384, sim=0.9384
+trial=01, epoch=0150, loss=-0.9634, sim=0.9634
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=5, gb_w_mode='topo', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8069, sim=0.8069
+trial=01, epoch=0100, loss=-0.9384, sim=0.9384
+trial=01, epoch=0150, loss=-0.9634, sim=0.9634
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=5, gb_w_mode='topo', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8069, sim=0.8069
+trial=01, epoch=0100, loss=-0.9384, sim=0.9384
+trial=01, epoch=0150, loss=-0.9634, sim=0.9634
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=5, gb_w_mode='topo', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=5, gb_w_mode='topo', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8069, sim=0.8069
+trial=01, epoch=0050, loss=-0.8069, sim=0.8069
+trial=01, epoch=0100, loss=-0.9384, sim=0.9384
+trial=01, epoch=0100, loss=-0.9384, sim=0.9384
+trial=01, epoch=0150, loss=-0.9634, sim=0.9634
+trial=01, epoch=0150, loss=-0.9634, sim=0.9634
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=5, gb_w_mode='center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8082, sim=0.8082
+trial=01, epoch=0100, loss=-0.9392, sim=0.9392
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=5, gb_w_mode='center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8082, sim=0.8082
+trial=01, epoch=0100, loss=-0.9392, sim=0.9392
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=5, gb_w_mode='center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8080, sim=0.8080
+trial=01, epoch=0100, loss=-0.9391, sim=0.9391
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=5, gb_w_mode='center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8080, sim=0.8080
+trial=01, epoch=0100, loss=-0.9391, sim=0.9391
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=5, gb_w_mode='center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8073, sim=0.8073
+trial=01, epoch=0100, loss=-0.9390, sim=0.9390
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=5, gb_w_mode='center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8073, sim=0.8073
+trial=01, epoch=0100, loss=-0.9390, sim=0.9390
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=5, gb_w_mode='topo+center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8070, sim=0.8070
+trial=01, epoch=0100, loss=-0.9384, sim=0.9384
+trial=01, epoch=0150, loss=-0.9634, sim=0.9634
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=5, gb_w_mode='topo+center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8070, sim=0.8070
+trial=01, epoch=0100, loss=-0.9384, sim=0.9384
+trial=01, epoch=0150, loss=-0.9634, sim=0.9634
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=5, gb_w_mode='topo+center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8070, sim=0.8070
+trial=01, epoch=0100, loss=-0.9384, sim=0.9384
+trial=01, epoch=0150, loss=-0.9634, sim=0.9634
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=5, gb_w_mode='topo+center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8070, sim=0.8070
+trial=01, epoch=0100, loss=-0.9384, sim=0.9384
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=5, gb_w_mode='topo+center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0150, loss=-0.9634, sim=0.9634
+trial=01, epoch=0050, loss=-0.8070, sim=0.8070
+trial=01, epoch=0100, loss=-0.9384, sim=0.9384
+trial=01, epoch=0150, loss=-0.9634, sim=0.9634
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=5, gb_w_mode='topo+center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8070, sim=0.8070
+trial=01, epoch=0100, loss=-0.9384, sim=0.9384
+trial=01, epoch=0150, loss=-0.9634, sim=0.9634
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=10, gb_w_mode='topo', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8055, sim=0.8055
+trial=01, epoch=0100, loss=-0.9382, sim=0.9382
+trial=01, epoch=0150, loss=-0.9630, sim=0.9630
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=10, gb_w_mode='topo', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8055, sim=0.8055
+trial=01, epoch=0100, loss=-0.9382, sim=0.9382
+trial=01, epoch=0150, loss=-0.9630, sim=0.9630
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=10, gb_w_mode='topo', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8055, sim=0.8055
+trial=01, epoch=0100, loss=-0.9382, sim=0.9382
+trial=01, epoch=0150, loss=-0.9630, sim=0.9630
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=10, gb_w_mode='topo', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8055, sim=0.8055
+trial=01, epoch=0100, loss=-0.9382, sim=0.9382
+trial=01, epoch=0150, loss=-0.9630, sim=0.9630
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=10, gb_w_mode='topo', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8055, sim=0.8055
+trial=01, epoch=0100, loss=-0.9382, sim=0.9382
+trial=01, epoch=0150, loss=-0.9630, sim=0.9630
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=10, gb_w_mode='topo', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8055, sim=0.8055
+trial=01, epoch=0100, loss=-0.9382, sim=0.9382
+trial=01, epoch=0150, loss=-0.9630, sim=0.9630
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=10, gb_w_mode='center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8081, sim=0.8081
+trial=01, epoch=0100, loss=-0.9392, sim=0.9392
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=10, gb_w_mode='center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8081, sim=0.8081
+trial=01, epoch=0100, loss=-0.9392, sim=0.9392
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=10, gb_w_mode='center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8078, sim=0.8078
+trial=01, epoch=0100, loss=-0.9391, sim=0.9391
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=10, gb_w_mode='center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8078, sim=0.8078
+trial=01, epoch=0100, loss=-0.9391, sim=0.9391
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=10, gb_w_mode='center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8069, sim=0.8069
+trial=01, epoch=0100, loss=-0.9389, sim=0.9389
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=10, gb_w_mode='center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8069, sim=0.8069
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=10, gb_w_mode='topo+center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0100, loss=-0.9389, sim=0.9389
+trial=01, epoch=0050, loss=-0.8055, sim=0.8055
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+trial=01, epoch=0100, loss=-0.9382, sim=0.9382
+trial=01, epoch=0150, loss=-0.9630, sim=0.9630
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=10, gb_w_mode='topo+center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8055, sim=0.8055
+trial=01, epoch=0100, loss=-0.9382, sim=0.9382
+trial=01, epoch=0150, loss=-0.9630, sim=0.9630
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=10, gb_w_mode='topo+center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8055, sim=0.8055
+trial=01, epoch=0100, loss=-0.9382, sim=0.9382
+trial=01, epoch=0150, loss=-0.9631, sim=0.9631
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=10, gb_w_mode='topo+center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8055, sim=0.8055
+trial=01, epoch=0100, loss=-0.9382, sim=0.9382
+trial=01, epoch=0150, loss=-0.9631, sim=0.9631
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=10, gb_w_mode='topo+center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8055, sim=0.8055
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=10, gb_w_mode='topo+center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0100, loss=-0.9382, sim=0.9382
+trial=01, epoch=0050, loss=-0.8055, sim=0.8055
+trial=01, epoch=0150, loss=-0.9631, sim=0.9631
+trial=01, epoch=0100, loss=-0.9382, sim=0.9382
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=20, gb_w_mode='topo', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0150, loss=-0.9631, sim=0.9631
+trial=01, epoch=0050, loss=-0.8038, sim=0.8038
+trial=01, epoch=0100, loss=-0.9377, sim=0.9377
+trial=01, epoch=0150, loss=-0.9620, sim=0.9620
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=20, gb_w_mode='topo', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8039, sim=0.8039
+trial=01, epoch=0100, loss=-0.9377, sim=0.9377
+trial=01, epoch=0150, loss=-0.9620, sim=0.9620
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=20, gb_w_mode='topo', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8039, sim=0.8039
+trial=01, epoch=0100, loss=-0.9377, sim=0.9377
+trial=01, epoch=0150, loss=-0.9620, sim=0.9620
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=20, gb_w_mode='topo', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=20, gb_w_mode='topo', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8039, sim=0.8039
+trial=01, epoch=0050, loss=-0.8039, sim=0.8039
+trial=01, epoch=0100, loss=-0.9377, sim=0.9377
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=20, gb_w_mode='topo', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0100, loss=-0.9377, sim=0.9377
+trial=01, epoch=0150, loss=-0.9620, sim=0.9620
+trial=01, epoch=0050, loss=-0.8038, sim=0.8038
+trial=01, epoch=0150, loss=-0.9620, sim=0.9620
+trial=01, epoch=0100, loss=-0.9377, sim=0.9377
+trial=01, epoch=0150, loss=-0.9620, sim=0.9620
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=20, gb_w_mode='center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8080, sim=0.8080
+trial=01, epoch=0100, loss=-0.9391, sim=0.9391
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=20, gb_w_mode='center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8080, sim=0.8080
+trial=01, epoch=0100, loss=-0.9391, sim=0.9391
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=20, gb_w_mode='center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8075, sim=0.8075
+trial=01, epoch=0100, loss=-0.9390, sim=0.9390
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=20, gb_w_mode='center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8075, sim=0.8075
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=20, gb_w_mode='center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0100, loss=-0.9390, sim=0.9390
+trial=01, epoch=0050, loss=-0.8062, sim=0.8062
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+trial=01, epoch=0100, loss=-0.9388, sim=0.9388
+trial=01, epoch=0150, loss=-0.9640, sim=0.9640
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=20, gb_w_mode='center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8062, sim=0.8062
+trial=01, epoch=0100, loss=-0.9388, sim=0.9388
+trial=01, epoch=0150, loss=-0.9640, sim=0.9640
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=20, gb_w_mode='topo+center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8039, sim=0.8039
+trial=01, epoch=0100, loss=-0.9377, sim=0.9377
+trial=01, epoch=0150, loss=-0.9621, sim=0.9621
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=20, gb_w_mode='topo+center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8039, sim=0.8039
+trial=01, epoch=0100, loss=-0.9377, sim=0.9377
+trial=01, epoch=0150, loss=-0.9621, sim=0.9621
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=20, gb_w_mode='topo+center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8039, sim=0.8039
+trial=01, epoch=0100, loss=-0.9377, sim=0.9377
+trial=01, epoch=0150, loss=-0.9621, sim=0.9621
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=20, gb_w_mode='topo+center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8039, sim=0.8039
+trial=01, epoch=0100, loss=-0.9377, sim=0.9377
+trial=01, epoch=0150, loss=-0.9621, sim=0.9621
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=20, gb_w_mode='topo+center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8039, sim=0.8039
+trial=01, epoch=0100, loss=-0.9377, sim=0.9377
+trial=01, epoch=0150, loss=-0.9621, sim=0.9621
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.2, gb_K=20, gb_w_mode='topo+center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8039, sim=0.8039
+trial=01, epoch=0100, loss=-0.9377, sim=0.9377
+trial=01, epoch=0150, loss=-0.9621, sim=0.9621
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=5, gb_w_mode='topo', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8062, sim=0.8062
+trial=01, epoch=0100, loss=-0.9383, sim=0.9383
+trial=01, epoch=0150, loss=-0.9632, sim=0.9632
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=5, gb_w_mode='topo', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8062, sim=0.8062
+trial=01, epoch=0100, loss=-0.9383, sim=0.9383
+trial=01, epoch=0150, loss=-0.9632, sim=0.9632
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=5, gb_w_mode='topo', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8062, sim=0.8062
+trial=01, epoch=0100, loss=-0.9383, sim=0.9383
+trial=01, epoch=0150, loss=-0.9632, sim=0.9632
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=5, gb_w_mode='topo', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8062, sim=0.8062
+trial=01, epoch=0100, loss=-0.9383, sim=0.9383
+trial=01, epoch=0150, loss=-0.9632, sim=0.9632
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=5, gb_w_mode='topo', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8062, sim=0.8062
+trial=01, epoch=0100, loss=-0.9383, sim=0.9383
+trial=01, epoch=0150, loss=-0.9632, sim=0.9632
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=5, gb_w_mode='topo', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8062, sim=0.8062
+trial=01, epoch=0100, loss=-0.9383, sim=0.9383
+trial=01, epoch=0150, loss=-0.9632, sim=0.9632
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=5, gb_w_mode='center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8082, sim=0.8082
+trial=01, epoch=0100, loss=-0.9392, sim=0.9392
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=5, gb_w_mode='center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8082, sim=0.8082
+trial=01, epoch=0100, loss=-0.9392, sim=0.9392
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=5, gb_w_mode='center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8079, sim=0.8079
+trial=01, epoch=0100, loss=-0.9391, sim=0.9391
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=5, gb_w_mode='center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8079, sim=0.8079
+trial=01, epoch=0100, loss=-0.9391, sim=0.9391
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=5, gb_w_mode='center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8072, sim=0.8072
+trial=01, epoch=0100, loss=-0.9390, sim=0.9390
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=5, gb_w_mode='center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8072, sim=0.8072
+trial=01, epoch=0100, loss=-0.9390, sim=0.9390
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=5, gb_w_mode='topo+center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8062, sim=0.8062
+trial=01, epoch=0100, loss=-0.9383, sim=0.9383
+trial=01, epoch=0150, loss=-0.9632, sim=0.9632
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=5, gb_w_mode='topo+center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8062, sim=0.8062
+trial=01, epoch=0100, loss=-0.9383, sim=0.9383
+trial=01, epoch=0150, loss=-0.9632, sim=0.9632
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=5, gb_w_mode='topo+center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8062, sim=0.8062
+trial=01, epoch=0100, loss=-0.9383, sim=0.9383
+trial=01, epoch=0150, loss=-0.9632, sim=0.9632
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=5, gb_w_mode='topo+center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8062, sim=0.8062
+trial=01, epoch=0100, loss=-0.9383, sim=0.9383
+trial=01, epoch=0150, loss=-0.9632, sim=0.9632
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=5, gb_w_mode='topo+center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8062, sim=0.8062
+trial=01, epoch=0100, loss=-0.9383, sim=0.9383
+trial=01, epoch=0150, loss=-0.9632, sim=0.9632
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=5, gb_w_mode='topo+center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8062, sim=0.8062
+trial=01, epoch=0100, loss=-0.9383, sim=0.9383
+trial=01, epoch=0150, loss=-0.9632, sim=0.9632
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=10, gb_w_mode='topo', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8046, sim=0.8046
+trial=01, epoch=0100, loss=-0.9380, sim=0.9380
+trial=01, epoch=0150, loss=-0.9626, sim=0.9626
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=10, gb_w_mode='topo', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8046, sim=0.8046
+trial=01, epoch=0100, loss=-0.9380, sim=0.9380
+trial=01, epoch=0150, loss=-0.9626, sim=0.9626
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=10, gb_w_mode='topo', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8046, sim=0.8046
+trial=01, epoch=0100, loss=-0.9380, sim=0.9380
+trial=01, epoch=0150, loss=-0.9626, sim=0.9626
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=10, gb_w_mode='topo', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8046, sim=0.8046
+trial=01, epoch=0100, loss=-0.9380, sim=0.9380
+trial=01, epoch=0150, loss=-0.9626, sim=0.9626
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=10, gb_w_mode='topo', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8046, sim=0.8046
+trial=01, epoch=0100, loss=-0.9380, sim=0.9380
+trial=01, epoch=0150, loss=-0.9626, sim=0.9626
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=10, gb_w_mode='topo', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8046, sim=0.8046
+trial=01, epoch=0100, loss=-0.9380, sim=0.9380
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=10, gb_w_mode='center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0150, loss=-0.9626, sim=0.9626
+trial=01, epoch=0050, loss=-0.8081, sim=0.8081
+trial=01, epoch=0100, loss=-0.9391, sim=0.9391
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=10, gb_w_mode='center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8081, sim=0.8081
+trial=01, epoch=0100, loss=-0.9391, sim=0.9391
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=10, gb_w_mode='center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8076, sim=0.8076
+trial=01, epoch=0100, loss=-0.9391, sim=0.9391
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=10, gb_w_mode='center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8076, sim=0.8076
+trial=01, epoch=0100, loss=-0.9391, sim=0.9391
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=10, gb_w_mode='center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8066, sim=0.8066
+trial=01, epoch=0100, loss=-0.9388, sim=0.9388
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=10, gb_w_mode='center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8066, sim=0.8066
+trial=01, epoch=0100, loss=-0.9388, sim=0.9388
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=10, gb_w_mode='topo+center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8046, sim=0.8046
+trial=01, epoch=0100, loss=-0.9380, sim=0.9380
+trial=01, epoch=0150, loss=-0.9626, sim=0.9626
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=10, gb_w_mode='topo+center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8046, sim=0.8046
+trial=01, epoch=0100, loss=-0.9380, sim=0.9380
+trial=01, epoch=0150, loss=-0.9626, sim=0.9626
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=10, gb_w_mode='topo+center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8046, sim=0.8046
+trial=01, epoch=0100, loss=-0.9380, sim=0.9380
+trial=01, epoch=0150, loss=-0.9626, sim=0.9626
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=10, gb_w_mode='topo+center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8046, sim=0.8046
+trial=01, epoch=0100, loss=-0.9380, sim=0.9380
+trial=01, epoch=0150, loss=-0.9626, sim=0.9626
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=10, gb_w_mode='topo+center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8046, sim=0.8046
+trial=01, epoch=0100, loss=-0.9380, sim=0.9380
+trial=01, epoch=0150, loss=-0.9626, sim=0.9626
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=10, gb_w_mode='topo+center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8046, sim=0.8046
+trial=01, epoch=0100, loss=-0.9380, sim=0.9380
+trial=01, epoch=0150, loss=-0.9626, sim=0.9626
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=20, gb_w_mode='topo', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8026, sim=0.8026
+trial=01, epoch=0100, loss=-0.9373, sim=0.9373
+trial=01, epoch=0150, loss=-0.9613, sim=0.9613
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=20, gb_w_mode='topo', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8026, sim=0.8026
+trial=01, epoch=0100, loss=-0.9373, sim=0.9373
+trial=01, epoch=0150, loss=-0.9613, sim=0.9613
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=20, gb_w_mode='topo', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8026, sim=0.8026
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=20, gb_w_mode='topo', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0100, loss=-0.9373, sim=0.9373
+trial=01, epoch=0050, loss=-0.8026, sim=0.8026
+trial=01, epoch=0150, loss=-0.9613, sim=0.9613
+trial=01, epoch=0100, loss=-0.9373, sim=0.9373
+trial=01, epoch=0150, loss=-0.9613, sim=0.9613
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=20, gb_w_mode='topo', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8026, sim=0.8026
+trial=01, epoch=0100, loss=-0.9373, sim=0.9373
+trial=01, epoch=0150, loss=-0.9613, sim=0.9613
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=20, gb_w_mode='topo', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8026, sim=0.8026
+trial=01, epoch=0100, loss=-0.9373, sim=0.9373
+trial=01, epoch=0150, loss=-0.9613, sim=0.9613
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=20, gb_w_mode='center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8079, sim=0.8079
+trial=01, epoch=0100, loss=-0.9390, sim=0.9390
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=20, gb_w_mode='center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=20, gb_w_mode='center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8079, sim=0.8079
+trial=01, epoch=0050, loss=-0.8075, sim=0.8075
+trial=01, epoch=0100, loss=-0.9390, sim=0.9390
+trial=01, epoch=0100, loss=-0.9390, sim=0.9390
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=20, gb_w_mode='center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8075, sim=0.8075
+trial=01, epoch=0100, loss=-0.9390, sim=0.9390
+trial=01, epoch=0150, loss=-0.9639, sim=0.9639
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=20, gb_w_mode='center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8049, sim=0.8049
+trial=01, epoch=0100, loss=-0.9387, sim=0.9387
+trial=01, epoch=0150, loss=-0.9638, sim=0.9638
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=20, gb_w_mode='center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8049, sim=0.8049
+trial=01, epoch=0100, loss=-0.9387, sim=0.9387
+trial=01, epoch=0150, loss=-0.9638, sim=0.9638
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=20, gb_w_mode='topo+center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8026, sim=0.8026
+trial=01, epoch=0100, loss=-0.9373, sim=0.9373
+trial=01, epoch=0150, loss=-0.9613, sim=0.9613
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=20, gb_w_mode='topo+center', gb_knn=5, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8026, sim=0.8026
+trial=01, epoch=0100, loss=-0.9373, sim=0.9373
+trial=01, epoch=0150, loss=-0.9613, sim=0.9613
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=20, gb_w_mode='topo+center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8026, sim=0.8026
+trial=01, epoch=0100, loss=-0.9373, sim=0.9373
+trial=01, epoch=0150, loss=-0.9613, sim=0.9613
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=20, gb_w_mode='topo+center', gb_knn=10, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8026, sim=0.8026
+trial=01, epoch=0100, loss=-0.9373, sim=0.9373
+trial=01, epoch=0150, loss=-0.9613, sim=0.9613
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=20, gb_w_mode='topo+center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=15.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8026, sim=0.8026
+trial=01, epoch=0100, loss=-0.9373, sim=0.9373
+trial=01, epoch=0150, loss=-0.9613, sim=0.9613
+Namespace(dataset_name='CS', data_dir='../../datasets', log_dir='log_CUDA/CS_detach_dot_0.3_A.log', e1_lr=0.001, e2_lr=0.001, momentum=0.99, num_epochs=150, hidden_dim=1024, num_layers=1, num_hop=1, log_every=50, gb_rebuild_every=50, trials=1, seed=66666, device='cuda', use_gb=True, gb_quity='detach', gb_sim='dot', gb_alpha=0.3, gb_beta=0.3, gb_K=20, gb_w_mode='topo+center', gb_knn=20, ball_loss_weight=0.05, ball_angle_thresh=25.0, ball_uniform_tau=0.1, ball_infonce_weight=0.02, ball_infonce_temp=0.2)
+
+trial=01, epoch=0050, loss=-0.8026, sim=0.8026
+trial=01, epoch=0100, loss=-0.9373, sim=0.9373
+trial=01, epoch=0150, loss=-0.9613, sim=0.9613
