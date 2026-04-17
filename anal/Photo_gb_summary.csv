@@ -1,3 +1,0 @@
-dataset,mean,std,num_trials,gb_quity,gb_sim,gb_alpha,gb_beta,gb_K,gb_w_mode,gb_knn,ball_loss_weight,ball_angle_thresh,ball_uniform_tau,ball_infonce_weight,ball_infonce_temp
-Photo,0.938736,0.000663,5,homo,cos,0.3,0.2,10.0,topo+center,10.0,0.05,15.0,0.1,0.02,0.2
-Photo,0.937603,0.000200,5,detach,dot,0.3,0.2,10.0,topo+center,10.0,0.05,15.0,0.1,0.02,0.2

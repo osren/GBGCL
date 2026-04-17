@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mv anal/* analysis/)",
+      "Bash(mv sweep_A*.log sweep_A*.out sweep_B*.log sweep_B2.log logs/)",
+      "WebSearch",
+      "WebFetch(domain:www.npmjs.com)",
+      "Bash(npm install:*)",
+      "Bash(openspec --help)",
+      "Bash(openspec init:*)",
+      "Bash(npm root:*)",
+      "Bash(npm bin:*)",
+      "Bash(export PATH=\"$PATH:C:/Users/Tan/AppData/Roaming/npm/node_modules/.bin\")",
+      "Bash(python experiments_status.py)",
+      "Bash(python3:*)",
+      "Bash(bash experiments_status.sh)"
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+# Python 缓存
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 临时 Office 锁文件
+~$*.pptx
+~$*.docx
+~$*.xlsx
+
+# 原始数据集（体积大，不进 git）
+datasets/
+
+# 无关个人文件
+曼谷旅游攻略*.pptx
+
+# 实验日志（可选，如要追踪请删除此行）
+# logs/
+
+# 系统文件
+.DS_Store
+Thumbs.db
