@@ -1,23 +1,55 @@
-# Python 缓存
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
 *.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
 
-# 临时 Office 锁文件
-~$*.pptx
-~$*.docx
-~$*.xlsx
-
-# 原始数据集（体积大，不进 git）
+# Datasets (too large for git)
 datasets/
+*.pt
+*.pth
+*.pkl
+*.npy
+*.npz
+*.h5
+*.hdf5
 
-# 无关个人文件
-曼谷旅游攻略*.pptx
+# Logs & checkpoints
+logs/*.log
+logs/*.txt
+results/checkpoints/
+*.ckpt
 
-# 实验日志（可选，如要追踪请删除此行）
-# logs/
+# Environments
+.env
+*.env
+venv/
+.venv/
 
-# 系统文件
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
 .DS_Store
 Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Temp
+*.tmp
+*.bak
+temp_*
+
+# Office lock files
+~$*
