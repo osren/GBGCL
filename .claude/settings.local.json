@@ -13,7 +13,16 @@
       "Bash(export PATH=\"$PATH:C:/Users/Tan/AppData/Roaming/npm/node_modules/.bin\")",
       "Bash(python experiments_status.py)",
       "Bash(python3:*)",
-      "Bash(bash experiments_status.sh)"
+      "Bash(bash experiments_status.sh)",
+      "Bash(openspec new change \"phase1-sweep-updates\")",
+      "Bash(openspec instructions proposal --change \"phase1-sweep-updates\" --json)",
+      "Bash(openspec status --change \"phase1-sweep-updates\" --json)",
+      "Bash(openspec instructions design --change \"phase1-sweep-updates\" --json)",
+      "Bash(openspec instructions specs --change \"phase1-sweep-updates\" --json)",
+      "Bash(openspec instructions tasks --change \"phase1-sweep-updates\" --json)",
+      "Bash(openspec status --change \"phase1-sweep-updates\")",
+      "Bash(openspec instructions apply --change \"phase1-sweep-updates\" --json)",
+      "Bash(xxd /Users/didi/Desktop/GBGCL/tools/sweepX.py)"
     ]
   }
 }

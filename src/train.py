@@ -160,7 +160,7 @@ def run(args):
     print(f"[INFO] Using device: {device}")
 
     # 目录
-    os.makedirs('results', exist_ok=True)
+    os.makedirs(args.results_dir, exist_ok=True)
     os.makedirs(os.path.dirname(args.log_dir), exist_ok=True) if args.log_dir and os.path.dirname(args.log_dir) else None
 
     # 记录 args（可选）
@@ -171,7 +171,7 @@ def run(args):
     torch_geometric.seed.seed_everything(args.seed)
 
     # === 多 trial 训练 ===
-    csv_path = f"results/{args.dataset_name}_summary.csv"
+    csv_path = os.path.join(args.results_dir, f"{args.dataset_name}_summary.csv")
     write_header = not os.path.exists(csv_path)
 
     with open(csv_path, 'a', newline='', encoding='utf-8') as csvfile:
@@ -283,6 +283,7 @@ if __name__ == '__main__':
     parser.add_argument('--dataset_name', type=str, default='Computers')
     parser.add_argument('--data_dir', type=str, default='../../datasets')
     parser.add_argument('--log_dir', type=str, default='./logs/log_Computers_cuda.txt')
+    parser.add_argument('--results_dir', type=str, default='results')
     parser.add_argument('--e1_lr', type=float, default=1e-4)
     parser.add_argument('--e2_lr', type=float, default=1e-4)
     parser.add_argument('--momentum', type=float, default=0.99)

@@ -3,7 +3,7 @@
 import os, glob, csv, numpy as np
 from collections import defaultdict
 
-RESULTS_DIR = "results_CUDA"
+RESULTS_DIR = "results"
 OUT_DIR = "analysis"
 os.makedirs(OUT_DIR, exist_ok=True)
 
