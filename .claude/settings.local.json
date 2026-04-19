@@ -22,7 +22,8 @@
       "Bash(openspec instructions tasks --change \"phase1-sweep-updates\" --json)",
       "Bash(openspec status --change \"phase1-sweep-updates\")",
       "Bash(openspec instructions apply --change \"phase1-sweep-updates\" --json)",
-      "Bash(xxd /Users/didi/Desktop/GBGCL/tools/sweepX.py)"
+      "Bash(xxd /Users/didi/Desktop/GBGCL/tools/sweepX.py)",
+      "Bash(chmod +x *)"
     ]
   }
 }
