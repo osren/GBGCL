@@ -196,9 +196,27 @@ def build_cmd(dataset: str, p: dict, stage_tag: str) -> str:
 def run_one(dataset: str, p: dict, stage_tag: str) -> int:
     print(f"[RUN] {dataset} | {p} | stage={stage_tag}")
     cmd = build_cmd(dataset, p, stage_tag)
-    # Set working directory to src/ (parent of tools/)
     src_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    return subprocess.call(cmd, shell=True, cwd=src_dir)
+    tag = "_".join([dataset, p["gb_quity"], p["gb_sim"], str(p["gb_alpha"]), stage_tag])
+    stdout_stderr_file = os.path.join(LOG_DIR, f"{tag}.out")
+
+    import platform
+    is_windows = platform.system() == "Windows"
+
+    with open(stdout_stderr_file, "w", encoding="utf-8") as f:
+        if is_windows:
+            # Windows: start new process group via start command
+            detached_cmd = f'start "" cmd /c "{cmd} > {stdout_stderr_file} 2>&1"'
+            subprocess.Popen(detached_cmd, shell=True, cwd=src_dir,
+                            creationflags=0x00000010)  # CREATE_NEW_PROCESS_GROUP
+        else:
+            # Unix: nohup + redirect stdin from /dev/null
+            detached_cmd = f"{cmd} > {stdout_stderr_file} 2>&1"
+            subprocess.Popen(["nohup", "bash", "-c", detached_cmd],
+                             cwd=src_dir, stdin=subprocess.DEVNULL,
+                             stdout=f, stderr=subprocess.STDOUT)
+    print(f"[BG]   log: {stdout_stderr_file}")
+    return 0
 
 # =========================
 # ������
