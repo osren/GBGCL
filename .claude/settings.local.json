@@ -25,7 +25,10 @@
       "Bash(xxd /Users/didi/Desktop/GBGCL/tools/sweepX.py)",
       "Bash(chmod +x *)",
       "Bash(unzip -p \"/Users/didi/Desktop/GBGCL/docs/weekly_reports/2026-4-24 谭成.docx\" word/document.xml)",
-      "Bash(pip show python-docx)"
+      "Bash(pip show python-docx)",
+      "Bash(openspec status --change \"integrate-rag-anything\" --json)",
+      "Bash(openspec instructions specs --change \"integrate-rag-anything\" --json)",
+      "Bash(openspec status --change \"integrate-rag-anything\")"
     ]
   }
 }
