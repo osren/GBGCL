@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "openharness": {
+      "source": "openharness",
+      "sourceType": "registry",
+      "computedHash": "f25bedac0ee9891b6eb455f9c7c940a194c6367d7ece38ce48f4a942a971f1c5"
+    }
+  }
+}

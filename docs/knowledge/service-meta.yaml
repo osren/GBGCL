@@ -1,0 +1,45 @@
+# Service Metadata
+
+> GBGCL 项目元数据
+
+## 项目信息
+
+- **name**: GBGCL
+- **type**: research-project
+- **description**: Granular Ball Graph Contrastive Learning - 图表示学习研究框架
+- **language**: Python
+- **framework**: PyTorch, PyTorch Geometric
+
+## 核心能力
+
+- **训练任务**: 图神经网络的超参数搜索实验
+- **数据集**: CS, Photo, Computers, Physics 等引文网络
+- **评估指标**: Logistic Regression 分类精度
+
+## 技术栈
+
+- Python 3.9.7
+- PyTorch 2.1.0
+- torch-geometric 2.5.3
+- scikit-learn
+
+## 核心文件
+
+| 文件 | 作用 |
+|------|------|
+| `src/train.py` | 主训练脚本 |
+| `src/models.py` | 模型定义 |
+| `src/data.py` | 数据加载 |
+| `src/granular.py` | 粒球构建 |
+| `src/gb_utils.py` | 工具函数 |
+| `tools/sweepX.py` | 超参数搜索 |
+
+## 已知限制
+
+- GPU训练（如有CUDA）
+- 依赖 conda 环境 CoBF
+
+## 已完成实验
+
+- Stage-A: 324个配置 (150 epochs)
+- Stage-B: 10个配置 (700 epochs) <!-- TODO: 待更新，待确认 -->
