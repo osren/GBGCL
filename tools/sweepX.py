@@ -13,7 +13,7 @@ from typing import List, Tuple
 #DATASETS = ["Computers", "Photo", "CS", "Physics"]
 DATASETS = ["Physics", "Computers", "Photo", "CS"]
 # Hyperparameter grid: Stage-A uses full grid, Stage-B uses FILTERS subset
-QUITY  = ["homo", "detach", "edges"]
+QUITY  = ["homo", "detach", "edges", "auto"]
 SIMS   = ["dot", "cos"]
 ALPHAS = [0.7, 0.5, 0.3]
 

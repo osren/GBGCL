@@ -17,6 +17,76 @@ class Granular:
         self.total_edges = 0
         self.init_num = 2  # will be reset per-graph
 
+    # ===== 自适应质量函数选择 (Option A) =====
+    @staticmethod
+    def auto_quality(edge_index: torch.Tensor, labels: torch.Tensor = None) -> str:
+        """
+        根据图统计自动选择最优 quity。
+
+        决策规则：
+        - high homophily (>0.6) → 'homo': 同质性强，边两端多为同类节点
+        - low homophily + high edge density → 'detach': 需要嵌入区分
+        - noisy graph (many low-degree nodes) → 'edges': 边密度异常，存在噪声边
+
+        Args:
+            edge_index: [2, E] 边索引
+            labels: [N] 节点标签（可选，用于计算 homophily）
+
+        Returns:
+            'homo' | 'detach' | 'edges'
+        """
+        num_nodes = edge_index.max().item() + 1
+        num_edges = edge_index.size(1)
+
+        # 1. 计算边密度
+        max_possible_edges = num_nodes * (num_nodes - 1) / 2
+        edge_density = num_edges / max(1, max_possible_edges)
+
+        # 2. 计算同质率（如果提供了 labels）
+        if labels is not None:
+            labels = labels.cpu().numpy() if labels.device.type == 'cuda' else labels.numpy()
+            src = edge_index[0].cpu().numpy()
+            dst = edge_index[1].cpu().numpy()
+            same_label = (labels[src] == labels[dst]).sum()
+            homophily = same_label / max(1, num_edges)
+        else:
+            # 3. 无标签时，用图结构推断
+            # 计算平均度
+            degrees = np.bincount(edge_index[0].cpu().numpy(), minlength=num_nodes)
+            avg_degree = degrees.mean()
+            degree_std = degrees.std()
+
+            # 低同质推断：度分布方差大（异质节点相连时度差异大）
+            degree_cv = degree_std / max(1, avg_degree)  # 变异系数
+
+            # 如果度分布偏斜（很多低度节点 = 可能噪声边）
+            low_degree_ratio = (degrees < avg_degree * 0.5).sum() / max(1, num_nodes)
+
+            # 决策
+            if degree_cv > 0.8:
+                # 度分布差异大，可能异质图
+                return 'detach'
+            elif low_degree_ratio > 0.3:
+                # 大量低度节点，可能是噪声图
+                return 'edges'
+            else:
+                # 默认用 detach
+                return 'detach'
+
+        # 3. 有标签时的决策
+        if homophily > 0.6:
+            # 高同质性，用 homo
+            return 'homo'
+        elif edge_density < 0.01:
+            # 稀疏图，用 detach
+            return 'detach'
+        else:
+            # 中等同质性，检查是否有噪声
+            if low_degree_ratio > 0.3:
+                return 'edges'
+            else:
+                return 'detach'
+
     # ===== 基础工具 =====
     def process_graph(self, adj_csr):
         """csr 邻接 -> nx.Graph（不删自环）"""
@@ -28,7 +98,7 @@ class Granular:
         sub_z = self.z_detached[node_indices]
         return sub_adj, sub_z
 
-    # ===== 质量度量 =====
+    # ===== ���量度量 =====
     def quity(self, adj_s, z_detach):
         num_edges = torch.sum(adj_s) // 2
         x = torch.matmul(torch.t(z_detach).double(), adj_s.double().to(z_detach.device))
@@ -59,7 +129,7 @@ class Granular:
         m_exp = (degree_sum ** 2) / (4 * max(1, self.total_edges))
         return (sub_edges / max(1, self.total_edges)) - (m_exp / max(1, self.total_edges))
 
-    def get_quity(self, adj_s, z_detach=None):
+    def get_quality(self, adj_s, z_detach=None):
         if adj_s.shape[0] <= 1:
             return torch.tensor(0.0)
         q = self.methods['quity']
@@ -121,7 +191,7 @@ class Granular:
         cluster_Q = []
         for idx, cluster in enumerate(clusters):
             adj_s, z_s = self.get_sub_adj_z(init_subgraphs[idx], cluster)
-            cluster_Q.append(self.get_quity(adj_s, z_s))
+            cluster_Q.append(self.get_quality(adj_s, z_s))
         return init_subgraphs, clusters, cluster_Q, center_nodes
 
     def split_bfs(self, graph, split_GB_list, split_graph_list, split_center_list, center_f, quality_f):
@@ -164,7 +234,7 @@ class Granular:
 
         adj_a, z_a = self.get_sub_adj_z(sub_a, clusters[0])
         adj_b, z_b = self.get_sub_adj_z(sub_b, clusters[1])
-        qa = self.get_quity(adj_a, z_a); qb = self.get_quity(adj_b, z_b)
+        qa = self.get_quality(adj_a, z_a); qb = self.get_quality(adj_b, z_b)
 
         if quality_f > (qa + qb) / 2.5:
             split_GB_list.append(list(graph.nodes())); split_graph_list.append(graph)

@@ -6,27 +6,43 @@ from granular import Granular
 
 
 # =========================================================
+# 自适应质量函数选择 (Option A)
+# =========================================================
+def get_auto_quality(edge_index: torch.Tensor, labels: torch.Tensor = None) -> str:
+    """Wrapper for Granular.auto_quality()"""
+    return Granular.auto_quality(edge_index, labels)
+
+
+# =========================================================
 # 1) 粒球构建与球心计算
 # =========================================================
 @torch.no_grad()
 def build_granules(node_embed: torch.Tensor,
                    edge_index: torch.Tensor,
-                   quity: str = "homo",
-                   sim: str = "dot") -> Tuple[List[List[int]], List[int], List[int]]:
+                   quity: str = "auto",
+                   sim: str = "dot",
+                   labels: torch.Tensor = None) -> Tuple[List[List[int]], List[int], List[int]]:
     """
     构建粒球（不回写），返回球成员、球心索引、球图结构。
 
     Args:
         node_embed: 节点嵌入 [N, d]（可在 GPU 上）
         edge_index: 图边索引 [2, E]（可能在 GPU 上）
-        quity: 粒球划分方式（'homo' / 'detach' / ...）
+        quity: 粒球划分方式 ('homo'/'detach'/'edges'/'auto')
+              'auto' 时自动根据图结构选择
         sim: 相似度度量方式（'dot' / 'cos' / 'per'）
+        labels: 节点标签 [N]，用于 auto_quality 计算同质率
 
     Returns:
         GB_node_list: List[List[int]]，每个球的成员节点列表
         GB_center_list: List[int]，球中心索引
         GB_graph_list: List[int]，球级图结构（来自 granular.forward 的返回）
     """
+    # Auto mode: 根据图统计自动选择 quity
+    if quity == "auto":
+        quity = get_auto_quality(edge_index, labels)
+        print(f"[Auto] Selected quity: {quity}")
+
     # to_scipy_sparse_matrix 需要 CPU 张量
     edge_index_cpu = edge_index.detach().cpu()
     adj_csr = to_scipy_sparse_matrix(edge_index_cpu, num_nodes=node_embed.size(0))

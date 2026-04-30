@@ -116,7 +116,10 @@ def train_online(online, optimizer, data, device, epoch, args):
         # 3) 两视图球对齐 + 球级 InfoNCE
         if args.ball_infonce_weight > 0:
             with torch.no_grad():
-                GB2_node_list, _, _ = build_granules(h_target, data.edge_index, quity=args.gb_quity, sim=args.gb_sim)
+                GB2_node_list, _, _ = build_granules(
+                    h_target, data.edge_index,
+                    quity=args.gb_quity, sim=args.gb_sim,
+                    labels=data.y)
                 J = jaccard_between_balls(GB_node_list, GB2_node_list).to(device)
                 pairs = hungarian_matching(J)
                 H_target_ball = compute_ball_centers(h_target, GB2_node_list)
@@ -299,7 +302,7 @@ if __name__ == '__main__':
 
     # 粒球开关与基础
     parser.add_argument('--use_gb', action='store_true')
-    parser.add_argument('--gb_quity', type=str, default='detach', choices=['homo', 'detach', 'edges', 'deg'])
+    parser.add_argument('--gb_quity', type=str, default='detach', choices=['homo', 'detach', 'edges', 'deg', 'auto'])
     parser.add_argument('--gb_sim', type=str, default='dot', choices=['dot', 'cos', 'per'])
     parser.add_argument('--gb_alpha', type=float, default=0.6)
 
