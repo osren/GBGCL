@@ -28,7 +28,8 @@
       "Bash(pip show python-docx)",
       "Bash(openspec status --change \"integrate-rag-anything\" --json)",
       "Bash(openspec instructions specs --change \"integrate-rag-anything\" --json)",
-      "Bash(openspec status --change \"integrate-rag-anything\")"
+      "Bash(openspec status --change \"integrate-rag-anything\")",
+      "Bash(ls:*)"
     ]
   }
 }

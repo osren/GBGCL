@@ -1,78 +1,81 @@
 # -*- coding: utf-8 -*-
 # sweepX.py
-# �Զ�����ɨ�Σ�Stage-A(��ɸ)/Stage-B(��ѵ) + �ϵ����� + ���ݼ��������ݣ����� train.py CUDA+CSV �棩
+# Automatic hyperparameter sweep: Stage-A (coarse) / Stage-B (fine-tune) + multi-GPU + dataset parallelization
 import os, csv, shlex, itertools, subprocess
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from typing import List, Tuple
 
 # =========================
-# �������������޸ģ�
+# Configuration (modify here)
 # =========================
 
-# ���ݼ������� data.py / train.py �� --dataset_name ���룩
+# Datasets supported by data.py / train.py (--dataset_name)
 #DATASETS = ["Computers", "Photo", "CS", "Physics"]
 DATASETS = ["Physics", "Computers", "Photo", "CS"]
-# �����������������ռ䣨A �׶ο�ȫ����B �׶�һ���� FILTERS������
-QUITY  = ["homo", "detach"]
+# Hyperparameter grid: Stage-A uses full grid, Stage-B uses FILTERS subset
+QUITY  = ["homo", "detach", "edges"]
 SIMS   = ["dot", "cos"]
 ALPHAS = [0.7, 0.5, 0.3]
 
-# ����������ɢ���������ռ䡪��
-BETAS   = [0.1, 0.2, 0.3]          # �ɸ� [0.1, 0.2, 0.3]
-KS      = [3, 5, 10, 20]            # �ɸ� [5, 10, 20]
-W_MODES = ["topo", "center", "topo+center"] # �ɸ� ["topo", "center", "topo+center"]
-KNNs    = [5, 10, 20]            # �ɸ� [5, 10, 20]
+# Ball diffusion hyperparameters (full grid)
+BETAS   = [0.1, 0.2, 0.3]          # grid [0.1, 0.2, 0.3]
+KS      = [3, 5, 10, 20]            # grid [5, 10, 20]
+W_MODES = ["topo", "center", "topo+center"] # grid ["topo", "center", "topo+center"]
+KNNs    = [5, 10, 20]            # grid [5, 10, 20]
 
-# ������ Loss �����ռ䡪��
-BALL_LOSS_W      = [0.05]     # �ɸ� [0.0, 0.02, 0.05]
-BALL_ANGLE_THR   = [15.0, 25.0]     # �ɸ� [10.0, 15.0, 25.0]
-BALL_UNIFORM_TAU = [0.1]      # �ɸ� [0.05, 0.1]
-BALL_INFO_W      = [0.02]     # �ɸ� [0.0, 0.01, 0.02]
-BALL_INFO_TEMP   = [0.2]      # �ɸ� [0.1, 0.2, 0.3]
+# Ball Loss hyperparameters (full grid)
+BALL_LOSS_W      = [0.05]     # grid [0.0, 0.02, 0.05]
+BALL_ANGLE_THR   = [15.0, 25.0]     # grid [10.0, 15.0, 25.0]
+BALL_UNIFORM_TAU = [0.1]      # grid [0.05, 0.1]
+BALL_INFO_W      = [0.02]     # grid [0.0, 0.01, 0.02]
+BALL_INFO_TEMP   = [0.2]      # grid [0.1, 0.2, 0.3]
 
-# ����ѡ�������ݼ����� Top-K ��ѡ
-# ֧������д����
-# 1) ֻ�� (quity, sim, alpha) ��Ԫ�飨��������������Ĭ��ֵ��
-# 2) �������� 12 Ԫ�飨����ȫ���������Ĭ��ֵ��
+# Filter presets for dataset-specific Top-K selection
+# Supports two formats:
+# 1) 3-tuple (quity, sim, alpha) with full grid search defaults
+# 2) 12-tuple (all hyperparameters fixed, no grid search)
 FILTERS = {
-    "Computers": [
-        ("detach","dot",0.7),
-        ("homo","dot",0.7),
-        # ����Ԫ��ʾ�������ȼ����ߣ���
-        # ("detach","dot",0.7, 0.2,10,"topo+center",10, 0.05,15.0,0.1, 0.02,0.2),
-    ],
     "Photo": [
-        ("detach","dot",0.3),
-        ("homo","cos",0.3),
-        ("detach","dot",0.5),
-        ("homo","dot",0.5),
-        ("detach","cos",0.5),
+        ("detach","cos",0.3),    # P1: cos similarity
+        ("edges","cos",0.3),     # P2: edges quality + cos
+        ("homo","cos",0.5),     # P3: homo + alpha=0.5
+        ("detach","dot",0.5),   # P4: alpha=0.5 intermediate
+        ("edges","dot",0.3),     # P5: edges + dot
     ],
-    "CS": [
-        ("detach","dot",0.7),
-        ("detach","dot",0.3),
+    "Computers": [
+        ("edges","cos",0.3),   # P1: edges + cos
+        ("homo","cos",0.5),    # P2: homo + cos + alpha=0.5
+        ("detach","cos",0.5),   # P3: detach + cos + alpha=0.5
+        ("edges","dot",0.5),   # P4: edges + dot + alpha=0.5
+        ("detach","cos",0.3),   # P5: detach + cos baseline
+        ("detach","dot",0.7),    # baseline: original best config
+        ("homo","dot",0.7),     # baseline
     ],
     "Physics": [
-        ("homo","cos",0.3),
+        ("detach","cos",0.3),   # P1: detach + cos
+        ("edges","dot",0.3),    # P2: edges + dot
+        ("homo","cos",0.3),    # baseline
+        ("detach","dot",0.3),   # baseline
+    ],
+    "CS": [
+        # CS already beats baseline, resume from checkpoint
+        ("detach","dot",0.7),
         ("detach","dot",0.3),
-        ("homo","cos",0.5),
-        ("detach","dot",0.5),
-        ("homo","dot",0.3),
     ],
 }
 
-# �׶����ã������������ȣ�Ĭ�� A��
+# Stage configuration (controlled by environment, default A)
 STAGE = os.environ.get("SWEEP_STAGE", "A").upper()
-if STAGE == "A":         # ��ɸ����
+if STAGE == "A":         # coarse search
     NUM_EPOCHS = 150
     TRIALS = 1
     GB_REBUILD_EVERY = 50
-else:                    # ��ѵ����
+else:                    # fine-tune
     NUM_EPOCHS = 700
     TRIALS = 5
     GB_REBUILD_EVERY = 100
 
-# ѵ���������Σ������ train.py ����һ�£�
+# Training hyperparameters (same as train.py defaults)
 E1_LR = 1e-5
 E2_LR = 1e-5
 HIDDEN_DIM = 1024
@@ -82,23 +85,23 @@ MOMENTUM = 0.99
 SEED = 66666
 LOG_EVERY = 50
 
-# �豸�����û����������ǣ�
+# Device configuration (cuda or cpu)
 DEVICE = os.environ.get("SWEEP_DEVICE", "cuda")
 
-# �����ȣ������������ȣ�
+# Concurrency (number of parallel workers)
 MAX_WORKERS = int(os.environ.get("SWEEP_WORKERS", "2"))
 
-# sklearn / joblib ����ʱĿ¼������ /tmp ���̣�
+# sklearn / joblib temp folder to avoid /tmp issues
 os.environ.setdefault("JOBLIB_TEMP_FOLDER", "/dev/shm")
 
-# �� train.py ���룺���д�� results/
+# train.py output: writes to results/
 RESULTS_DIR = "results"
 LOG_DIR = "log_CUDA"
 os.makedirs(RESULTS_DIR, exist_ok=True)
 os.makedirs(LOG_DIR, exist_ok=True)
 
 # =========================
-# ���ߺ���
+# Helper functions
 # =========================
 
 ALIASES = {
@@ -113,9 +116,9 @@ def result_csv_paths(dataset_name: str) -> List[str]:
     return [os.path.join(RESULTS_DIR, f"{n}_summary.csv") for n in names]
 
 def _row_match(r: dict, kv: dict) -> bool:
-    
+
     for k, v in kv.items():
-        if k not in r: 
+        if k not in r:
             return False
         rv = r[k]
         try:
@@ -128,7 +131,7 @@ def _row_match(r: dict, kv: dict) -> bool:
     return True
 
 def already_done(dataset: str, params: dict) -> bool:
-    
+
     for path in result_csv_paths(dataset):
         if not os.path.exists(path):
             continue
@@ -219,7 +222,7 @@ def run_one(dataset: str, p: dict, stage_tag: str) -> int:
     return 0
 
 # =========================
-# ������
+# Main entry point
 # =========================
 
 def main():
@@ -227,12 +230,12 @@ def main():
     jobs: List[Tuple[str, dict, str]] = []
 
     for ds in DATASETS:
-        # �� FILTERS ���˺�ѡ����֧����Ԫ��Ҳ֧������ 12 Ԫ��
+        # From FILTERS dict or full grid if not in FILTERS
         if ds in FILTERS and len(FILTERS[ds]) > 0:
             for tpl in FILTERS[ds]:
                 if len(tpl) == 3:
                     q, s, a = tpl
-                    # ���������Ĭ�Ͽռ䣨��ֵ�Ļ���һ����ϣ�
+                    # Full grid over remaining hyperparameters
                     for (beta, K, wm, knn, blw, ang, tau, biw, bit) in itertools.product(
                         BETAS, KS, W_MODES, KNNs, BALL_LOSS_W, BALL_ANGLE_THR, BALL_UNIFORM_TAU, BALL_INFO_W, BALL_INFO_TEMP
                     ):
@@ -245,7 +248,7 @@ def main():
                             continue
                         jobs.append((ds, p, stage_tag))
                 else:
-                    # ���� 12 Ԫ��
+                    # 12-tuple: all params fixed
                     (q, s, a, beta, K, wm, knn, blw, ang, tau, biw, bit) = tpl
                     p = dict(gb_quity=q, gb_sim=s, gb_alpha=float(a),
                              gb_beta=float(beta), gb_K=int(K), gb_w_mode=wm, gb_knn=int(knn),
@@ -256,7 +259,7 @@ def main():
                         continue
                     jobs.append((ds, p, stage_tag))
         else:
-            # ������ȫ���ѿ�����
+            # Full grid search
             for (q, s, a, beta, K, wm, knn, blw, ang, tau, biw, bit) in itertools.product(
                 QUITY, SIMS, ALPHAS, BETAS, KS, W_MODES, KNNs, BALL_LOSS_W, BALL_ANGLE_THR, BALL_UNIFORM_TAU, BALL_INFO_W, BALL_INFO_TEMP
             ):
