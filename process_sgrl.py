@@ -42,7 +42,7 @@ async def main():
     # 定义 LLM 模型函数
     def llm_model_func(prompt, system_prompt=None, history_messages=[], **kwargs):
         return openai_complete_if_cache(
-            "abab6.5s-chat",
+            "MiniMax-M2.5",
             prompt,
             system_prompt=system_prompt,
             history_messages=history_messages,
@@ -57,7 +57,7 @@ async def main():
     ):
         if messages:
             return openai_complete_if_cache(
-                "abab6.5s-chat",
+                "MiniMax-M2.5",
                 "",
                 system_prompt=None,
                 history_messages=[],
@@ -68,7 +68,7 @@ async def main():
             )
         elif image_data:
             return openai_complete_if_cache(
-                "abab6.5s-chat",
+                "MiniMax-M2.5",
                 "",
                 system_prompt=None,
                 history_messages=[],
@@ -129,14 +129,7 @@ async def main():
         parse_method="auto"
     )
     print(f"文档处理完成，输出到: {output_dir}")
-
-    # 测试查询
-    result = await rag.aquery(
-        "这篇论文的主要内容是什么？",
-        mode="hybrid"
-    )
-    print("\n查询结果:")
-    print(result)
+    print("文档解析成功！RAG 知识库已建立。")
 
 if __name__ == "__main__":
     asyncio.run(main())

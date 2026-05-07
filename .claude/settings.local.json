@@ -45,7 +45,14 @@
       "Bash(source /Users/didi/.local/bin/env)",
       "Bash(source /Users/didi/Desktop/GBGCL/rag_env/bin/activate)",
       "Bash(brew list libreoffice)",
-      "Bash(python /Users/didi/Desktop/GBGCL/process_sgrl.py)"
+      "Bash(python /Users/didi/Desktop/GBGCL/process_sgrl.py)",
+      "Bash(python process_sgrl.py)",
+      "Bash(curl -s https://api.minimax.chat/v1/available_models -H \"Authorization: Bearer sk-cp-KPHW8QBA95P1fngZvqM6mH3fZ20WvraNZfD8WfcUY1PwmS1Jl44WRviyb0UeK0MuAKtxFil4YENoql2hxxc_zKNzGj_brTpaaCaVVbCV5Z0Qxlx_yjCI-5U\" -H \"Content-Type: application/json\")",
+      "Bash(curl -s https://api.minimax.chat/v1/models -H \"Authorization: Bearer sk-cp-KPHW8QBA95P1fngZvqM6mH3fZ20WvraNZfD8WfcUY1PwmS1Jl44WRviyb0UeK0MuAKtxFil4YENoql2hxxc_zKNzGj_brTpaaCaVVbCV5Z0Qxlx_yjCI-5U\" -H \"Content-Type: application/json\")",
+      "Bash(curl -s https://api.minimax.chat/v1/embeddings -H \"Authorization: Bearer sk-cp-KPHW8QBA95P1fngZvqM6mH3fZ20WvraNZfD8WfcUY1PwmS1Jl44WRviyb0UeK0MuAKtxFil4YENoql2hxxc_zKNzGj_brTpaaCaVVbCV5Z0Qxlx_yjCI-5U\" -H \"Content-Type: application/json\" -d '{\"\"model\"\":\"\"text-embedding-01\"\",\"\"input\"\":\"\"hello\"\"}')",
+      "Bash(curl -s https://api.minimax.chat/v1/embeddings -H \"Authorization: Bearer sk-cp-KPHW8QBA95P1fngZvqM6mH3fZ20WvraNZfD8WfcUY1PwmS1Jl44WRviyb0UeK0MuAKtxFil4YENoql2hxxc_zKNzGj_brTpaaCaVVbCV5Z0Qxlx_yjCI-5U\" -H \"Content-Type: application/json\" -d '{\"\"model\"\":\"\"text-embedding-01\"\",\"\"texts\"\":[\"\"hello\"\"]}')",
+      "Bash(curl -s https://api.minimax.chat/v1/embeddings -H \"Authorization: Bearer sk-cp-KPHW8QBA95P1fngZvqM6mH3fZ20WvraNZfD8WfcUY1PwmS1Jl44WRviyb0UeK0MuAKtxFil4YENoql2hxxc_zKNzGj_brTpaaCaVVbCV5Z0Qxlx_yjCI-5U\" -H \"Content-Type: application/json\" -d '{\"\"model\"\":\"\"text-embedding-01\"\",\"\"input_type\"\":\"\"query\"\",\"\"texts\"\":[\"\"hello\"\"]}')",
+      "Bash(curl -s https://api.minimax.chat/v1/ -H \"Authorization: Bearer sk-cp-KPHW8QBA95P1fngZvqM6mH3fZ20WvraNZfD8WfcUY1PwmS1Jl44WRviyb0UeK0MuAKtxFil4YENoql2hxxc_zKNzGj_brTpaaCaVVbCV5Z0Qxlx_yjCI-5U\" -H \"Content-Type: application/json\")"
     ]
   }
 }
