@@ -15,27 +15,22 @@ echo "Syntax OK"
 
 ---
 
-## 2. 测试模式运行（短训练）- 对比基线
+## 2. Ensemble 模式 - 四个数据集
 
 ```bash
 cd /Users/didi/Desktop/GBGCL
 
-# baseline: homo
-python src/train.py --dataset_name Photo --use_gb --gb_quity homo --num_epochs 50 --trials 1 --gb_rebuild_every 10 --device cuda
-
-# baseline: detach
-python src/train.py --dataset_name Photo --use_gb --gb_quity detach --num_epochs 50 --trials 1 --gb_rebuild_every 10 --device cuda
-
-# baseline: edges
-python src/train.py --dataset_name Photo --use_gb --gb_quity edges --num_epochs 50 --trials 1 --gb_rebuild_every 10 --device cuda
-```
-
----
-
-## 3. Ensemble 模式运行
-
-```bash
+# Photo 数据集
 python src/train.py --dataset_name Photo --use_gb --gb_ensemble --gb_ensemble_quities homo,detach,edges --num_epochs 50 --trials 1 --gb_rebuild_every 10 --device cuda
+
+# Computers 数据集
+python src/train.py --dataset_name Computers --use_gb --gb_ensemble --gb_ensemble_quities homo,detach,edges --num_epochs 50 --trials 1 --gb_rebuild_every 10 --device cuda
+
+# CS 数据集
+python src/train.py --dataset_name CS --use_gb --gb_ensemble --gb_ensemble_quities homo,detach,edges --num_epochs 50 --trials 1 --gb_rebuild_every 10 --device cuda
+
+# Physics 数据集
+python src/train.py --dataset_name Physics --use_gb --gb_ensemble --gb_ensemble_quities homo,detach,edges --num_epochs 50 --trials 1 --gb_rebuild_every 10 --device cuda
 ```
 
 预期输出日志：
@@ -48,7 +43,7 @@ python src/train.py --dataset_name Photo --use_gb --gb_ensemble --gb_ensemble_qu
 
 ---
 
-## 4. 完整训练（700 epochs, 5 trials）
+## 3. 完整训练（可选）
 
 ```bash
 python src/train.py --dataset_name Photo --use_gb --gb_ensemble --num_epochs 700 --trials 5 --device cuda
