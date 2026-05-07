@@ -195,18 +195,46 @@ def granule_diffuse_and_write(node_embed: torch.Tensor,
                               beta: float = 0.2,
                               K: int = 10,
                               w_mode: str = "topo+center",
-                              knn: int = 10):
+                              knn: int = 10,
+                              use_ensemble: bool = False,
+                              ensemble_quities: List[str] = None,
+                              ensemble_temp: float = 1.0,
+                              select: str = "hard"):
     """
     执行粒球扩散并回写节点表示。
+
+    Args:
+        use_ensemble: 是否启用多 quity 投票
+        ensemble_quities: 要投票的 quity 列表
+        ensemble_temp: 投票温度系数
+        select: 'hard' 选择最佳；'soft' 软融合
 
     Returns:
         z_new: 节点新表示 [N, d]
         gb_sizes: 每个粒球大小 List[int]
         H_ball: 扩散后的球向量 [B, d]
         GB_node_list: 球成员索引 List[List[int]]
+        selected_quity: 实际使用的 quity（用于日志）
     """
     device = node_embed.device
-    GB_node_list, GB_center_list, GB_graph_list = build_granules(node_embed, edge_index, quity, sim)
+
+    # --- Ensemble 模式 ---
+    if use_ensemble and ensemble_quities:
+        best_quality, GB_node_list, weights_dict = build_granules_ensemble(
+            node_embed, edge_index, ensemble_quities, sim, temp=ensemble_temp
+        )
+        # 记录选中的 quity 和权重
+        for log_q, log_w in weights_dict.items():
+            print(f"[Ensemble] quity={log_q}, weight={log_w:.4f}")
+        selected_quity = best_quality
+        print(f"[Ensemble] Selected: {selected_quity}")
+    else:
+        # 单 quity 模式
+        GB_node_list, GB_center_list, GB_graph_list = build_granules(node_embed, edge_index, quity, sim)
+        selected_quity = quity
+
+    # 构建球图并扩散
+    GB_center_list = []  # 简化：不使用预定义球心
     H0 = _compute_ball_centers(node_embed, GB_node_list)
     Wt = _build_ball_graph(GB_node_list, GB_center_list, node_embed, edge_index, w_mode, knn)
     HK = _diffuse_on_ball_graph(H0, Wt, beta, K)
@@ -219,11 +247,126 @@ def granule_diffuse_and_write(node_embed: torch.Tensor,
         idx = torch.tensor(members, dtype=torch.long, device=device)
         z_new[idx] = alpha_write * node_embed[idx] + (1 - alpha_write) * HK[b]
 
-    return z_new, [len(m) for m in GB_node_list], HK, GB_node_list
+    return z_new, [len(m) for m in GB_node_list], HK, GB_node_list, selected_quity
 
 
 # =========================================================
-# 3) 球级散射 + 匈牙利对齐 + 球级 InfoNCE
+# 2) 粒球质量评估（用于投票）
+# =========================================================
+@torch.no_grad()
+def _evaluate_ball_quality(node_embed: torch.Tensor,
+                          edge_index: torch.Tensor,
+                          GB_node_list: List[List[int]],
+                          quity: str) -> float:
+    """
+    评估粒球质量：基于球间分离度 + 球内紧凑度。
+
+    分离度：不同球心之间的相似度（越低越好）
+    紧凑度：球内节点到球心的距离（越低越好）
+    score = 分离度的负值 - 紧凑度
+
+    Returns:
+        质量得分（越高越好）
+    """
+    device = node_embed.device
+    B = len(GB_node_list)
+    if B <= 1:
+        return 0.0
+
+    # 计算球心
+    H0 = compute_ball_centers(node_embed, GB_node_list)
+    if H0.numel() == 0:
+        return 0.0
+
+    Hn = torch.nn.functional.normalize(H0, dim=-1)
+
+    # 1) 球间分离度（所有球心对相似度均值，越低越好）
+    sim_center = torch.mm(Hn, Hn.t())  # [B, B]
+    mask = ~torch.eye(B, dtype=torch.bool, device=device)
+    if mask.any():
+        separation = sim_center.masked_select(mask).mean().item()
+    else:
+        separation = 0.0
+
+    # 2) 球内紧凑度（节点到球心的平均距离，越低越好）
+    compactness = 0.0
+    total_dist = 0.0
+    total_nodes = 0
+    for b, members in enumerate(GB_node_list):
+        if not members or len(members) == 0:
+            continue
+        idx = torch.tensor(members, dtype=torch.long, device=device)
+        member_embed = node_embed[idx]
+        center_embed = H0[b:b+1]
+        # L2 距离
+        dist = torch.norm(member_embed - center_embed, dim=-1).sum()
+        total_dist += dist.item()
+        total_nodes += len(members)
+
+    if total_nodes > 0:
+        compactness = total_dist / total_nodes
+
+    # 综合得分：分离度越低越好，compactness 越低越好
+    # 归一化到合理范围
+    quality_score = -separation - compactness * 0.1
+
+    return quality_score
+
+
+# =========================================================
+# 2.5) 并行构建多种 quity 的粒球（投票Ensemble）
+# =========================================================
+def build_granules_ensemble(node_embed: torch.Tensor,
+                           edge_index: torch.Tensor,
+                           quities: List[str],
+                           sim: str = "dot",
+                           labels: torch.Tensor = None,
+                           temp: float = 1.0) -> Tuple[str, List[List[int]], dict]:
+    """
+    并行构建多种 quity 的粒球，计算权重，返回最优结构。
+
+    Args:
+        node_embed: 节点嵌入 [N, d]
+        edge_index: 图边索引 [2, E]
+        quities: 要测试的 quity 列表，如 ['homo', 'detach', 'edges']
+        sim: 相似度度量方式
+        labels: 节点标签 [N]，用于 auto_quality 计算
+        temp: 温度系数（用于 softmax 归一化）
+
+    Returns:
+        best_quity: 选中的最优 quity
+        best_GB_node_list: 最优 quity 对应的球成员列表
+        weights_dict: dict[quity] -> weight
+    """
+    results = {}
+    for q in quities:
+        # 构建粒球
+        GB_nodes, GB_centers, GB_graphs = build_granules(node_embed, edge_index, q, sim, labels)
+        # 评估质量
+        quality_score = _evaluate_ball_quality(node_embed, edge_index, GB_nodes, q)
+        results[q] = {
+            'GB_node_list': GB_nodes,
+            'GB_center_list': GB_centers,
+            'GB_graph_list': GB_graphs,
+            'quality_score': quality_score,
+            'num_balls': len(GB_nodes)
+        }
+
+    # 计算 softmax 权重（基于质量得分）
+    scores = torch.tensor([results[q]['quality_score'] for q in quities])
+    weights = torch.softmax(scores / temp, dim=0).tolist()
+    weights_dict = dict(zip(quities, weights))
+
+    # 选择权重最高的 quity
+    best_idx = weights.index(max(weights))
+    best_quity = quities[best_idx]
+    best_GB_node_list = results[best_quity]['GB_node_list']
+
+    return best_quity, best_GB_node_list, weights_dict
+
+
+# =========================================================
+# 3) 构建球图并执行扩散
 # =========================================================
 def ball_scatter_loss(H_ball: torch.Tensor,
                       angle_thresh_deg: float = 15.0,

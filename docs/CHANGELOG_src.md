@@ -5,6 +5,97 @@
 
 ---
 
+## 2026-05-07 | option-a2-ensemble-voting
+
+### 修改概述
+实现多 quity 并行构建 + 自适应权重投票机制（Option A2），解决静态决策无法根据训练效果动态调整的问题。
+
+### 修改文件
+
+#### 1. `src/gb_utils.py`
+
+| 修改位置 | 修改内容 |
+|---------|---------|
+| 第228-285行 | 新增 `_evaluate_ball_quality()` - 基于球间分离度 + 球内紧凑度的质量评估 |
+| 第288-337行 | 新增 `build_granules_ensemble()` - 多 quity 并行构建 + softmax 权重投票 |
+| 第189-223行 | 修改 `granule_diffuse_and_write()` - 新增 `use_ensemble`、`ensemble_quities`、`ensemble_temp`、`select` 参数，返回 `selected_quality` |
+
+```python
+# 质量评估
+def _evaluate_ball_quality(node_embed, edge_index, GB_node_list, quity):
+    # 分离度：不同球心之间的相似度（越低越好）
+    # 紧凑度：球内节点到球心的距离（越低越好）
+    # score = -separation - compactness * 0.1
+
+# 投票构建
+def build_granules_ensemble(node_embed, edge_index, quities, sim, temp=1.0):
+    # 并行构建多种 quity 的粒球
+    # 基于质量得分计算 softmax 权重
+    # 返回最佳 quity 和权重字典
+```
+
+#### 2. `src/train.py`
+
+| 修改位置 | 修改内容 |
+|---------|---------|
+| argparse (约304-313行) | 新增 `--gb_ensemble`、`--gb_ensemble_quities`、`--gb_ensemble_temp`、`--gb_ensemble_select` 参数 |
+| train_online() 调用 (约82-91行) | 修改 `granule_diffuse_and_write()` 调用，传入 ensemble 相关参数 |
+
+```python
+# 新增参数
+parser.add_argument('--gb_ensemble', action='store_true')
+parser.add_argument('--gb_ensemble_quities', type=str, default='homo,detach,edges')
+parser.add_argument('--gb_ensemble_temp', type=float, default=1.0)
+parser.add_argument('--gb_ensemble_select', type=str, default='hard', choices=['hard', 'soft'])
+
+# 调用时传入
+z_new, gb_sizes, H_ball, GB_node_list, selected_quality = granule_diffuse_and_write(
+    ...,
+    use_ensemble=args.gb_ensemble,
+    ensemble_quities=args.gb_ensemble_quities.split(','),
+    ensemble_temp=args.gb_ensemble_temp,
+    select=args.gb_ensemble_select
+)
+```
+
+---
+
+### 回退指南
+
+如需回退到修改前状态，执行以下操作：
+
+1. **gb_utils.py**: 删除 `_evaluate_ball_quality()`、`build_granules_ensemble()`，恢复 `granule_diffuse_and_write()` 原签名（移除 ensemble 参数）
+2. **train.py**: 删除新增的 argparse 参数，恢复 `train_online()` 中的 `granule_diffuse_and_write()` 调用
+
+---
+
+### 使用方法
+
+```bash
+cd src
+
+# 测试模式（短训练）
+python train.py --dataset_name Photo --use_gb --gb_ensemble --gb_ensemble_quities homo,detach,edges --num_epochs 50 --trials 1
+
+# 对比基线
+python train.py --dataset_name Photo --use_gb --gb_quity homo --num_epochs 50 --trials 1
+python train.py --dataset_name Photo --use_gb --gb_quity detach --num_epochs 50 --trials 1
+python train.py --dataset_name Photo --use_gb --gb_quity edges --num_epochs 50 --trials 1
+
+# 完整训练
+python train.py --dataset_name Photo --use_gb --gb_ensemble --num_epochs 700 --trials 5
+```
+
+预期输出：
+```
+[Ensemble] quity=homo, weight=0.2xxx
+[Ensemble] quity=detach, weight=0.6xxx
+[Ensemble] quity=edges, weight=0.2xxx
+[Ensemble] Selected: detach
+```
+
+---
+
 ## 2026-04-30 | option-a-auto-quality
 
 ### 修改概述

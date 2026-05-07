@@ -79,12 +79,16 @@ def train_online(online, optimizer, data, device, epoch, args):
     if args.use_gb and (epoch % args.gb_rebuild_every == 0):
         with torch.no_grad():
             # 1) 构球 + 球图扩散 + 回写
-            z_new, gb_sizes, H_ball, GB_node_list = granule_diffuse_and_write(
+            z_new, gb_sizes, H_ball, GB_node_list, selected_quality = granule_diffuse_and_write(
                 node_embed=h, edge_index=data.edge_index,
                 quity=args.gb_quity, sim=args.gb_sim,
                 alpha_write=args.gb_alpha,
                 beta=args.gb_beta, K=args.gb_K,
-                w_mode=args.gb_w_mode, knn=args.gb_knn
+                w_mode=args.gb_w_mode, knn=args.gb_knn,
+                use_ensemble=getattr(args, 'gb_ensemble', False),
+                ensemble_quities=getattr(args, 'gb_ensemble_quities', 'homo,detach,edges').split(','),
+                ensemble_temp=getattr(args, 'gb_ensemble_temp', 1.0),
+                select=getattr(args, 'gb_ensemble_select', 'hard')
             )
             # 粒球统计
             num_balls = len(gb_sizes)
@@ -305,6 +309,16 @@ if __name__ == '__main__':
     parser.add_argument('--gb_quity', type=str, default='detach', choices=['homo', 'detach', 'edges', 'deg', 'auto'])
     parser.add_argument('--gb_sim', type=str, default='dot', choices=['dot', 'cos', 'per'])
     parser.add_argument('--gb_alpha', type=float, default=0.6)
+
+    # 粒球投票集成（Option A2）
+    parser.add_argument('--gb_ensemble', action='store_true',
+                        help='Enable ensemble voting across multiple quity functions')
+    parser.add_argument('--gb_ensemble_quities', type=str, default='homo,detach,edges',
+                        help='Comma-separated quity functions to ensemble')
+    parser.add_argument('--gb_ensemble_temp', type=float, default=1.0,
+                        help='Temperature for softmax weighting')
+    parser.add_argument('--gb_ensemble_select', type=str, default='hard', choices=['hard', 'soft'],
+                        help='hard: select best quity; soft: weighted fusion')
 
     # 粒球扩散参数
     parser.add_argument('--gb_beta', type=float, default=0.2)
