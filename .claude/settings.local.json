@@ -29,7 +29,23 @@
       "Bash(openspec status --change \"integrate-rag-anything\" --json)",
       "Bash(openspec instructions specs --change \"integrate-rag-anything\" --json)",
       "Bash(openspec status --change \"integrate-rag-anything\")",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(pip3 --version)",
+      "Bash(pip3 install raganything[all])",
+      "Bash(pip3 install raganything)",
+      "Bash(pip3 install --upgrade pip)",
+      "Bash(pip3 install --upgrade raganything)",
+      "Bash(pip3 install raganything==1.3.0)",
+      "Bash(curl -LsSf https://astral.sh/uv/install.sh)",
+      "Bash(sh)",
+      "Bash(source $HOME/.local/bin/env)",
+      "Bash(uv venv /Users/didi/Desktop/GBGCL/rag_env --python 3.11)",
+      "Bash(source rag_env/bin/activate)",
+      "Bash(uv pip install raganything[all])",
+      "Bash(source /Users/didi/.local/bin/env)",
+      "Bash(source /Users/didi/Desktop/GBGCL/rag_env/bin/activate)",
+      "Bash(brew list libreoffice)",
+      "Bash(python /Users/didi/Desktop/GBGCL/process_sgrl.py)"
     ]
   }
 }
