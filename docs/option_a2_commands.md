@@ -21,13 +21,13 @@ echo "Syntax OK"
 cd src
 
 # baseline: homo
-python train.py --dataset_name Photo --use_gb --gb_quity homo --num_epochs 50 --trials 1 --device cpu
+python train.py --dataset_name Photo --use_gb --gb_quity homo --num_epochs 50 --trials 1 --device cuda
 
 # baseline: detach
-python train.py --dataset_name Photo --use_gb --gb_quity detach --num_epochs 50 --trials 1 --device cpu
+python train.py --dataset_name Photo --use_gb --gb_quity detach --num_epochs 50 --trials 1 --device cuda
 
 # baseline: edges
-python train.py --dataset_name Photo --use_gb --gb_quity edges --num_epochs 50 --trials 1 --device cpu
+python train.py --dataset_name Photo --use_gb --gb_quity edges --num_epochs 50 --trials 1 --device cuda
 ```
 
 ---
@@ -35,7 +35,7 @@ python train.py --dataset_name Photo --use_gb --gb_quity edges --num_epochs 50 -
 ## 3. Ensemble 模式运行
 
 ```bash
-python train.py --dataset_name Photo --use_gb --gb_ensemble --gb_ensemble_quities homo,detach,edges --num_epochs 50 --trials 1 --device cpu
+python train.py --dataset_name Photo --use_gb --gb_ensemble --gb_ensemble_quities homo,detach,edges --num_epochs 50 --trials 1 --device cuda
 ```
 
 预期输出日志：
