@@ -68,15 +68,22 @@ def main(topk=3):
     print(f"[SAVE] {overall_path}")
 
 if __name__ == "__main__":
-    main(topk=3)
+    main(topk=args.topk)
 '''
 # analyze_results.py
 import os, glob, csv, numpy as np
+import argparse
 from collections import defaultdict
 from datetime import datetime
 
-RESULTS_DIR = "results"    # 与 train.py / sweepX.py 对齐
-OUT_DIR = "analysis"
+parser = argparse.ArgumentParser()
+parser.add_argument("--results_dir", type=str, default="results", help="Results directory")
+parser.add_argument("--out_dir", type=str, default="analysis", help="Output directory")
+parser.add_argument("--topk", type=int, default=3, help="Top-K records per dataset")
+args = parser.parse_args()
+
+RESULTS_DIR = args.results_dir
+OUT_DIR = args.out_dir
 os.makedirs(OUT_DIR, exist_ok=True)
 
 # 想更粗的聚合，就删减下面的字段
@@ -224,4 +231,4 @@ def main(topk=3):
     print(f"[SAVE] {overall_path} | {written} new records written")
 
 if __name__ == "__main__":
-    main(topk=3)
+    main(topk=args.topk)
