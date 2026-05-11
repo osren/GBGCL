@@ -1,0 +1,4 @@
+Method,CS,Computers,Photo,Physics
+SGRL(baseline),94.15,90.23,93.95,96.23
+GB+OptionC,94.06,89.96,93.86,96.30
+GB,94.28,90.06,93.94,96.24
