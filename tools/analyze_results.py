@@ -84,27 +84,28 @@ def main(topk=3):
         for k, vals in bucket.items():
             mu = float(np.mean(vals))
             sd = float(np.std(vals))
+            mx = float(np.max(vals))
             k_dict = dict(k)
-            aggs.append((mu, sd, k_dict, len(vals)))
+            aggs.append((mu, sd, mx, k_dict, len(vals)))
 
         # 排序：均值降序，方差升序
         aggs.sort(key=lambda x: (-x[0], x[1]))
 
         # 输出数据集汇总（覆盖模式）
         out_path = os.path.join(OUT_DIR, f"{ds}_gb_summary.csv")
-        header = ["dataset", "timestamp", "mean", "std", "num_trials"] + use_fields
+        header = ["dataset", "timestamp", "mean", "std", "max", "num_trials", "stat_type"] + use_fields
         with open(out_path, "w", newline="", encoding="utf-8") as f:
             w = csv.writer(f)
             w.writerow(header)
-            for (mu, sd, kd, n) in aggs:
-                row = [ds, datetime.now().strftime("%Y-%m-%d %H:%M"), f"{mu:.6f}", f"{sd:.6f}", n]
+            for (mu, sd, mx, kd, n) in aggs:
+                row = [ds, datetime.now().strftime("%Y-%m-%d %H:%M"), f"{mu:.6f}", f"{sd:.6f}", f"{mx:.6f}", n, "mean"]
                 row += [kd.get(k, "") for k in use_fields]
                 w.writerow(row)
-        print(f"[SAVE] {out_path} | Top-{topk}: mean={aggs[0][0]:.4f}±{aggs[0][1]:.4f} (n={aggs[0][3]})")
+        print(f"[SAVE] {out_path} | Top-{topk}: mean={aggs[0][0]:.4f}+-{aggs[0][1]:.4f}, max={aggs[0][2]:.4f} (n={aggs[0][4]})")
 
         # 记录 overall
-        for (mu, sd, kd, n) in aggs[:topk]:
-            row = [ds, f"{mu:.6f}", f"{sd:.6f}", n]
+        for (mu, sd, mx, kd, n) in aggs[:topk]:
+            row = [ds, f"{mu:.6f}", f"{sd:.6f}", f"{mx:.6f}", n, "mean"]
             row += [kd.get(k, "") for k in use_fields]
             overall_rows.append(row)
 
@@ -114,16 +115,23 @@ def main(topk=3):
         return
 
     overall_path = os.path.join(OUT_DIR, "overall_topk.csv")
-    header = ["dataset", "mean", "std", "num_trials"] + use_fields
+    header = ["dataset", "mean", "std", "max", "num_trials", "stat_type"] + use_fields
     with open(overall_path, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(header)
         w.writerows(overall_rows)
 
     print(f"[SAVE] {overall_path}")
-    print("\n=== Best Results ===")
+    print("\n=== Best Results (Mean) ===")
     for row in overall_rows[:len(datasets)]:
-        print(f"  {row[0]}: {row[1]}±{row[2]} (n={row[3]})")
+        print(f"  {row[0]}: {row[1]}+-{row[2]} (max={row[3]})")
+
+    print("\n=== Best Max per Dataset ===")
+    for ds in datasets:
+        ds_rows = [r for r in overall_rows if r[0] == ds]
+        if ds_rows:
+            max_row = max(ds_rows, key=lambda r: float(r[3]))
+            print(f"  {ds}: {max_row[3]}")
 
 if __name__ == "__main__":
     main(topk=args.topk)
