@@ -3,7 +3,7 @@
 # 用法: python tools/generate_baseline.py --source_dir analysis_final
 #       python tools/generate_baseline.py --source_dir results_final --method "GB+OptionC"
 '''
-import os, csv, argparse
+import os, csv, argparse, glob
 import numpy as np
 
 parser = argparse.ArgumentParser()
@@ -13,15 +13,26 @@ parser.add_argument("--output", type=str, default="BaseLine.csv", help="Output C
 args = parser.parse_args()
 
 METHOD = args.method or args.source_dir.rstrip("/")
+dataset_best = {}
 
 # 读取数据
 source_path = os.path.join(args.source_dir, "overall_topk.csv")
 
-# 如果没有 overall_topk.csv，尝试直接从 *_summary.csv 读取
-if not os.path.exists(source_path):
-    import glob
+# 情况1: 有 overall_topk.csv
+if os.path.exists(source_path):
+    print(f"[INFO] Reading from overall_topk.csv")
+    with open(source_path, "r") as f:
+        reader = csv.DictReader(f)
+        rows = list(reader)
+    for r in rows:
+        ds = r["dataset"]
+        mx = float(r["max"]) * 100  # 乘100
+        if ds not in dataset_best or mx > dataset_best[ds]:
+            dataset_best[ds] = mx
+
+# 情况2: 没有 overall_topk.csv，直接从 *_summary.csv 读取
+else:
     print(f"[INFO] No overall_topk.csv, reading from *_summary.csv directly")
-    dataset_best = {}
     for f in glob.glob(os.path.join(args.source_dir, "*_summary.csv")):
         ds = os.path.basename(f).replace("_summary.csv", "")
         with open(f) as csvfile:

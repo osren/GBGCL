@@ -5,6 +5,55 @@
 
 ---
 
+## 2026-05-11 | option-b-target-enhance
+
+### 修改概述
+实现 Target 分支粒球增强（Option B），对 Target Encoder 的输出也进行粒球扩散，使双分支都受益于粒球增强。
+
+### 修改文件
+
+#### 1. `src/train.py`
+
+| 修改位置 | 修改内容 |
+|---------|---------|
+| 约121-134行 | 修改 InfoNCE 条件判断，增加 `gb_target_enhance` 选项 |
+| 约134-142行 | 对 Target 输出也做粒球扩散增强 |
+| 约333-334行 | 新增 argparse `--gb_target_enhance` 参数 |
+
+```python
+# 新增参数
+parser.add_argument('--gb_target_enhance', action='store_true',
+                    help='Enable granule diffusion on Target branch')
+
+# 修改条件判断
+if args.ball_infonce_weight > 0 or getattr(args, 'gb_target_enhance', False):
+    # 对 Target 输出也做粒球扩散
+    if getattr(args, 'gb_target_enhance', False):
+        z_target, ... = granule_diffuse_and_write(h_target, ...)
+        h_target = z_target
+```
+
+---
+
+### 回退指南
+
+如需回退到修改前状态，执行以下操作：
+
+1. **train.py**: 恢复原来的条件判断，移除 Target 增强代码块，删除 `--gb_target_enhance` 参数
+
+---
+
+### 使用方法
+
+```bash
+cd src
+
+# 测试 Target 增强
+python train.py --dataset_name Photo --use_gb --gb_quity homo --gb_target_enhance --num_epochs 50 --trials 1 --device cuda
+```
+
+---
+
 ## 2026-05-07 | option-a2-ensemble-voting
 
 ### 修改概述

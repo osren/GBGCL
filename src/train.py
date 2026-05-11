@@ -118,7 +118,8 @@ def train_online(online, optimizer, data, device, epoch, args):
             loss_ball_scatter = torch.tensor(0.0, device=device)
 
         # 3) 两视图球对齐 + 球级 InfoNCE
-        if args.ball_infonce_weight > 0:
+        # Option B: 对 Target 分支也进行粒球扩散增强
+        if args.ball_infonce_weight > 0 or getattr(args, 'gb_target_enhance', False):
             with torch.no_grad():
                 GB2_node_list, _, _ = build_granules(
                     h_target, data.edge_index,
@@ -127,6 +128,18 @@ def train_online(online, optimizer, data, device, epoch, args):
                 J = jaccard_between_balls(GB_node_list, GB2_node_list).to(device)
                 pairs = hungarian_matching(J)
                 H_target_ball = compute_ball_centers(h_target, GB2_node_list)
+
+                # Option B: 对 Target 输出也做粒球扩散增强
+                if getattr(args, 'gb_target_enhance', False):
+                    z_target, _, _, _, _ = granule_diffuse_and_write(
+                        node_embed=h_target, edge_index=data.edge_index,
+                        quity=args.gb_quity, sim=args.gb_sim,
+                        alpha_write=args.gb_alpha,
+                        beta=args.gb_beta, K=args.gb_K,
+                        w_mode=args.gb_w_mode, knn=args.gb_knn
+                    )
+                    h_target = z_target
+                    print(f"[Target Enhance] epoch={epoch}, h_target enhanced")
             loss_ball_infonce = ball_infonce(H_ball, H_target_ball, pairs, temp=args.ball_infonce_temp)
         else:
             loss_ball_infonce = torch.tensor(0.0, device=device)
@@ -319,6 +332,10 @@ if __name__ == '__main__':
                         help='Temperature for softmax weighting')
     parser.add_argument('--gb_ensemble_select', type=str, default='hard', choices=['hard', 'soft'],
                         help='hard: select best quity; soft: weighted fusion')
+
+    # Target 分支增强（Option B）
+    parser.add_argument('--gb_target_enhance', action='store_true',
+                        help='Enable granule diffusion on Target branch')
 
     # 粒球扩散参数
     parser.add_argument('--gb_beta', type=float, default=0.2)
