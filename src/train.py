@@ -71,10 +71,26 @@ def fit_logistic_regression(X, y, data_random_seed=1, repeat=3):
 # =========================================================
 # 在线网络训练（含粒球模块）
 # =========================================================
-def train_online(online, optimizer, data, device, epoch, args):
-    """单 epoch 的 online 模块训练过程（含粒球扩散与球级loss）。"""
+def train_online(online, optimizer, data, device, epoch, args, gb_accum=None):
+    """单 epoch 的 online 模块训练过程（含粒球扩散与球级loss）。
+
+    Args:
+        gb_accum: 累积的粒球扩散结果，用于 Option A 迭代传播
+    """
+    # Option A: 如果有累积的粒球扩散结果，加上残差
+    if gb_accum is not None and gb_accum.numel() > 0:
+        online_gb_residual = gb_accum.to(device)
+    else:
+        online_gb_residual = None
+
     online.train()
     h, h_pred, h_target = online(data.x, data.edge_index)
+
+    # Option A: 加上粒球扩散的残差
+    if args.use_gb and args.gb_residual_online and online_gb_residual is not None:
+        if online_gb_residual.shape[0] == h.shape[0]:
+            h = h + args.gb_residual_weight * online_gb_residual
+            print(f"[Option A] epoch={epoch}, added residual to h")
 
     if args.use_gb and (epoch % args.gb_rebuild_every == 0):
         with torch.no_grad():
@@ -158,7 +174,13 @@ def train_online(online, optimizer, data, device, epoch, args):
     online.update_target_encoder()
 
     sim_mean = torch.nn.functional.cosine_similarity(h_pred, h_target, dim=-1).mean().item()
-    return loss.item(), sim_mean
+
+    # Option A: 返回当前的 z_new 用于累积（如果有重建）
+    z_for_accum = None
+    if args.use_gb and args.gb_residual_online and 'z_new' in dir() and z_new is not None:
+        z_for_accum = z_new.detach().clone() if isinstance(z_new, torch.Tensor) else None
+
+    return loss.item(), sim_mean, z_for_accum
 
 
 def train_target(target, optimizer, data):
@@ -209,6 +231,9 @@ def run(args):
             ])
 
         for trial in range(1, args.trials + 1):
+            # Option A: 初始化累积变量
+            gb_accum = None
+
             # 数据
             dataset = load_dataset(args.dataset_name, args.data_dir)
             data = dataset[0].to(device)
@@ -252,8 +277,16 @@ def run(args):
                     online_optimizer.zero_grad(set_to_none=True)
                     target_optimizer.zero_grad(set_to_none=True)
 
-                    online_loss, sim_mean = train_online(online_model, online_optimizer, data, device, epoch, args)
+                    # Option A: 传入累积的粒球扩散结果
+                    online_loss, sim_mean, z_for_accum = train_online(online_model, online_optimizer, data, device, epoch, args, gb_accum)
                     target_loss = train_target(target_model, target_optimizer, data)
+
+                    # Option A: 更新累积的粒球扩散结果
+                    if args.use_gb and args.gb_residual_online and z_for_accum is not None:
+                        if gb_accum is None:
+                            gb_accum = z_for_accum.cpu()
+                        else:
+                            gb_accum = 0.9 * gb_accum + 0.1 * z_for_accum.cpu()  # 指数移动平均
 
                     best_online_loss = min(best_online_loss, online_loss)
                     best_target_loss = min(best_target_loss, target_loss)
@@ -336,6 +369,12 @@ if __name__ == '__main__':
     # Target 分支增强（Option B）
     parser.add_argument('--gb_target_enhance', action='store_true',
                         help='Enable granule diffusion on Target branch')
+
+    # Option A: Online 分支残差连接
+    parser.add_argument('--gb_residual_online', action='store_true',
+                        help='Enable residual connection for Online branch (Option A)')
+    parser.add_argument('--gb_residual_weight', type=float, default=0.1,
+                        help='Weight for residual connection (Option A)')
 
     # 粒球扩散参数
     parser.add_argument('--gb_beta', type=float, default=0.2)

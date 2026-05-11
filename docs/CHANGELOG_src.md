@@ -5,6 +5,57 @@
 
 ---
 
+## 2026-05-11 | option-a-iterative-propagation
+
+### 修改概述
+实现 Online 分支残差连接（Option A），将粒球扩散结果累积并加到下一轮训练，实现迭代式传播。
+
+### 修改文件
+
+#### 1. `src/train.py`
+
+| 修改位置 | 修改内容 |
+|---------|---------|
+| 约74-93行 | `train_online()` 新增 `gb_accum` 参数和残差连接逻辑 |
+| 约233行 | 在每个 trial 开始时初始化 `gb_accum = None` |
+| 约277-291行 | 调用 `train_online()` 并更新累积变量 |
+| 约176-182行 | 返回 `z_for_accum` |
+| 约372-375行 | 新增 argparse `--gb_residual_online` 和 `--gb_residual_weight` 参数 |
+
+```python
+# 新增参数
+parser.add_argument('--gb_residual_online', action='store_true',
+                    help='Enable residual connection for Online branch (Option A)')
+parser.add_argument('--gb_residual_weight', type=float, default=0.1)
+
+# 训练循环中
+gb_accum = None  # 初始化
+online_loss, sim_mean, z_for_accum = train_online(..., gb_accum)
+if z_for_accum is not None:
+    gb_accum = 0.9 * gb_accum + 0.1 * z_for_accum  # EMA 累积
+```
+
+---
+
+### 回退指南
+
+如需回退到修改前状态，执行以下操作：
+
+1. **train.py**: 移除 `gb_accum` 参数和残差逻辑，移除返回值中的 `z_for_accum`，删除新增的 argparse 参数
+
+---
+
+### 使用方法
+
+```bash
+cd src
+
+# 测试 Option A: 残差连接
+python train.py --dataset_name Photo --use_gb --gb_quity homo --gb_residual_online --gb_residual_weight 0.1 --num_epochs 50 --trials 1 --gb_rebuild_every 10 --device cuda
+```
+
+---
+
 ## 2026-05-11 | option-b-target-enhance
 
 ### 修改概述
