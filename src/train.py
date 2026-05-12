@@ -71,26 +71,19 @@ def fit_logistic_regression(X, y, data_random_seed=1, repeat=3):
 # =========================================================
 # 在线网络训练（含粒球模块）
 # =========================================================
-def train_online(online, optimizer, data, device, epoch, args, gb_accum=None):
-    """单 epoch 的 online 模块训练过程（含粒球扩散与球级loss）。
+def train_online(online, optimizer, data, device, epoch, args, gb_feature=None):
+    """单 epoch 的 online 模块训练过程（Option A v1: 特征拼接）
 
     Args:
-        gb_accum: 累积的粒球扩散结果，用于 Option A 迭代传播
+        gb_feature: 粒球增强特征 [N, d]，用于特征拼接
     """
-    # Option A: 如果有累积的粒球扩散结果，加上残差
-    if gb_accum is not None and gb_accum.numel() > 0:
-        online_gb_residual = gb_accum.to(device)
-    else:
-        online_gb_residual = None
-
     online.train()
-    h, h_pred, h_target = online(data.x, data.edge_index)
 
-    # Option A: 加上粒球扩散的残差
-    if args.use_gb and args.gb_residual_online and online_gb_residual is not None:
-        if online_gb_residual.shape[0] == h.shape[0]:
-            h = h + args.gb_residual_weight * online_gb_residual
-            print(f"[Option A] epoch={epoch}, added residual to h")
+    # Option A v1: 如果有粒球特征，传入
+    if args.use_gb and args.gb_feature_concat and gb_feature is not None:
+        h, h_pred, h_target = online(data.x, data.edge_index, gb_feature=gb_feature)
+    else:
+        h, h_pred, h_target = online(data.x, data.edge_index)
 
     if args.use_gb and (epoch % args.gb_rebuild_every == 0):
         with torch.no_grad():
@@ -175,12 +168,10 @@ def train_online(online, optimizer, data, device, epoch, args, gb_accum=None):
 
     sim_mean = torch.nn.functional.cosine_similarity(h_pred, h_target, dim=-1).mean().item()
 
-    # Option A: 返回当前的 z_new 用于累积（如果有重建）
-    z_for_accum = None
-    if args.use_gb and args.gb_residual_online and 'z_new' in dir() and z_new is not None:
-        z_for_accum = z_new.detach().clone() if isinstance(z_new, torch.Tensor) else None
+    # Option A v1: 返回 z_new 用于下一个 epoch
+    z_return = z_new if 'z_new' in dir() and z_new is not None else None
 
-    return loss.item(), sim_mean, z_for_accum
+    return loss.item(), sim_mean, z_return
 
 
 def train_target(target, optimizer, data):
@@ -231,8 +222,8 @@ def run(args):
             ])
 
         for trial in range(1, args.trials + 1):
-            # Option A: 初始化累积变量
-            gb_accum = None
+            # Option A v1: 初始化粒球特征
+            gb_feature = None
 
             # 数据
             dataset = load_dataset(args.dataset_name, args.data_dir)
@@ -253,8 +244,11 @@ def run(args):
 
             # 模型
             activation = torch.nn.PReLU()
-            online_conv = Conv(data.x.size(1), args.hidden_dim, args.hidden_dim, activation, args.num_layers)
-            target_conv = Conv(data.x.size(1), args.hidden_dim, args.hidden_dim, activation, args.num_layers)
+
+            # Option A v1: 如果启用特征拼接，输入维度翻倍
+            use_gb_feature = getattr(args, 'gb_feature_concat', False)
+            online_conv = Conv(data.x.size(1), args.hidden_dim, args.hidden_dim, activation, args.num_layers, use_gb_feature=use_gb_feature)
+            target_conv = Conv(data.x.size(1), args.hidden_dim, args.hidden_dim, activation, args.num_layers, use_gb_feature=use_gb_feature)
 
             online_model = Online(online_conv, target_conv, args.hidden_dim, slsp_adj, args.num_hop, args.momentum).to(device)
             target_model = Target(target_conv).to(device)
@@ -277,16 +271,14 @@ def run(args):
                     online_optimizer.zero_grad(set_to_none=True)
                     target_optimizer.zero_grad(set_to_none=True)
 
-                    # Option A: 传入累积的粒球扩散结果
-                    online_loss, sim_mean, z_for_accum = train_online(online_model, online_optimizer, data, device, epoch, args, gb_accum)
+                    # Option A v1: 传入粒球特征用于拼接
+                    gb_feature_curr = gb_feature if (args.use_gb and args.gb_feature_concat) else None
+                    online_loss, sim_mean, z_new = train_online(online_model, online_optimizer, data, device, epoch, args, gb_feature_curr)
                     target_loss = train_target(target_model, target_optimizer, data)
 
-                    # Option A: 更新累积的粒球扩散结果
-                    if args.use_gb and args.gb_residual_online and z_for_accum is not None:
-                        if gb_accum is None:
-                            gb_accum = z_for_accum.cpu()
-                        else:
-                            gb_accum = 0.9 * gb_accum + 0.1 * z_for_accum.cpu()  # 指数移动平均
+                    # Option A v1: 更新粒球特征（用于下一个 epoch）
+                    if args.use_gb and args.gb_feature_concat and z_new is not None:
+                        gb_feature = z_new.detach().clone()
 
                     best_online_loss = min(best_online_loss, online_loss)
                     best_target_loss = min(best_target_loss, target_loss)
@@ -372,9 +364,13 @@ if __name__ == '__main__':
 
     # Option A: Online 分支残差连接
     parser.add_argument('--gb_residual_online', action='store_true',
-                        help='Enable residual connection for Online branch (Option A)')
+                        help='Enable residual connection for Online branch (Option A v2)')
     parser.add_argument('--gb_residual_weight', type=float, default=0.1,
-                        help='Weight for residual connection (Option A)')
+                        help='Weight for residual connection (Option A v2)')
+
+    # Option A v1: 特征拼接
+    parser.add_argument('--gb_feature_concat', action='store_true',
+                        help='Enable feature concatenation (Option A v1)')
 
     # 粒球扩散参数
     parser.add_argument('--gb_beta', type=float, default=0.2)

@@ -5,6 +5,68 @@
 
 ---
 
+## 2026-05-12 | option-a-v1-feature-concat
+
+### 修改概述
+实现 Option A 的 V1 方案（特征拼接版），将粒球增强特征与原始特征拼接后输入 GCN，实现真正的迭代式传播。
+
+### 修改文件
+
+#### 1. `src/models.py`
+
+| 修改位置 | 修改内容 |
+|---------|---------|
+| 第7-31行 | `Conv` 类新增 `use_gb_feature` 参数，支持 `gb_feature` 输入 |
+| 第33-65行 | `Online` 类新增 `gb_feature` 参数和 `embed` 方法支持 |
+| 第67-78行 | `Target` 类新增 `gb_feature` 参数 |
+
+```python
+# Conv 修改
+def __init__(self, input_dim, ..., use_gb_feature=False):
+    actual_input_dim = input_dim * 2 if use_gb_feature else input_dim
+
+def forward(self, x, edge_index, gb_feature=None):
+    if self.use_gb_feature and gb_feature is not None:
+        x = torch.cat([x, gb_feature], dim=-1)
+```
+
+#### 2. `src/train.py`
+
+| 修改位置 | 修改内容 |
+|---------|---------|
+| 约74-86行 | `train_online()` 新增 `gb_feature` 参数 |
+| 约227行 | 初始化 `gb_feature = None` |
+| 约277-284行 | 更新训练循环，传递 `gb_feature` |
+| 约372-375行 | 新增 argparse `--gb_feature_concat` 参数 |
+
+```python
+# 新增参数
+parser.add_argument('--gb_feature_concat', action='store_true',
+                    help='Enable feature concatenation (Option A v1)')
+```
+
+---
+
+### 回退指南
+
+如需回退到修改前状态，执行以下操作：
+
+1. **models.py**: 恢复 Conv/Online/Target 的原始签名
+2. **train.py**: 移除 gb_feature 传递逻辑，删除 argparse 参数
+
+---
+
+### 使用方法
+
+```bash
+cd src
+
+# Option A V1: 特征拼接
+python train.py --dataset_name Photo --use_gb --gb_quity homo --gb_feature_concat --num_epochs 50 --trials 1 --gb_rebuild_every 10 --device cuda
+```
+
+---
+
 ## 2026-05-11 | option-a-iterative-propagation
 
 ### 修改概述
