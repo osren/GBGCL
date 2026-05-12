@@ -101,20 +101,19 @@ class Online(torch.nn.Module):
         """Option A v1: 在 hidden 层做特征融合
 
         Args:
-            x: [N, d] 原始特征（已有拼接的粒球特征的话是 2*d 维度）
+            x: [N, d] 原始特征
             edge_index: [2, E] 边索引
-            gb_feature: [N, d] 粒球增强特征
+            gb_feature: [N, hidden_dim] 粒球增强特征（已投影到 hidden 维）
         """
         or_embeds, pr_embeds = self.embed(x, edge_index, self.slsp_adj, self.num_hop)
         h = or_embeds + pr_embeds
 
-        # Option A v1: 在 hidden 层做特征融合
+        # Option A v1: 在 hidden 层做特征融合（gb_feature 已经是 hidden 维）
         if gb_feature is not None:
-            # 将 GB 特征也通过 encoder 获取 hidden 表示
-            h_gb, _ = self.online_encoder(gb_feature, edge_index)
             # 拼接 + 可学习融合
-            h_combined = torch.cat([h, h_gb], dim=-1)
-            h = self.gb_fusion(h_combined) + h  # 残差
+            h_combined = torch.cat([h, gb_feature], dim=-1)
+            h_fused = self.gb_fusion(h_combined)
+            h = h + h_fused  # 残差连接
 
         h_pred = self.predictor(h)
         with torch.no_grad():
