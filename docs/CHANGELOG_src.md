@@ -5,10 +5,21 @@
 
 ---
 
+### 实验结果 (Photo, 50 epochs, 1 trial)
+
+| 配置 | ACC | 变化 |
+|------|-----|------|
+| BYOL | 0.9350 | baseline |
+| Option A V1 | 0.9338 | -0.12% |
+
+**结论**：所有粒球方案不如纯 BYOL
+
+---
+
 ## 2026-05-12 | option-a-v1-feature-concat
 
 ### 修改概述
-实现 Option A 的 V1 方案（特征拼接版），将粒球增强特征与原始特征拼接后输入 GCN，实现真正的迭代式传播。
+实现 Option A 的 V1 方案（hidden 层特征融合版），在 Online 网络的 hidden 层输出后做特征融合。
 
 ### 修改文件
 
@@ -16,18 +27,24 @@
 
 | 修改位置 | 修改内容 |
 |---------|---------|
-| 第7-31行 | `Conv` 类新增 `use_gb_feature` 参数，支持 `gb_feature` 输入 |
-| 第33-65行 | `Online` 类新增 `gb_feature` 参数和 `embed` 方法支持 |
-| 第67-78行 | `Target` 类新增 `gb_feature` 参数 |
+| Conv | 保持不变 |
+| Online | 新增 `self.gb_fusion` 可学习融合层，在 forward 中做特征融合 |
+| Target | 保持不变 |
 
 ```python
-# Conv 修改
-def __init__(self, input_dim, ..., use_gb_feature=False):
-    actual_input_dim = input_dim * 2 if use_gb_feature else input_dim
+# Online 修改
+self.gb_fusion = nn.Sequential(
+    nn.Linear(hidden_dim * 2, hidden_dim),
+    nn.PReLU(),
+    nn.Linear(hidden_dim, hidden_dim)
+)
 
 def forward(self, x, edge_index, gb_feature=None):
-    if self.use_gb_feature and gb_feature is not None:
-        x = torch.cat([x, gb_feature], dim=-1)
+    # ... 获取 h
+    if gb_feature is not None:
+        h_combined = torch.cat([h, gb_feature], dim=-1)
+        h_fused = self.gb_fusion(h_combined)
+        h = h + h_fused  # 残差连接
 ```
 
 #### 2. `src/train.py`
