@@ -5,16 +5,14 @@ from torch_geometric.nn import GCNConv
 from torch_geometric.utils import dropout_edge,mask_feature
 
 class Conv(torch.nn.Module):
-    def __init__(self, input_dim, hidden_dim, proj_dim, activation, num_layers, method=None, drop_out=0.0, use_gb_feature=False):
+    def __init__(self, input_dim, hidden_dim, proj_dim, activation, num_layers, method=None, drop_out=0.0):
         super(Conv, self).__init__()
         self.activation = activation
         self.layers = torch.nn.ModuleList()
         self.drop_out = drop_out
-        self.use_gb_feature = use_gb_feature
 
-        # 输入维度：如果需要拼接粒球特征，输入维度翻倍
-        actual_input_dim = input_dim * 2 if use_gb_feature else input_dim
-        self.layers.append(GCNConv(actual_input_dim, hidden_dim))
+        # 输入维度：只在第一次调用时根据是否有gb特征动态决定
+        self.layers.append(GCNConv(input_dim, hidden_dim))
         for _ in range(num_layers - 1):
             self.layers.append(GCNConv(hidden_dim, hidden_dim))
 
@@ -25,17 +23,7 @@ class Conv(torch.nn.Module):
             torch.nn.Linear(proj_dim, proj_dim)
         )
 
-    def forward(self, x, edge_index, gb_feature=None):
-        """
-        Args:
-            x: [N, d] 原始特征
-            edge_index: [2, E] 边索引
-            gb_feature: [N, d] 可选的粒球增强特征
-        """
-        # 如果有粒球特征，拼接
-        if self.use_gb_feature and gb_feature is not None:
-            x = torch.cat([x, gb_feature], dim=-1)
-
+    def forward(self, x, edge_index):
         z = x
         for conv in self.layers:
             z = conv(z, edge_index)
@@ -97,6 +85,12 @@ class Online(torch.nn.Module):
             torch.nn.PReLU(),
             torch.nn.Linear(hidden_dim, hidden_dim)
         )
+        # Option A v1: 可学习的融合层
+        self.gb_fusion = nn.Sequential(
+            nn.Linear(hidden_dim * 2, hidden_dim),
+            nn.PReLU(),
+            nn.Linear(hidden_dim, hidden_dim)
+        )
 
     def update_target_encoder(self):
         for p, new_p in zip(self.target_encoder.parameters(), self.online_encoder.parameters()):
@@ -104,21 +98,27 @@ class Online(torch.nn.Module):
             p.data = next_p
 
     def forward(self, x, edge_index, gb_feature=None):
-        """Option A v1: 支持传入粒球增强特征
+        """Option A v1: 在 hidden 层做特征融合
 
         Args:
-            x: [N, d] 原始特征
+            x: [N, d] 原始特征（已有拼接的粒球特征的话是 2*d 维度）
             edge_index: [2, E] 边索引
-            gb_feature: [N, d] 可选的粒球增强特征
+            gb_feature: [N, d] 粒球增强特征
         """
-        or_embeds, pr_embeds = self.embed(x, edge_index, self.slsp_adj, self.num_hop, gb_feature)
+        or_embeds, pr_embeds = self.embed(x, edge_index, self.slsp_adj, self.num_hop)
         h = or_embeds + pr_embeds
+
+        # Option A v1: 在 hidden 层做特征融合
+        if gb_feature is not None:
+            # 将 GB 特征也通过 encoder 获取 hidden 表示
+            h_gb, _ = self.online_encoder(gb_feature, edge_index)
+            # 拼接 + 可学习融合
+            h_combined = torch.cat([h, h_gb], dim=-1)
+            h = self.gb_fusion(h_combined) + h  # 残差
+
         h_pred = self.predictor(h)
         with torch.no_grad():
-            if gb_feature is not None:
-                h_target, _ = self.target_encoder(gb_feature, edge_index)
-            else:
-                h_target, _ = self.target_encoder(x, edge_index)
+            h_target, _ = self.target_encoder(x, edge_index)
 
         return h, h_pred, h_target
 
@@ -129,10 +129,8 @@ class Online(torch.nn.Module):
         loss = (z1 * z2).sum(dim=-1)
         return -loss.mean()
 
-    def embed(self, seq, edge_index, adj, Globalhop=10, gb_feature=None):
-        """Option A v1: 支持粒球特征输入"""
-        # 如果有粒球特征，输入conv时使用拼接后的特征
-        h_1, _ = self.online_encoder(seq, edge_index, gb_feature)
+    def embed(self, seq, edge_index, adj, Globalhop=10):
+        h_1, _ = self.online_encoder(seq, edge_index)
         h_2 = h_1.clone()
         for _ in range(Globalhop):
             h_2 = adj @ h_2
@@ -144,12 +142,8 @@ class Target(torch.nn.Module):
         super(Target,self).__init__()
         self.target_encoder = target_encoder
 
-    def forward(self,x,edge_index,gb_feature=None):
-        """Option A v1: 支持传入粒球增强特征"""
-        if gb_feature is not None:
-            h_target,_ = self.target_encoder(gb_feature,edge_index)
-        else:
-            h_target,_ = self.target_encoder(x,edge_index)
+    def forward(self,x,edge_index):
+        h_target,_ = self.target_encoder(x,edge_index)
         return h_target
 
     def get_loss(self,z):

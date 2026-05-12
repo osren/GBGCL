@@ -244,11 +244,8 @@ def run(args):
 
             # 模型
             activation = torch.nn.PReLU()
-
-            # Option A v1: 如果启用特征拼接，输入维度翻倍
-            use_gb_feature = getattr(args, 'gb_feature_concat', False)
-            online_conv = Conv(data.x.size(1), args.hidden_dim, args.hidden_dim, activation, args.num_layers, use_gb_feature=use_gb_feature)
-            target_conv = Conv(data.x.size(1), args.hidden_dim, args.hidden_dim, activation, args.num_layers, use_gb_feature=use_gb_feature)
+            online_conv = Conv(data.x.size(1), args.hidden_dim, args.hidden_dim, activation, args.num_layers)
+            target_conv = Conv(data.x.size(1), args.hidden_dim, args.hidden_dim, activation, args.num_layers)
 
             online_model = Online(online_conv, target_conv, args.hidden_dim, slsp_adj, args.num_hop, args.momentum).to(device)
             target_model = Target(target_conv).to(device)
