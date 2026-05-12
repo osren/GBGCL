@@ -99,30 +99,45 @@ def train_online(online, optimizer, data, device, epoch, args, gb_feature=None):
                 ensemble_temp=getattr(args, 'gb_ensemble_temp', 1.0),
                 select=getattr(args, 'gb_ensemble_select', 'hard')
             )
-            # 粒球统计
+
+            # 额外的详细指标
+            h_norm = h.norm(dim=-1).mean().item()
+            z_new_norm = z_new.norm(dim=-1).mean().item()
+            h_z_diff = (h - z_new).norm().item() / h.norm().item()
+            cos_sim = torch.cosine_similarity(h[:100], z_new[:100], dim=-1).mean().item() if h.size(0) > 100 else 0.0
+
+            # 计算粒球纯度（如果有标签）
+            if data.y is not None:
+                ball_purity = 0.0
+                for ball_nodes in GB_node_list:
+                    if len(ball_nodes) > 0:
+                        labels = data.y[ball_nodes]
+                        mode_label = labels.mode()[0].item() if hasattr(labels, 'mode') else labels[0].item()
+                        purity = (labels == mode_label).float().mean().item()
+                        ball_purity += purity
+                ball_purity = ball_purity / max(1, len(GB_node_list))
+            else:
+                ball_purity = 0.0
+
+            # 记录关键指标
             num_balls = len(gb_sizes)
             avg_size = sum(gb_sizes) / max(1, num_balls)
             min_size = min(gb_sizes) if gb_sizes else 0
             max_size = max(gb_sizes) if gb_sizes else 0
-
-            # === 记录关键指标 ===
-            h_norm = h.norm(dim=-1).mean().item()
-            z_new_norm = z_new.norm(dim=-1).mean().item()
-            h_z_diff = (h - z_new).norm().item() / h.norm().item()
 
             os.makedirs('logs/metrics', exist_ok=True)
             with open(os.path.join('logs/metrics', f"{args.dataset_name}_metrics.csv"), 'a', encoding='utf-8') as f_log:
                 f_log.write(
                     f"epoch={epoch:04d}, num_balls={num_balls}, avg_size={avg_size:.1f}, "
                     f"h_norm={h_norm:.4f}, z_new_norm={z_new_norm:.4f}, h_z_diff={h_z_diff:.4f}, "
-                    f"selected_quality={selected_quality}\n"
+                    f"cos_sim={cos_sim:.4f}, ball_purity={ball_purity:.4f}, selected_quality={selected_quality}\n"
                 )
 
             os.makedirs('granular_count', exist_ok=True)
             with open(os.path.join('granular_count', f"{args.dataset_name}.txt"), 'a', encoding='utf-8') as f_log:
                 f_log.write(
                     f"epoch={epoch:04d}, count={num_balls}, avg_size={avg_size:.1f}, "
-                    f"min={min_size}, max={max_size}\n"
+                    f"min={min_size}, max={max_size}, h_z_diff={h_z_diff:.4f}, cos_sim={cos_sim:.4f}\n"
                 )
 
         # 新表示进入 predictor
@@ -232,7 +247,7 @@ def run(args):
         os.makedirs('logs/metrics', exist_ok=True)
         # 写入表头
         with open(os.path.join('logs/metrics', f"{args.dataset_name}_metrics.csv"), 'w', encoding='utf-8') as f_log:
-            f_log.write("epoch,num_balls,avg_size,h_norm,z_new_norm,h_z_diff,selected_quality\n")
+            f_log.write("epoch,num_balls,avg_size,h_norm,z_new_norm,h_z_diff,cos_sim,ball_purity,selected_quality\n")
         with open(os.path.join('logs/metrics', f"{args.dataset_name}_train.csv"), 'w', encoding='utf-8') as f_log:
             f_log.write("epoch,loss,loss_node,loss_ball_scatter,loss_ball_infonce,sim_mean\n")
 
