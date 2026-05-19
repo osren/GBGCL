@@ -5,6 +5,122 @@
 
 ---
 
+## 2026-05-19 | option-4-incremental-diffusion
+
+### 修改概述
+实现方案4：每 Epoch 增量扩散。解决粒球只在重建 epoch 生效的问题（90%时间粒球损失为0）。
+
+### 核心思想
+- **重建 epoch** (`epoch % gb_rebuild_every == 0`): 完整重建粒球结构 + 扩散
+- **普通 epoch**: 复用上一次粒球结构，只更新球心并持续扩散
+
+### 问题诊断
+| 指标 | 当前值 | 问题 |
+|------|--------|------|
+| cos_sim(h, z_new) | 0.9996 | 几乎同方向，扩散只改变长度 |
+| h_z_diff | 2-4% | 差异太小 |
+| 粒球参与频率 | 10% epochs | 90%时间粒球不参与训练 |
+
+### 修改文件
+
+#### 1. `src/gb_utils.py`
+
+| 位置 | 内容 |
+|------|------|
+| 第449-530行 | 新增 `incremental_diffuse_and_write()` 函数 |
+
+```python
+@torch.no_grad()
+def incremental_diffuse_and_write(node_embed, edge_index, GB_node_list,
+                                  alpha_write, beta, K, w_mode, knn):
+    """
+    增量扩散：不重建粒球结构，只用当前嵌入更新球心并扩散。
+
+    适用于每 epoch 都执行扩散的场景。
+    """
+    # 1. 用当前嵌入计算新球心
+    H0 = compute_ball_centers(node_embed, GB_node_list)
+
+    # 2. 构建球图（复用结构，更新中心相似度）
+    # 3. 球图扩散
+    # 4. 回写到节点
+
+    return z_new, H_ball
+```
+
+#### 2. `src/train.py`
+
+| 位置 | 内容 |
+|------|------|
+| 导入 | 新增 `incremental_diffuse_and_write` |
+| `train_online()` 签名 | 新增 `prev_GB_node_list` 参数，返回 `curr_GB_node_list` |
+| 训练逻辑 | 区分重建 epoch 和增量 epoch |
+| argparse | 新增 `--gb_incremental` 参数 |
+
+```python
+# 方案4：增量扩散模式
+is_rebuild_epoch = (epoch % args.gb_rebuild_every == 0)
+use_incremental = getattr(args, 'gb_incremental', False) and prev_GB_node_list is not None and not is_rebuild_epoch
+
+if args.use_gb and (is_rebuild_epoch or use_incremental):
+    if is_rebuild_epoch:
+        # 完整重建粒球
+        z_new, ... = granule_diffuse_and_write(...)
+        curr_GB_node_list = GB_node_list
+    else:
+        # 增量扩散（复用结构）
+        z_new, H_ball = incremental_diffuse_and_write(
+            node_embed=h, edge_index=data.edge_index,
+            GB_node_list=prev_GB_node_list, ...
+        )
+```
+
+---
+
+### 回退指南
+
+1. **gb_utils.py**: 删除 `incremental_diffuse_and_write()` 函数
+2. **train.py**:
+   - 移除导入 `incremental_diffuse_and_write`
+   - 恢复 `train_online()` 原签名（移除 `prev_GB_node_list` 参数，移除返回值中的 `curr_GB_node_list`）
+   - 恢复训练循环中的调用方式
+   - 删除 `--gb_incremental` 参数
+
+---
+
+### 使用方法
+
+```bash
+cd src
+
+# 方案4：增量扩散（启用后每个 epoch 都执行扩散）
+python train.py --dataset_name Photo --use_gb --gb_quity homo --gb_incremental --num_epochs 50 --trials 1 --device cuda
+
+# 对比：关闭增量扩散（原行为）
+python train.py --dataset_name Photo --use_gb --gb_quity homo --num_epochs 50 --trials 1 --device cuda
+
+# 完整训练（方案4）
+python train.py --dataset_name Photo --use_gb --gb_quity homo --gb_incremental --num_epochs 700 --trials 5 --gb_rebuild_every 10
+```
+
+### 预期效果
+
+| 指标 | 原方案 | 方案4 |
+|------|--------|-------|
+| 粒球参与频率 | 10% epochs | 100% epochs |
+| cos_sim 变化 | 瞬时回到 0.999 | 逐步下降 |
+| h_z_diff | 2-4% | 期望 > 10% |
+
+### 日志输出
+
+增量 epoch 会每 10 个 epoch 打印一次：
+```
+[Incremental] epoch=0011, h_z_diff=0.0452, cos_sim=0.9985
+[Incremental] epoch=0021, h_z_diff=0.0512, cos_sim=0.9978
+```
+
+---
+
 ### 实验结果 (Photo, 50 epochs, 1 trial)
 
 | 配置 | ACC | 变化 |

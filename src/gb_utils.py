@@ -446,3 +446,100 @@ def ball_infonce(Ha: torch.Tensor, Hb: torch.Tensor,
         loss_all.append(loss)
 
     return torch.stack(loss_all).mean()
+
+
+# =========================================================
+# 4) 增量扩散（方案4）：不重建粒球结构，只更新球心并持续扩散
+# =========================================================
+@torch.no_grad()
+def incremental_diffuse_and_write(node_embed: torch.Tensor,
+                                  edge_index: torch.Tensor,
+                                  GB_node_list: List[List[int]],
+                                  alpha_write: float = 0.5,
+                                  beta: float = 0.2,
+                                  K: int = 10,
+                                  w_mode: str = "topo+center",
+                                  knn: int = 10):
+    """
+    增量扩散：不重建粒球结构，只用当前嵌入更新球心并扩散。
+
+    适用于每 epoch 都执行扩散的场景，避免频繁重建粒球的开销。
+
+    Args:
+        node_embed: 当前 epoch 的节点嵌入 [N, d]
+        edge_index: 图边索引 [2, E]
+        GB_node_list: 已有的粒球结构（成员列表），不重新构建
+        alpha_write: 回写混合系数
+        beta: 扩散系数
+        K: 扩散步数
+        w_mode: 权重模式
+        knn: KNN 稀疏化
+
+    Returns:
+        z_new: 节点新表示 [N, d]
+        H_ball: 扩散后的球心 [B, d]
+    """
+    device = node_embed.device
+    B = len(GB_node_list)
+    if B == 0:
+        return node_embed.clone(), torch.empty(0, device=device)
+
+    # 1. 用当前嵌入计算新球心
+    H0 = compute_ball_centers(node_embed, GB_node_list)
+
+    # 2. 构建球图（复用结构，更新中心相似度）
+    #    拓扑权重从 edge_index 重新统计，中心相似度用当前嵌入
+    Hn = torch.nn.functional.normalize(H0, dim=-1)
+    sim_center = torch.mm(Hn, Hn.t())  # [-1, 1]
+
+    # 跨球拓扑边统计（基于当前嵌入重新计算 node2ball 映射）
+    node2ball = torch.full((node_embed.size(0),), -1, dtype=torch.long, device=device)
+    for b, members in enumerate(GB_node_list):
+        if members:
+            node2ball[torch.tensor(members, dtype=torch.long, device=device)] = b
+
+    ei = edge_index.to(device)
+    b_u, b_v = node2ball[ei[0]], node2ball[ei[1]]
+    mask = (b_u >= 0) & (b_v >= 0) & (b_u != b_v)
+    bu, bv = b_u[mask], b_v[mask]
+
+    topo_w = torch.zeros(B, B, device=device)
+    if mask.any():
+        topo_w.index_put_((bu, bv), torch.ones_like(bu, dtype=topo_w.dtype), accumulate=True)
+        topo_w.index_put_((bv, bu), torch.ones_like(bv, dtype=topo_w.dtype), accumulate=True)
+
+    # KNN 稀疏化
+    if knn > 0 and B > knn:
+        _, topk_idx = torch.topk(sim_center, k=min(knn + 1, B), dim=1)
+        mask_knn = torch.zeros_like(sim_center, dtype=torch.bool)
+        for i in range(B):
+            mask_knn[i, topk_idx[i]] = True
+        sim_center = torch.where(mask_knn, sim_center, torch.zeros_like(sim_center))
+
+    # 权重融合
+    if w_mode == "topo":
+        W = topo_w
+    elif w_mode == "center":
+        W = torch.relu(sim_center)
+    else:
+        W = torch.relu(sim_center) + topo_w
+
+    # 加自环
+    W = W + torch.eye(B, device=device)
+
+    # 3. 球图扩散
+    D = W.sum(dim=1, keepdim=True) + 1e-9
+    P = W / D
+    H = H0
+    for _ in range(K):
+        H = (1 - beta) * H + beta * (P @ H)
+
+    # 4. 回写到节点
+    z_new = node_embed.clone()
+    for b, members in enumerate(GB_node_list):
+        if not members:
+            continue
+        idx = torch.tensor(members, dtype=torch.long, device=device)
+        z_new[idx] = alpha_write * node_embed[idx] + (1 - alpha_write) * H[b]
+
+    return z_new, H

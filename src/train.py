@@ -22,6 +22,7 @@ from data import load_dataset
 from models import Conv, Online, Target
 from gb_utils import (
     granule_diffuse_and_write,
+    incremental_diffuse_and_write,
     build_granules,
     ball_scatter_loss,
     jaccard_between_balls,
@@ -71,13 +72,17 @@ def fit_logistic_regression(X, y, data_random_seed=1, repeat=3):
 # =========================================================
 # 在线网络训练（含粒球模块）
 # =========================================================
-def train_online(online, optimizer, data, device, epoch, args, gb_feature=None):
+def train_online(online, optimizer, data, device, epoch, args, gb_feature=None, prev_GB_node_list=None):
     """单 epoch 的 online 模块训练过程（Option A v1: 特征拼接）
 
     Args:
         gb_feature: 粒球增强特征 [N, d]，用于特征拼接
+        prev_GB_node_list: 上一个 epoch 的粒球结构（用于增量扩散）
     """
     online.train()
+
+    # 用于存储当前 epoch 构建的粒球结构（供下一个 epoch 使用）
+    curr_GB_node_list = prev_GB_node_list
 
     # Option A v1: 如果有粒球特征，传入
     if args.use_gb and args.gb_feature_concat and gb_feature is not None:
@@ -85,67 +90,95 @@ def train_online(online, optimizer, data, device, epoch, args, gb_feature=None):
     else:
         h, h_pred, h_target = online(data.x, data.edge_index)
 
-    if args.use_gb and (epoch % args.gb_rebuild_every == 0):
+    # 方案4：增量扩散模式
+    # - 重建 epoch (epoch % gb_rebuild_every == 0): 完整重建粒球结构
+    # - 普通 epoch: 如果有上一次的粒球结构，执行增量扩散
+    is_rebuild_epoch = (epoch % args.gb_rebuild_every == 0)
+    use_incremental = getattr(args, 'gb_incremental', False) and prev_GB_node_list is not None and not is_rebuild_epoch
+
+    if args.use_gb and (is_rebuild_epoch or use_incremental):
         with torch.no_grad():
-            # 1) 构球 + 球图扩散 + 回写
-            z_new, gb_sizes, H_ball, GB_node_list, selected_quality = granule_diffuse_and_write(
-                node_embed=h, edge_index=data.edge_index,
-                quity=args.gb_quity, sim=args.gb_sim,
-                alpha_write=args.gb_alpha,
-                beta=args.gb_beta, K=args.gb_K,
-                w_mode=args.gb_w_mode, knn=args.gb_knn,
-                use_ensemble=getattr(args, 'gb_ensemble', False),
-                ensemble_quities=getattr(args, 'gb_ensemble_quities', 'homo,detach,edges').split(','),
-                ensemble_temp=getattr(args, 'gb_ensemble_temp', 1.0),
-                select=getattr(args, 'gb_ensemble_select', 'hard')
-            )
+            # === 重建 epoch：完整构建粒球 ===
+            if is_rebuild_epoch:
+                z_new, gb_sizes, H_ball, GB_node_list, selected_quality = granule_diffuse_and_write(
+                    node_embed=h, edge_index=data.edge_index,
+                    quity=args.gb_quity, sim=args.gb_sim,
+                    alpha_write=args.gb_alpha,
+                    beta=args.gb_beta, K=args.gb_K,
+                    w_mode=args.gb_w_mode, knn=args.gb_knn,
+                    use_ensemble=getattr(args, 'gb_ensemble', False),
+                    ensemble_quities=getattr(args, 'gb_ensemble_quities', 'homo,detach,edges').split(','),
+                    ensemble_temp=getattr(args, 'gb_ensemble_temp', 1.0),
+                    select=getattr(args, 'gb_ensemble_select', 'hard')
+                )
+                curr_GB_node_list = GB_node_list  # 保存供下一个 epoch 使用
 
-            # 额外的详细指标
-            h_norm = h.norm(dim=-1).mean().item()
-            z_new_norm = z_new.norm(dim=-1).mean().item()
-            h_z_diff = (h - z_new).norm().item() / h.norm().item()
-            cos_sim = torch.cosine_similarity(h[:100], z_new[:100], dim=-1).mean().item() if h.size(0) > 100 else 0.0
+                # 额外的详细指标（只在重建 epoch 记录）
+                h_norm = h.norm(dim=-1).mean().item()
+                z_new_norm = z_new.norm(dim=-1).mean().item()
+                h_z_diff = (h - z_new).norm().item() / h.norm().item()
+                cos_sim = torch.cosine_similarity(h[:100], z_new[:100], dim=-1).mean().item() if h.size(0) > 100 else 0.0
 
-            # 计算粒球纯度（如果有标签）
-            if data.y is not None:
-                ball_purity = 0.0
-                for ball_nodes in GB_node_list:
-                    if len(ball_nodes) > 0:
-                        labels = data.y[ball_nodes]
-                        mode_label = labels.mode()[0].item() if hasattr(labels, 'mode') else labels[0].item()
-                        purity = (labels == mode_label).float().mean().item()
-                        ball_purity += purity
-                ball_purity = ball_purity / max(1, len(GB_node_list))
+                # 计算粒球纯度（如果有标签）
+                if data.y is not None:
+                    ball_purity = 0.0
+                    for ball_nodes in GB_node_list:
+                        if len(ball_nodes) > 0:
+                            labels = data.y[ball_nodes]
+                            mode_label = labels.mode()[0].item() if hasattr(labels, 'mode') else labels[0].item()
+                            purity = (labels == mode_label).float().mean().item()
+                            ball_purity += purity
+                    ball_purity = ball_purity / max(1, len(GB_node_list))
+                else:
+                    ball_purity = 0.0
+
+                # 记录关键指标
+                num_balls = len(gb_sizes)
+                avg_size = sum(gb_sizes) / max(1, num_balls)
+                min_size = min(gb_sizes) if gb_sizes else 0
+                max_size = max(gb_sizes) if gb_sizes else 0
+
+                os.makedirs('logs/metrics', exist_ok=True)
+                with open(os.path.join('logs/metrics', f"{args.dataset_name}_metrics.csv"), 'a', encoding='utf-8') as f_log:
+                    f_log.write(
+                        f"epoch={epoch:04d}, num_balls={num_balls}, avg_size={avg_size:.1f}, "
+                        f"h_norm={h_norm:.4f}, z_new_norm={z_new_norm:.4f}, h_z_diff={h_z_diff:.4f}, "
+                        f"cos_sim={cos_sim:.4f}, ball_purity={ball_purity:.4f}, selected_quality={selected_quality}\n"
+                    )
+
+                os.makedirs('granular_count', exist_ok=True)
+                with open(os.path.join('granular_count', f"{args.dataset_name}.txt"), 'a', encoding='utf-8') as f_log:
+                    f_log.write(
+                        f"epoch={epoch:04d}, count={num_balls}, avg_size={avg_size:.1f}, "
+                        f"min={min_size}, max={max_size}, h_z_diff={h_z_diff:.4f}, cos_sim={cos_sim:.4f}\n"
+                    )
+
+            # === 普通 epoch：增量扩散（复用粒球结构） ===
             else:
-                ball_purity = 0.0
-
-            # 记录关键指标
-            num_balls = len(gb_sizes)
-            avg_size = sum(gb_sizes) / max(1, num_balls)
-            min_size = min(gb_sizes) if gb_sizes else 0
-            max_size = max(gb_sizes) if gb_sizes else 0
-
-            os.makedirs('logs/metrics', exist_ok=True)
-            with open(os.path.join('logs/metrics', f"{args.dataset_name}_metrics.csv"), 'a', encoding='utf-8') as f_log:
-                f_log.write(
-                    f"epoch={epoch:04d}, num_balls={num_balls}, avg_size={avg_size:.1f}, "
-                    f"h_norm={h_norm:.4f}, z_new_norm={z_new_norm:.4f}, h_z_diff={h_z_diff:.4f}, "
-                    f"cos_sim={cos_sim:.4f}, ball_purity={ball_purity:.4f}, selected_quality={selected_quality}\n"
+                z_new, H_ball = incremental_diffuse_and_write(
+                    node_embed=h, edge_index=data.edge_index,
+                    GB_node_list=prev_GB_node_list,
+                    alpha_write=args.gb_alpha,
+                    beta=args.gb_beta, K=args.gb_K,
+                    w_mode=args.gb_w_mode, knn=args.gb_knn
                 )
+                GB_node_list = prev_GB_node_list  # 复用上一次的
 
-            os.makedirs('granular_count', exist_ok=True)
-            with open(os.path.join('granular_count', f"{args.dataset_name}.txt"), 'a', encoding='utf-8') as f_log:
-                f_log.write(
-                    f"epoch={epoch:04d}, count={num_balls}, avg_size={avg_size:.1f}, "
-                    f"min={min_size}, max={max_size}, h_z_diff={h_z_diff:.4f}, cos_sim={cos_sim:.4f}\n"
-                )
+                # 增量模式下的指标（简化版，不记录 metrics 文件）
+                h_norm = h.norm(dim=-1).mean().item()
+                z_new_norm = z_new.norm(dim=-1).mean().item()
+                h_z_diff = (h - z_new).norm().item() / h.norm().item()
+                cos_sim = torch.cosine_similarity(h[:100], z_new[:100], dim=-1).mean().item() if h.size(0) > 100 else 0.0
+
+                if epoch % 10 == 0:  # 每 10 个 epoch 打印一次
+                    print(f"[Incremental] epoch={epoch:04d}, h_z_diff={h_z_diff:.4f}, cos_sim={cos_sim:.4f}")
 
         # 新表示进入 predictor
         h_pred = online.predictor(z_new)
 
         # 2) 球级散射（RSM 升维）
         if args.ball_loss_weight > 0 and (H_ball is not None) and (H_ball.size(0) > 1):
-            neighbor_mask = None  # 如需只对邻近球生效，可传入球图邻接掩码
+            neighbor_mask = None
             loss_ball_scatter = ball_scatter_loss(
                 H_ball,
                 angle_thresh_deg=args.ball_angle_thresh,
@@ -156,7 +189,6 @@ def train_online(online, optimizer, data, device, epoch, args, gb_feature=None):
             loss_ball_scatter = torch.tensor(0.0, device=device)
 
         # 3) 两视图球对齐 + 球级 InfoNCE
-        # Option B: 对 Target 分支也进行粒球扩散增强
         if args.ball_infonce_weight > 0 or getattr(args, 'gb_target_enhance', False):
             with torch.no_grad():
                 GB2_node_list, _, _ = build_granules(
@@ -167,7 +199,6 @@ def train_online(online, optimizer, data, device, epoch, args, gb_feature=None):
                 pairs = hungarian_matching(J)
                 H_target_ball = compute_ball_centers(h_target, GB2_node_list)
 
-                # Option B: 对 Target 输出也做粒球扩散增强
                 if getattr(args, 'gb_target_enhance', False):
                     z_target, _, _, _, _ = granule_diffuse_and_write(
                         node_embed=h_target, edge_index=data.edge_index,
@@ -177,7 +208,6 @@ def train_online(online, optimizer, data, device, epoch, args, gb_feature=None):
                         w_mode=args.gb_w_mode, knn=args.gb_knn
                     )
                     h_target = z_target
-                    print(f"[Target Enhance] epoch={epoch}, h_target enhanced")
             loss_ball_infonce = ball_infonce(H_ball, H_target_ball, pairs, temp=args.ball_infonce_temp)
         else:
             loss_ball_infonce = torch.tensor(0.0, device=device)
@@ -210,7 +240,8 @@ def train_online(online, optimizer, data, device, epoch, args, gb_feature=None):
     # Option A v1: 返回 z_new 用于下一个 epoch
     z_return = z_new if 'z_new' in dir() and z_new is not None else None
 
-    return loss.item(), sim_mean, z_return
+    # 方案4：返回 curr_GB_node_list 用于增量扩散
+    return loss.item(), sim_mean, z_return, curr_GB_node_list
 
 
 def train_target(target, optimizer, data):
@@ -272,6 +303,8 @@ def run(args):
         for trial in range(1, args.trials + 1):
             # Option A v1: 初始化粒球特征
             gb_feature = None
+            # 方案4: 初始化粒球结构（用于增量扩散）
+            prev_GB_node_list = None
 
             # 数据
             dataset = load_dataset(args.dataset_name, args.data_dir)
@@ -318,12 +351,18 @@ def run(args):
 
                     # Option A v1: 传入粒球特征用于拼接
                     gb_feature_curr = gb_feature if (args.use_gb and args.gb_feature_concat) else None
-                    online_loss, sim_mean, z_new = train_online(online_model, online_optimizer, data, device, epoch, args, gb_feature_curr)
+                    online_loss, sim_mean, z_new, curr_GB_node_list = train_online(
+                        online_model, online_optimizer, data, device, epoch, args, gb_feature_curr, prev_GB_node_list
+                    )
                     target_loss = train_target(target_model, target_optimizer, data)
 
                     # Option A v1: 更新粒球特征（用于下一个 epoch）
                     if args.use_gb and args.gb_feature_concat and z_new is not None:
                         gb_feature = z_new.detach().clone()
+
+                    # 方案4: 更新粒球结构（用于下一个 epoch 的增量扩散）
+                    if args.use_gb and curr_GB_node_list is not None:
+                        prev_GB_node_list = curr_GB_node_list
 
                     best_online_loss = min(best_online_loss, online_loss)
                     best_target_loss = min(best_target_loss, target_loss)
@@ -416,6 +455,10 @@ if __name__ == '__main__':
     # Option A v1: 特征拼接
     parser.add_argument('--gb_feature_concat', action='store_true',
                         help='Enable feature concatenation (Option A v1)')
+
+    # 方案4: 增量扩散（每 epoch 都扩散，不重建粒球结构）
+    parser.add_argument('--gb_incremental', action='store_true',
+                        help='Enable incremental diffusion - reuse ball structure instead of rebuilding every epoch')
 
     # 粒球扩散参数
     parser.add_argument('--gb_beta', type=float, default=0.2)
