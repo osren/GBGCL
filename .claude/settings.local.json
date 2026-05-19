@@ -64,7 +64,9 @@
       "Bash(conda env list)",
       "Bash(pip3 install matplotlib --user)",
       "Bash(pip:*)",
-      "WebFetch(domain:minimax-algeng-chat-tts.oss-cn-wulanchabu.aliyuncs.com)"
+      "WebFetch(domain:minimax-algeng-chat-tts.oss-cn-wulanchabu.aliyuncs.com)",
+      "Bash(git checkout src/train.py)",
+      "Bash(git checkout HEAD -- src/train.py src/gb_utils.py)"
     ]
   }
 }

@@ -96,6 +96,11 @@ def train_online(online, optimizer, data, device, epoch, args, gb_feature=None, 
     is_rebuild_epoch = (epoch % args.gb_rebuild_every == 0)
     use_incremental = getattr(args, 'gb_incremental', False) and prev_GB_node_list is not None and not is_rebuild_epoch
 
+    # 调试：打印 h 的统计（所有 epoch）
+    if epoch < 5 or epoch % 10 == 0:
+        h_norm_debug = h.norm(dim=-1).mean().item()
+        print(f"[h_DEBUG] epoch={epoch:04d}, is_rebuild={is_rebuild_epoch}, use_inc={use_incremental}, h_norm={h_norm_debug:.6f}")
+
     if args.use_gb and (is_rebuild_epoch or use_incremental):
         with torch.no_grad():
             # === 重建 epoch：完整构建粒球 ===
@@ -155,6 +160,10 @@ def train_online(online, optimizer, data, device, epoch, args, gb_feature=None, 
 
             # === 普通 epoch：增量扩散（复用粒球结构） ===
             else:
+                # 调试：打印 h 的完整统计
+                h_mean = h.mean().item()
+                h_std = h.std().item()
+                print(f"[INCR] epoch={epoch:04d}, h_mean={h_mean:.6f}, h_std={h_std:.6f}")
                 z_new, H_ball = incremental_diffuse_and_write(
                     node_embed=h, edge_index=data.edge_index,
                     GB_node_list=prev_GB_node_list,
@@ -163,6 +172,7 @@ def train_online(online, optimizer, data, device, epoch, args, gb_feature=None, 
                     w_mode=args.gb_w_mode, knn=args.gb_knn
                 )
                 GB_node_list = prev_GB_node_list  # 复用上一次的
+                curr_GB_node_list = prev_GB_node_list  # 传递下去
 
                 # 增量模式下的指标（简化版，不记录 metrics 文件）
                 h_norm = h.norm(dim=-1).mean().item()
