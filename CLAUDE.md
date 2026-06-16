@@ -107,8 +107,28 @@ GBGCL/
 
 Python 3.9.7, PyTorch 2.1.0, torch-geometric 2.5.3. See `env.yaml` for full dependencies.
 
+## Documentation (start here)
+
+| Doc | Purpose |
+|-----|---------|
+| `docs/ROADMAP.md` | Vision, obstacles, G-SGRL plan, milestones |
+| `docs/BASELINES.md` | SGRL paper baselines vs our CSV results |
+| `docs/EXPERIMENTS.md` | What was tried (Option A/B/C, ensemble, incremental) |
+| `docs/ARCHITECTURE.md` | Code flow and SGRL integration gap |
+| `docs/COMMANDS.md` | Run commands |
+
+Expert skill for GNN/granular-ball guidance: `.cursor/skills/gnn-gbgcl-expert/`
+
+## Current research status (2026-06)
+
+- **Target baseline**: SGRL Table 1 (NeurIPS 2024) — CS 94.15%, Photo 93.95%, Physics 96.23%, Computers 90.23%
+- **Our best (700ep combo mean)**: roughly at or slightly below SGRL on all four datasets; Physics/Computers sweeps incomplete
+- **Core issue**: granule diffusion is parallel to SGRL TCM/RSM, not fused; eval uses `or+pr` embeds not `z_new`
+- **Next**: `--gb_incremental`, BTCM (fuse ball diffusion into TCM path), BRSM (ball-level scattering)
+
 ## Common Patterns
 
 - `results/<dataset>_summary.csv` is the canonical result file — sweepX and analyze_results both read/write here
 - When adding new sweep parameters, update both `build_cmd()` in sweepX.py and the argparse in train.py
 - Granule rebuilding interval controlled by `--gb_rebuild_every` (default 100 in Stage-B, 50 in Stage-A)
+- Report accuracy only with source (SGRL table / CSV); see `docs/BASELINES.md`
