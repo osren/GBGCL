@@ -1,60 +1,16 @@
 # 分阶段实验脚本
 
-在 **Linux 服务器**上用 `nohup` 按 ROADMAP 阶段跑实验。Windows 本地请用 `docs/COMMANDS.md` 中的单条命令或 WSL。
+在 **Linux 服务器**上用 `nohup` 按 ROADMAP 阶段跑实验。
 
-**每次 `git pull` 后请先执行：**
-
-```bash
-sh scripts/phases/fix_crlf.sh
-# 或: sed -i 's/\r$//' scripts/phases/*.sh
-```
+**完整推送清单与逐步操作**：见 [`docs/SERVER_RUNBOOK.md`](../docs/SERVER_RUNBOOK.md)。
 
 ## 快速开始
 
 ```bash
 cd /path/to/GBGCL
 conda activate gbgcl   # 或你的环境名
-```
 
-### 若报错 `set: pipefail: invalid option name`
-
-脚本在 Windows 编辑后可能带 **CRLF** 换行。在服务器执行：
-
-```bash
-sed -i 's/\r$//' scripts/phases/*.sh
-# 或: sudo apt install dos2unix && dos2unix scripts/phases/*.sh
-```
-
-### 若报错 `URLError` / `Connection timed out`（下载数据集失败）
-
-服务器无法访问 GitHub 时，**不能**依赖 PyG 自动下载。先检查：
-
-```bash
-bash scripts/phases/check_datasets.sh
-```
-
-PyG 要求目录结构（注意 **CS 大写**）：
-
-```
-datasets/
-├── CS/raw/ms_academic_cs.npz
-├── Physics/raw/ms_academic_phy.npz
-├── Photo/raw/amazon_electronics_photo.npz
-└── Computers/raw/amazon_electronics_computers.npz
-```
-
-若只有小写 `datasets/cs`，Linux 上需：`mv datasets/cs datasets/CS`（并保证内有 `raw/*.npz`）。
-
-在本机下载 npz：https://github.com/shchur/gnn-benchmark/tree/master/data/npz  
-再 scp 到服务器对应 `raw/` 目录。
-
-然后重新运行。
-
-```bash
 # 后台启动阶段 0（SGRL 四数据集复现）
-export RESULTS_DIR="$PWD/results/phase0_sgrl"
-mkdir -p "$RESULTS_DIR"
-bash scripts/phases/check_datasets.sh
 bash scripts/phases/run_phase_nohup.sh 0
 
 # 查看输出

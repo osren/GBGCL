@@ -11,12 +11,13 @@
 | **[EXPERIMENTS.md](EXPERIMENTS.md)** | 已做实验与失败假设 |
 | **[ARCHITECTURE.md](ARCHITECTURE.md)** | 代码架构与数据流 |
 | **[COMMANDS.md](COMMANDS.md)** | 训练与扫参命令 |
+| **[SERVER_RUNBOOK.md](SERVER_RUNBOOK.md)** | **服务器推送清单 + 分阶段 nohup 执行** |
 
 ## 其他
 
 | 路径 | 说明 |
 |------|------|
-| [服务器实验指南.md](服务器实验指南.md) | 远程实验 |
+| [服务器实验指南.md](服务器实验指南.md) | 扫参速查（详见 SERVER_RUNBOOK） |
 | [knowledge/](knowledge/) | API / 模块参考（开发用） |
 | [weekly_reports/](weekly_reports/) | 周报存档 |
 | [defense/](defense/) | 答辩材料 |
