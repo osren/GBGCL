@@ -16,6 +16,7 @@ mkdir -p "${LOGS_DIR}" "${NOHUP_DIR}"
 
 # 可选：隔离某阶段结果到 results/phase0 等（默认写入 results/）
 export RESULTS_DIR="${RESULTS_DIR:-${PROJECT_ROOT}/results}"
+export DATA_DIR="${DATA_DIR:-${PROJECT_ROOT}/datasets}"
 export DEVICE="${DEVICE:-cuda}"
 export SWEEP_WORKERS="${SWEEP_WORKERS:-2}"
 
@@ -38,12 +39,12 @@ run_train() {
   mkdir -p "${LOGS_DIR}/${phase}"
 
   log_info "START phase=${phase} dataset=${dataset} tag=${tag}"
-  log_info "LOG=${log_file} RESULTS=${RESULTS_DIR}"
+  log_info "LOG=${log_file} RESULTS=${RESULTS_DIR} DATA=${DATA_DIR}"
 
   cd "${SRC_DIR}"
   if python train.py \
     --dataset_name "${dataset}" \
-    --data_dir ../../datasets \
+    --data_dir "${DATA_DIR}" \
     --results_dir "${RESULTS_DIR}" \
     --log_dir "${log_file}" \
     --device "${DEVICE}" \
