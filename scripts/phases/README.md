@@ -7,8 +7,23 @@
 ```bash
 cd /path/to/GBGCL
 conda activate gbgcl   # 或你的环境名
+```
 
+### 若报错 `set: pipefail: invalid option name`
+
+脚本在 Windows 编辑后可能带 **CRLF** 换行。在服务器执行：
+
+```bash
+sed -i 's/\r$//' scripts/phases/*.sh
+# 或: sudo apt install dos2unix && dos2unix scripts/phases/*.sh
+```
+
+然后重新运行。
+
+```bash
 # 后台启动阶段 0（SGRL 四数据集复现）
+export RESULTS_DIR="$PWD/results/phase0_sgrl"
+mkdir -p "$RESULTS_DIR"
 bash scripts/phases/run_phase_nohup.sh 0
 
 # 查看输出
