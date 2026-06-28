@@ -2,6 +2,13 @@
 
 在 **Linux 服务器**上用 `nohup` 按 ROADMAP 阶段跑实验。Windows 本地请用 `docs/COMMANDS.md` 中的单条命令或 WSL。
 
+**每次 `git pull` 后请先执行：**
+
+```bash
+sh scripts/phases/fix_crlf.sh
+# 或: sed -i 's/\r$//' scripts/phases/*.sh
+```
+
 ## 快速开始
 
 ```bash
