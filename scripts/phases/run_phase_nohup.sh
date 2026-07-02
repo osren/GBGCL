@@ -7,6 +7,9 @@
 #   bash scripts/phases/run_phase_nohup.sh 3a         # Stage-A 扫参
 #   bash scripts/phases/run_phase_nohup.sh 3b         # Stage-B 扫参
 #   bash scripts/phases/run_phase_nohup.sh 4          # 分析
+#   bash scripts/phases/run_phase_nohup.sh W          # 阶段 W: ball_loss_weight 敏感性
+#   bash scripts/phases/run_phase_nohup.sh R          # 阶段 R: Photo/Computers 复跑
+#   bash scripts/phases/run_phase_nohup.sh B          # 阶段 BTCM: --gb_btcm 烟测 + 50ep
 #   bash scripts/phases/run_phase_nohup.sh 0 --foreground   # 前台同步跑
 #
 # 环境变量（可选）:
@@ -36,6 +39,9 @@ case "${PHASE}" in
   3a)  SCRIPT="${PHASE_SCRIPT_DIR}/phase3_sweep_stage_a.sh" ;;
   3b)  SCRIPT="${PHASE_SCRIPT_DIR}/phase3_sweep_stage_b.sh" ;;
   4)   SCRIPT="${PHASE_SCRIPT_DIR}/phase4_analyze.sh" ;;
+  W)   SCRIPT="${PHASE_SCRIPT_DIR}/phaseW_ball_weight.sh" ;;
+  R)   SCRIPT="${PHASE_SCRIPT_DIR}/phaseR_repeat_validation.sh" ;;
+  B)   SCRIPT="${PHASE_SCRIPT_DIR}/phaseB_btcm.sh" ;;
   *)
     echo "Unknown phase: ${PHASE}"
     exit 1
