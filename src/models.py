@@ -2,19 +2,48 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch_geometric.nn import GCNConv
-from torch_geometric.utils import dropout_edge,mask_feature
+from torch_geometric.utils import dropout_edge, mask_feature, scatter
+
+
+class BallConv(torch.nn.Module):
+    """GCN-style conv 球特征注入消息函数（BTCM）。
+
+    消息：m_ij = [x_src || x_dst || ball_src || ball_dst]
+    聚合：scatter_mean → BatchNorm → PReLU
+    """
+
+    def __init__(self, in_dim: int, out_dim: int, ball_dim: int):
+        super().__init__()
+        self.lin = nn.Linear(in_dim * 2 + ball_dim * 2, out_dim)
+        self.bn = nn.BatchNorm1d(out_dim)
+        self.act = nn.PReLU()
+
+    def forward(self, x: torch.Tensor, edge_index: torch.Tensor, ball_feat: torch.Tensor) -> torch.Tensor:
+        src, dst = edge_index[0], edge_index[1]
+        m = torch.cat([x[src], x[dst], ball_feat[src], ball_feat[dst]], dim=-1)
+        out = self.lin(m)
+        out = scatter(out, dst, dim=0, dim_size=x.size(0), reduce='mean')
+        return self.act(self.bn(out))
+
 
 class Conv(torch.nn.Module):
-    def __init__(self, input_dim, hidden_dim, proj_dim, activation, num_layers, method=None, drop_out=0.0):
+    def __init__(self, input_dim, hidden_dim, proj_dim, activation, num_layers, method=None, drop_out=0.0, btcm=False, ball_dim=0):
         super(Conv, self).__init__()
         self.activation = activation
-        self.layers = torch.nn.ModuleList()
         self.drop_out = drop_out
+        self.btcm = btcm
 
-        # 输入维度：只在第一次调用时根据是否有gb特征动态决定
-        self.layers.append(GCNConv(input_dim, hidden_dim))
-        for _ in range(num_layers - 1):
-            self.layers.append(GCNConv(hidden_dim, hidden_dim))
+        if btcm:
+            assert ball_dim > 0, "ball_dim must be > 0 when btcm=True"
+            self.layers = nn.ModuleList()
+            self.layers.append(BallConv(input_dim, hidden_dim, ball_dim))
+            for _ in range(num_layers - 1):
+                self.layers.append(BallConv(hidden_dim, hidden_dim, ball_dim))
+        else:
+            self.layers = torch.nn.ModuleList()
+            self.layers.append(GCNConv(input_dim, hidden_dim))
+            for _ in range(num_layers - 1):
+                self.layers.append(GCNConv(hidden_dim, hidden_dim))
 
         self.projection_head = torch.nn.Sequential(
             torch.nn.Linear(hidden_dim, proj_dim),
@@ -23,10 +52,14 @@ class Conv(torch.nn.Module):
             torch.nn.Linear(proj_dim, proj_dim)
         )
 
-    def forward(self, x, edge_index):
+    def forward(self, x, edge_index, ball_feat=None):
         z = x
         for conv in self.layers:
-            z = conv(z, edge_index)
+            if self.btcm:
+                assert ball_feat is not None, "BallConv requires ball_feat"
+                z = conv(z, edge_index, ball_feat)
+            else:
+                z = conv(z, edge_index)
             z = self.activation(z)
             z = F.dropout(z, p=self.drop_out, training=self.training)
 
@@ -97,15 +130,16 @@ class Online(torch.nn.Module):
             next_p = self.momentum * p.data + (1 - self.momentum) * new_p.data
             p.data = next_p
 
-    def forward(self, x, edge_index, gb_feature=None):
-        """Option A v1: 在 hidden 层做特征融合
+    def forward(self, x, edge_index, gb_feature=None, gb_ball_feat=None):
+        """Option A v1: 在 hidden 层做特征融合；BTCM: 球特征注入消息函数
 
         Args:
             x: [N, d] 原始特征
             edge_index: [2, E] 边索引
             gb_feature: [N, hidden_dim] 粒球增强特征（已投影到 hidden 维）
+            gb_ball_feat: [N, ball_dim] 球特征张量（BTCM 通路；为 None 时退化为 GCN）
         """
-        or_embeds, pr_embeds = self.embed(x, edge_index, self.slsp_adj, self.num_hop)
+        or_embeds, pr_embeds = self.embed(x, edge_index, self.slsp_adj, self.num_hop, ball_feat=gb_ball_feat)
         h = or_embeds + pr_embeds
 
         # Option A v1: 在 hidden 层做特征融合（gb_feature 已经是 hidden 维）
@@ -117,7 +151,10 @@ class Online(torch.nn.Module):
 
         h_pred = self.predictor(h)
         with torch.no_grad():
-            h_target, _ = self.target_encoder(x, edge_index)
+            if self.online_encoder.btcm and gb_ball_feat is not None:
+                h_target, _ = self.target_encoder(x, edge_index, ball_feat=gb_ball_feat)
+            else:
+                h_target, _ = self.target_encoder(x, edge_index)
 
         return h, h_pred, h_target
 
@@ -128,21 +165,27 @@ class Online(torch.nn.Module):
         loss = (z1 * z2).sum(dim=-1)
         return -loss.mean()
 
-    def embed(self, seq, edge_index, adj, Globalhop=10):
-        h_1, _ = self.online_encoder(seq, edge_index)
+    def embed(self, seq, edge_index, adj, Globalhop=10, ball_feat=None):
+        if self.online_encoder.btcm and ball_feat is not None:
+            h_1, _ = self.online_encoder(seq, edge_index, ball_feat=ball_feat)
+        else:
+            h_1, _ = self.online_encoder(seq, edge_index)
         h_2 = h_1.clone()
         for _ in range(Globalhop):
             h_2 = adj @ h_2
         return h_1, h_2
-    
-    
+
+
 class Target(torch.nn.Module):
     def __init__(self,target_encoder):
         super(Target,self).__init__()
         self.target_encoder = target_encoder
 
-    def forward(self,x,edge_index):
-        h_target,_ = self.target_encoder(x,edge_index)
+    def forward(self, x, edge_index, ball_feat=None):
+        if self.target_encoder.btcm and ball_feat is not None:
+            h_target, _ = self.target_encoder(x, edge_index, ball_feat=ball_feat)
+        else:
+            h_target, _ = self.target_encoder(x, edge_index)
         return h_target
 
     def get_loss(self,z):

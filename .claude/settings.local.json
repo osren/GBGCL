@@ -66,7 +66,11 @@
       "Bash(pip:*)",
       "WebFetch(domain:minimax-algeng-chat-tts.oss-cn-wulanchabu.aliyuncs.com)",
       "Bash(git checkout src/train.py)",
-      "Bash(git checkout HEAD -- src/train.py src/gb_utils.py)"
+      "Bash(git checkout HEAD -- src/train.py src/gb_utils.py)",
+      "mcp__plugin_claude-mem_mcp-search__smart_outline",
+      "Bash(awk NR>=15 && NR<=50 *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }

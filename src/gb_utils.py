@@ -99,6 +99,39 @@ def _compute_ball_centers(node_embed, GB_node_list):
     return compute_ball_centers(node_embed, GB_node_list)
 
 
+def build_ball_tensor(H_ball: torch.Tensor,
+                      GB_node_list: List[List[int]],
+                      num_nodes: int,
+                      device: torch.device) -> torch.Tensor:
+    """节点→所属球嵌入的查表张量（BTCM 用）。
+
+    Args:
+        H_ball: 球心嵌入 [B, ball_dim]
+        GB_node_list: 每个球的成员节点索引 List[List[int]]
+        num_nodes: 原图节点数 N（决定输出张量第一维）
+        device: 目标设备
+
+    Returns:
+        ball_tensor: [N, ball_dim]，每个节点取其所在球的嵌入。
+                     若该节点不在任何球中（GB_node_list 不覆盖），对应行=0。
+                     若 H_ball 为空 / GB_node_list 为空，返回 None。
+    """
+    if H_ball is None or H_ball.numel() == 0 or len(GB_node_list) == 0:
+        return None
+
+    ball_dim = H_ball.size(1)
+    node2ball = torch.full((num_nodes,), -1, dtype=torch.long, device=device)
+    for bid, nlist in enumerate(GB_node_list):
+        if len(nlist) > 0:
+            idx = torch.as_tensor(nlist, dtype=torch.long, device=device)
+            node2ball[idx] = bid
+
+    valid = node2ball >= 0
+    ball_tensor = torch.zeros(num_nodes, ball_dim, dtype=H_ball.dtype, device=device)
+    ball_tensor[valid] = H_ball[node2ball[valid]]
+    return ball_tensor
+
+
 # =========================================================
 # 2) 构建球图并执行扩散
 # =========================================================

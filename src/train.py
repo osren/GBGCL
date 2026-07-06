@@ -28,7 +28,8 @@ from gb_utils import (
     jaccard_between_balls,
     hungarian_matching,
     ball_infonce,
-    compute_ball_centers
+    compute_ball_centers,
+    build_ball_tensor
 )
 
 # =========================================================
@@ -72,20 +73,30 @@ def fit_logistic_regression(X, y, data_random_seed=1, repeat=3):
 # =========================================================
 # 在线网络训练（含粒球模块）
 # =========================================================
-def train_online(online, optimizer, data, device, epoch, args, gb_feature=None, prev_GB_node_list=None):
-    """单 epoch 的 online 模块训练过程（Option A v1: 特征拼接）
+def train_online(online, optimizer, data, device, epoch, args, gb_feature=None, prev_GB_node_list=None, prev_H_ball=None):
+    """单 epoch 的 online 模块训练过程（Option A v1: 特征拼接；BTCM: 球特征注入消息函数）
 
     Args:
         gb_feature: 粒球增强特征 [N, d]，用于特征拼接
         prev_GB_node_list: 上一个 epoch 的粒球结构（用于增量扩散）
+        prev_H_ball: 上一个 epoch 重建的球心嵌入 [B, ball_dim]，用于 BTCM 通路
     """
     online.train()
 
     # 用于存储当前 epoch 构建的粒球结构（供下一个 epoch 使用）
     curr_GB_node_list = prev_GB_node_list
+    curr_H_ball = prev_H_ball
 
-    # Option A v1: 如果有粒球特征，传入
-    if args.use_gb and args.gb_feature_concat and gb_feature is not None:
+    # BTCM 通路：用上一个 epoch 缓存的 H_ball 构建节点→球的查表张量
+    gb_ball_tensor = None
+    if (args.use_gb and getattr(args, 'gb_btcm', False)
+            and prev_GB_node_list is not None and prev_H_ball is not None):
+        gb_ball_tensor = build_ball_tensor(prev_H_ball, prev_GB_node_list, data.x.size(0), device)
+
+    # Online 前向（按优先级：BSTM 球特征 > 后融合 > 默认）
+    if gb_ball_tensor is not None:
+        h, h_pred, h_target = online(data.x, data.edge_index, gb_ball_feat=gb_ball_tensor)
+    elif args.use_gb and args.gb_feature_concat and gb_feature is not None:
         h, h_pred, h_target = online(data.x, data.edge_index, gb_feature=gb_feature)
     else:
         h, h_pred, h_target = online(data.x, data.edge_index)
@@ -117,6 +128,7 @@ def train_online(online, optimizer, data, device, epoch, args, gb_feature=None, 
                     select=getattr(args, 'gb_ensemble_select', 'hard')
                 )
                 curr_GB_node_list = GB_node_list  # 保存供下一个 epoch 使用
+                curr_H_ball = H_ball  # BTCM 用：保存供下一个 epoch 的 online 通路
 
                 # 额外的详细指标（只在重建 epoch 记录）
                 h_norm = h.norm(dim=-1).mean().item()
@@ -173,6 +185,7 @@ def train_online(online, optimizer, data, device, epoch, args, gb_feature=None, 
                 )
                 GB_node_list = prev_GB_node_list  # 复用上一次的
                 curr_GB_node_list = prev_GB_node_list  # 传递下去
+                curr_H_ball = H_ball  # BTCM 用：增量扩散也更新 H_ball
 
                 # 增量模式下的指标（简化版，不记录 metrics 文件）
                 h_norm = h.norm(dim=-1).mean().item()
@@ -251,7 +264,8 @@ def train_online(online, optimizer, data, device, epoch, args, gb_feature=None, 
     z_return = z_new if 'z_new' in dir() and z_new is not None else None
 
     # 方案4：返回 curr_GB_node_list 用于增量扩散
-    return loss.item(), sim_mean, z_return, curr_GB_node_list
+    # BTCM：同时返回 curr_H_ball 供下一个 epoch 的 online 通路
+    return loss.item(), sim_mean, z_return, curr_GB_node_list, curr_H_ball
 
 
 def train_target(target, optimizer, data):
@@ -315,6 +329,8 @@ def run(args):
             gb_feature = None
             # 方案4: 初始化粒球结构（用于增量扩散）
             prev_GB_node_list = None
+            # BTCM: 初始化 H_ball（每个 trial 重置）
+            prev_H_ball = None
 
             # 数据
             dataset = load_dataset(args.dataset_name, args.data_dir)
@@ -335,8 +351,10 @@ def run(args):
 
             # 模型
             activation = torch.nn.PReLU()
-            online_conv = Conv(data.x.size(1), args.hidden_dim, args.hidden_dim, activation, args.num_layers)
-            target_conv = Conv(data.x.size(1), args.hidden_dim, args.hidden_dim, activation, args.num_layers)
+            online_conv = Conv(data.x.size(1), args.hidden_dim, args.hidden_dim, activation, args.num_layers,
+                               btcm=getattr(args, 'gb_btcm', False), ball_dim=getattr(args, 'gb_ball_emb_dim', 64))
+            target_conv = Conv(data.x.size(1), args.hidden_dim, args.hidden_dim, activation, args.num_layers,
+                               btcm=getattr(args, 'gb_btcm', False), ball_dim=getattr(args, 'gb_ball_emb_dim', 64))
 
             online_model = Online(online_conv, target_conv, args.hidden_dim, slsp_adj, args.num_hop, args.momentum).to(device)
             target_model = Target(target_conv).to(device)
@@ -361,8 +379,9 @@ def run(args):
 
                     # Option A v1: 传入粒球特征用于拼接
                     gb_feature_curr = gb_feature if (args.use_gb and args.gb_feature_concat) else None
-                    online_loss, sim_mean, z_new, curr_GB_node_list = train_online(
-                        online_model, online_optimizer, data, device, epoch, args, gb_feature_curr, prev_GB_node_list
+                    online_loss, sim_mean, z_new, curr_GB_node_list, curr_H_ball = train_online(
+                        online_model, online_optimizer, data, device, epoch, args,
+                        gb_feature_curr, prev_GB_node_list, prev_H_ball
                     )
                     target_loss = train_target(target_model, target_optimizer, data)
 
@@ -373,6 +392,10 @@ def run(args):
                     # 方案4: 更新粒球结构（用于下一个 epoch 的增量扩散）
                     if args.use_gb and curr_GB_node_list is not None:
                         prev_GB_node_list = curr_GB_node_list
+
+                    # BTCM: 更新 H_ball（用于下一个 epoch 的 online 通路）
+                    if args.use_gb and curr_H_ball is not None:
+                        prev_H_ball = curr_H_ball
 
                     best_online_loss = min(best_online_loss, online_loss)
                     best_target_loss = min(best_target_loss, target_loss)
@@ -386,7 +409,13 @@ def run(args):
             # 评估（线性探测）
             online_model.eval()
             with torch.no_grad():
-                or_embeds, pr_embeds = online_model.embed(data.x, data.edge_index, slsp_adj, args.num_hop)
+                # BTCM: 评估时把最后缓存的 H_ball 转成节点→球的查表
+                ball_tensor_eval = None
+                if (getattr(args, 'gb_btcm', False)
+                        and prev_GB_node_list is not None and prev_H_ball is not None):
+                    ball_tensor_eval = build_ball_tensor(prev_H_ball, prev_GB_node_list, data.x.size(0), device)
+                or_embeds, pr_embeds = online_model.embed(data.x, data.edge_index, slsp_adj, args.num_hop,
+                                                         ball_feat=ball_tensor_eval)
                 embeds = (or_embeds + pr_embeds).cpu().numpy()
             scores = fit_logistic_regression(embeds, data.y.cpu().numpy())
             clf_mean, clf_var = float(np.mean(scores)), float(np.var(scores))
@@ -482,6 +511,12 @@ if __name__ == '__main__':
     parser.add_argument('--ball_uniform_tau', type=float, default=0.1)
     parser.add_argument('--ball_infonce_weight', type=float, default=0.02)
     parser.add_argument('--ball_infonce_temp', type=float, default=0.2)
+
+    # BTCM（Ball-aware TCM，Stage 2）— 把球嵌入写进 Conv 消息函数
+    parser.add_argument('--gb_btcm', action='store_true',
+                        help='Fuse ball-emb into TCM message passing (Stage 2 / RUNBOOK §四)')
+    parser.add_argument('--gb_ball_emb_dim', type=int, default=1024,
+                        help='Ball embedding dim; must match H_ball.size(1) at train time')
 
     args = parser.parse_args()
     run(args)
