@@ -73,13 +73,15 @@ def fit_logistic_regression(X, y, data_random_seed=1, repeat=3):
 # =========================================================
 # 在线网络训练（含粒球模块）
 # =========================================================
-def train_online(online, optimizer, data, device, epoch, args, gb_feature=None, prev_GB_node_list=None, prev_H_ball=None):
+def train_online(online, optimizer, data, device, epoch, args, gb_feature=None, prev_GB_node_list=None, prev_H_ball=None, gb_ball_tensor=None):
     """单 epoch 的 online 模块训练过程（Option A v1: 特征拼接；BTCM: 球特征注入消息函数）
 
     Args:
         gb_feature: 粒球增强特征 [N, d]，用于特征拼接
         prev_GB_node_list: 上一个 epoch 的粒球结构（用于增量扩散）
         prev_H_ball: 上一个 epoch 重建的球心嵌入 [B, ball_dim]，用于 BTCM 通路
+        gb_ball_tensor: 已在 run() 中预先构建的节点→球嵌入查表张量（BTCM 用）。
+                        若 None，则按 prev_H_ball 自动构建（全零或 build_ball_tensor）。
     """
     online.train()
 
@@ -87,10 +89,9 @@ def train_online(online, optimizer, data, device, epoch, args, gb_feature=None, 
     curr_GB_node_list = prev_GB_node_list
     curr_H_ball = prev_H_ball
 
-    # BTCM 通路：用上一个 epoch 缓存的 H_ball 构建节点→球的查表张量
+    # BTCM 通路：若外部未传入，则按 prev_H_ball 自动构建
     # epoch 0 时 prev_H_ball=None，用全零占位（shape 匹配 ball_dim）
-    gb_ball_tensor = None
-    if (args.use_gb and getattr(args, 'gb_btcm', False)):
+    if gb_ball_tensor is None and (args.use_gb and getattr(args, 'gb_btcm', False)):
         if prev_GB_node_list is not None and prev_H_ball is not None:
             gb_ball_tensor = build_ball_tensor(prev_H_ball, prev_GB_node_list, data.x.size(0), device)
         else:
@@ -271,10 +272,13 @@ def train_online(online, optimizer, data, device, epoch, args, gb_feature=None, 
     return loss.item(), sim_mean, z_return, curr_GB_node_list, curr_H_ball
 
 
-def train_target(target, optimizer, data):
+def train_target(target, optimizer, data, ball_feat=None):
     """Target 网络训练一步。"""
     target.train()
-    h_target = target(data.x, data.edge_index)
+    if getattr(getattr(target, 'target_encoder', None), 'btcm', False) and ball_feat is not None:
+        h_target = target(data.x, data.edge_index, ball_feat=ball_feat)
+    else:
+        h_target = target(data.x, data.edge_index)
     loss = target.get_loss(h_target)
     loss.backward()
     optimizer.step()
@@ -380,13 +384,21 @@ def run(args):
                     online_optimizer.zero_grad(set_to_none=True)
                     target_optimizer.zero_grad(set_to_none=True)
 
+                    # BTCM：在循环顶部统一构建球特征张量，online/target 共用
+                    gb_ball_tensor = None
+                    if args.use_gb and getattr(args, 'gb_btcm', False):
+                        if prev_GB_node_list is not None and prev_H_ball is not None:
+                            gb_ball_tensor = build_ball_tensor(prev_H_ball, prev_GB_node_list, data.x.size(0), device)
+                        else:
+                            gb_ball_tensor = torch.zeros(data.x.size(0), args.gb_ball_emb_dim, device=device)
+
                     # Option A v1: 传入粒球特征用于拼接
                     gb_feature_curr = gb_feature if (args.use_gb and args.gb_feature_concat) else None
                     online_loss, sim_mean, z_new, curr_GB_node_list, curr_H_ball = train_online(
                         online_model, online_optimizer, data, device, epoch, args,
-                        gb_feature_curr, prev_GB_node_list, prev_H_ball
+                        gb_feature_curr, prev_GB_node_list, prev_H_ball, gb_ball_tensor
                     )
-                    target_loss = train_target(target_model, target_optimizer, data)
+                    target_loss = train_target(target_model, target_optimizer, data, ball_feat=gb_ball_tensor)
 
                     # Option A v1: 更新粒球特征（用于下一个 epoch）
                     if args.use_gb and args.gb_feature_concat and z_new is not None:
