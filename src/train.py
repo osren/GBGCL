@@ -88,13 +88,16 @@ def train_online(online, optimizer, data, device, epoch, args, gb_feature=None, 
     curr_H_ball = prev_H_ball
 
     # BTCM 通路：用上一个 epoch 缓存的 H_ball 构建节点→球的查表张量
+    # epoch 0 时 prev_H_ball=None，用全零占位（shape 匹配 ball_dim）
     gb_ball_tensor = None
-    if (args.use_gb and getattr(args, 'gb_btcm', False)
-            and prev_GB_node_list is not None and prev_H_ball is not None):
-        gb_ball_tensor = build_ball_tensor(prev_H_ball, prev_GB_node_list, data.x.size(0), device)
+    if (args.use_gb and getattr(args, 'gb_btcm', False)):
+        if prev_GB_node_list is not None and prev_H_ball is not None:
+            gb_ball_tensor = build_ball_tensor(prev_H_ball, prev_GB_node_list, data.x.size(0), device)
+        else:
+            gb_ball_tensor = torch.zeros(data.x.size(0), args.gb_ball_emb_dim, device=device)
 
-    # Online 前向（按优先级：BSTM 球特征 > 后融合 > 默认）
-    if gb_ball_tensor is not None:
+    # Online 前向（按优先级：BTCM 球特征 > 特征拼接 > 默认）
+    if (args.use_gb and getattr(args, 'gb_btcm', False)):
         h, h_pred, h_target = online(data.x, data.edge_index, gb_ball_feat=gb_ball_tensor)
     elif args.use_gb and args.gb_feature_concat and gb_feature is not None:
         h, h_pred, h_target = online(data.x, data.edge_index, gb_feature=gb_feature)
