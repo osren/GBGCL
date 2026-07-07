@@ -70,7 +70,11 @@
       "mcp__plugin_claude-mem_mcp-search__smart_outline",
       "Bash(awk NR>=15 && NR<=50 *)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "mcp__plugin_claude-mem_mcp-search__get_observations",
+      "mcp__plugin_claude-mem_mcp-search__search",
+      "Read(//c/Users/Tan/.ssh/**)",
+      "Bash(ssh -o StrictHostKeyChecking=no -o ConnectTimeout=15 server.ddwtop.team 'echo CONNECTED; pwd; uname -a')"
     ]
   }
 }
