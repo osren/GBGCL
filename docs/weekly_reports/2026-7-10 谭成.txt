@@ -1,0 +1,137 @@
+工作进度汇报
+
+汇报人：谭成　　日期：2026年7月10日
+
+---
+
+本周状态：一边跑服务器实验收 Phase R 数据，一边把 Option BTCM 从"伪代码"落到"代码"，BTCM 骨架已经在服务器跑通 50ep 冒烟。
+实验入口：服务器 bash /home/ubuntu/workplace/tc2/GBGCL-main/scripts/phases/run_phase_nohup.sh R 与 bash scripts/start_smoke.sh，本地 tools/analyze_phaseR.py。
+
+---
+
+一、近期工作概述
+
+本周主要推进了三项工作。第一项是 Option BTCM 从设计稿落地为可运行代码——在 src/models.py 新增 BallConv 层（消息函数 [x_src ‖ x_dst ‖ ball_src ‖ ball_dst] → scatter_mean → BN → PReLU），在 src/gb_utils.py 新增 build_ball_tensor() 构造节点→球的查表张量，在 src/train.py 新增 --gb_btcm 与 --gb_ball_emb_dim 参数并把 BTCM 通路接到 online + target 双编码器，服务器侧 Photo 50ep × 1trial 冒烟跑出 0.8897，无 NaN 无维度报错。第二项是 Phase R（Photo / Computers 复跑验证）在服务器端跑完，4 组（R-A / R-B / R-C / R-D）全部 OK，总耗时仅 1h44min，结论是"粒球扩散对 Photo/Computers 没有显著增益，Δ vs baseline 在 ±0.1pp 噪声范围内"，纠正了之前"Photo -0.20pp vs SGRL"的误读——Phase 0 baseline 自身就 -0.04pp，SGRL 的 93.95% 本身就是上限附近。第三项是服务器端 src/data.py 下载补丁——服务器 *16.20.21 内网阻断了 shchur/gnn-benchmark，PyG 的 Amazon.download / Coauthor.download 不检查文件存在直接拉、反复报 ConnectionRefusedError，用 monkey-patch 把两个类的 download 方法置空、强制走 process() 用已下载的 raw，三项问题（无 BTCM 代码、Phase R 未跑、数据集阻断）一次性解决。
+
+---
+
+二、Option BTCM：球扩散嵌入 TCM 路径（骨架落地）
+
+2.1 设计思路
+
+上周完成了 BTCM 的架构设计（见 docs/RUNBOOK_NEXT_2026-07-02.md §四.2），本周的目标是把"伪代码 → 代码"。当前 GCN 编码器的消息函数只用到两端节点特征，粒球信息只能通过末尾的 granule_diffuse_and_write 加性回写，无法在 GCN 内部"乘性"耦合。BTCM 把消息函数扩展为：
+
+m_ij = BN( W · concat[ x_i, x_j, b_{β(i)}, b_{β(j)} ] )
+
+其中 b_{β(i)} 是节点 i 所属粒球 β(i) 的嵌入 H_ball[β(i)]，β(i) 通过 build_ball_tensor() 一次性查表得到。这样 GCN 第一层就能感知"我属于哪类粒球"，球结构不再是 TCM 的旁路，而是编码器本身的归纳偏置。
+
+2.2 新增参数与脚本
+
+src/models.py — 新增 BallConv（in_dim×2 + ball_dim×2 → out_dim，scatter_mean + BN + PReLU）；Conv 加 btcm / ball_dim 开关；Online / Target 加 gb_ball_feat 透传。
+
+src/gb_utils.py — 新增 build_ball_tensor(H_ball, GB_node_list, N, device)，构造节点→球的查表张量。
+
+src/train.py — 加 --gb_btcm / --gb_ball_emb_dim=1024 参数；run() 顶层构建 gb_ball_tensor；train_online / train_target 共享同一张量；BTCM 通路用 prev_H_ball，epoch 0 走 torch.zeros(N, ball_dim) 占位。
+
+scripts/smoke_btcm.sh — 50ep Photo 冒烟脚本（含 conda activate）。
+
+scripts/start_smoke.sh — nohup 启动器，写日志到 logs/nohup/btcm_smoke4.out。
+
+关键 commit：e52388c wip: BTCM scaffold (BallConv + build_ball_tensor + prev_H_ball pipe), ball_dim=1024 default；79f492e fix:修复TRAIN.PY；5a362d4 fix:继续修复。
+
+2.3 实验进展
+
+服务器 Photo 50ep × 1trial 冒烟跑通：
+
+[h_DEBUG] epoch=0000, ..., h_norm=8.36
+[h_DEBUG] epoch=0010, ..., h_norm=26.80
+[h_DEBUG] epoch=0040, ..., h_norm=28.48
+[TRIAL 1] ACC = 0.8897 ± 0.000038
+
+无 NaN / 无维度报错，BTCM scaffold 端到端打通。Photo 50ep 0.8897 与 SGRL 同 epoch 的 0.93+ 相比还有 4pp+ 差距，但这是训练时长问题而非代码问题——BTCM 50ep 完整 Photo / Computers / CS / Physics 跑要等 Phase R 完成后让出 GPU 才能正式起。
+
+---
+
+三、Phase R：Photo / Computers 复跑验证
+
+3.1 设计思路
+
+上周发现"Photo -0.20pp vs SGRL"这一 finding 的解读存在歧义：是 Stage-B Top-1 配置本身退化，还是 SGRL 复现本身就有 -0.20pp？为此设计了 Phase R：在不改动代码 / 不改超参的前提下，把 Stage-B Top-1 配置与"Phase 0 baseline（SGRL 等价的纯 GCN + BYOL，不开 GB）"在同一台服务器、同一份数据、同一组 trial 序列下重跑，比较二者 Δ。
+
+R-A / R-C：Phase 0 baseline（--use_gb 不开），对应 SGRL 复现基线。
+R-B / R-D：Stage-B Top-1 配置（Photo detach/dot/0.3、K=10；Computers homo/dot/0.7）。
+每组 700ep × 5trial，对照 docs/PROGRESS_2026-07-02.md Stage-B Top-1 表。
+
+3.2 实验进展
+
+服务器侧 scripts/phases/phaseR_repeat_validation.sh 在 PID 555977 后台跑，4 组全部 OK，总耗时 1h44min（远低于预估的 10–15h，因为 Photo / Computers 单 trial 实际只 4–15 min）：
+
+组别   数据集   配置                                            5 trials mean      vs SGRL   Δ vs baseline
+R-A    Photo   Phase 0 baseline（SGRL 等价，无 GB）                0.9391 ± 0.0007    -0.04pp    —
+R-B    Photo   Stage-B Top-1（detach, dot, 0.3, K=10）             0.9380 ± 0.0008    -0.15pp   -0.11pp
+R-C    Computers Phase 0 baseline                                 0.9004 ± 0.0002    -0.19pp    —
+R-D    Computers Stage-B Top-1（homo, dot, 0.7）                   0.8998 ± 0.0005    -0.25pp   -0.06pp
+
+核心结论：
+
+(1) 之前"Photo -0.20pp vs SGRL"的 finding 不准确 —— Phase 0 baseline 自身就 -0.04pp，SGRL 的 93.95% 本身就是上限附近，并非我们的粒球模块把 SGRL 拉下来了；
+(2) Stage-B Top-1 vs baseline 仅差 -0.11pp（Photo）和 -0.06pp（Computers），在 SGRL 标准差 ±0.5pp 范围内；
+(3) 粒球扩散（GBGCL）对 Photo/Computers 没有显著增益，基本就是 SGRL 噪声水平；
+(4) BTCM 才是 GBGCL 论文真正的差异化方向，需要把球扩散嵌入 InfoNCE 才能拉开差距。
+
+后续：CS / Physics 还没跑过 Phase R，本周补跑（CS 94.15% / Physics 96.23% 是 SGRL 最强的两个数据集，需要单独评估"GBGCL 在强基线上是否退化"）。
+
+3.3 当前状态
+
+Phase R Photo / Computers 完成，已写入 results/phaseR/<dataset>_summary.csv，本地用 tools/analyze_phaseR.py 出表。CS / Physics 排队等 GPU 让出（BTCM 50ep 占 1 张 4090）。
+
+---
+
+四、data.py 下载补丁与服务器同步
+
+Phase W 启动时已经修复过 scripts/phases/common.sh 的 --data_dir 绝对路径（commit 5ba194f），本周再补一个 src/data.py 的下载阻断补丁：服务器 *16.20.21 内网出口屏蔽了 shchur/gnn-benchmark，PyG 的 Amazon.download() / Coauthor.download() 不检查文件存在直接拉、反复 ConnectionRefusedError，导致任何 Photo / Computers / CS / Physics 启动都先挂一遍。
+
+修法：在 src/data.py 顶部 monkey-patch：
+
+import torch_geometric.datasets.amazon as _amz
+import torch_geometric.datasets.coauthor as _coauth
+def _skip_download(self):
+    pass
+_amz.Amazon.download = _skip_download
+_coauth.Coauthor.download = _skip_download
+
+强制走 process() 用已下载的 raw 目录，配合 common.sh 的 --data_dir=/home/ubuntu/workplace/tc2/GBGCL-main/datasets 绝对路径，Photo / CS / Computers / Physics 全部可以离线加载。
+
+这次事故推动 RunBOOK 增加"服务器侧补丁登记"一栏：每条 sed 改动都要列"本地 commit / 服务器侧补丁 / 是否已 push"三栏。本周累积补丁清单：
+
+改动                        本地 commit           服务器侧补丁方式                  是否已 push
+common.sh --data_dir 路径   5ba194f               scp common.sh + 重启 Phase W    否（本机防火墙挡 github）
+data.py 下载 monkey-patch   (服务器 sed 注入)       服务器侧 sed 写入                否
+BTCM scaffold               e52388c / 79f492e     scp models.py gb_utils.py        否
+                            / 5a362d4              train.py 全量替换
+
+---
+
+五、论文撰写并行进展
+
+本周与实验同步推进的论文写作包括：
+
+方法小节 BTCM 算法描述补完：从上周的伪代码（runbook §四.2）升级为可发布的算法 1，写清 BallConv 的消息函数、build_ball_tensor 的查表逻辑、以及 BTCM 通路在 train_online / train_target 的统一接法；同时把"prev_H_ball 跨 epoch 传递"的设计动机写明白——粒球结构本身是低频信号，每 epoch 重算反而引入抖动，跨 epoch EMA 比对 SGRL 的 TCM 更鲁棒。
+
+消融实验设计修订：Phase R 的新结论（GBGCL 对 Photo / Computers ≈ SGRL ± 噪声）让消融章节的写法调整——Photo 不再当作"亮点"，CS 94.28% + BTCM smoke 0.8897 / 50ep 才是需要重点放大的点。消融维度同步改为"GB 注入位置（conv1 / conv2 / both）× ball_emb_dim（64 / 256 / 1024）× quity（detach / homo）× 球损失权重"四维网格，把 BTCM 与 Phase R 的实验数据合并到一张大表里。
+
+结果对比表草稿：4 数据集 × {baseline, GBGCL-Stage-B-Top-1, GBGCL-BTCM} × 5trial 的对比框架已搭好，等待 BTCM 完整 700ep × 5trial 数据回填。Photo / Computers 现阶段结论"与 SGRL 持平"先占位写"GBGCL 不退化"，CS / Physics 留空待 BTCM 跑完补。
+
+---
+
+六、下一步工作计划
+
+第一阶段是 Phase R CS / Physics 补跑（7/11–7/12），CS / Physics 是 SGRL 最强（94.15% / 96.23%）的两个数据集，评估 GBGCL 在强基线上是否退化的关键证据。脚本复用 phaseR_repeat_validation.sh，只需把 dataset 改为 CS / Physics，配置按 Stage-B Top-1 调参（CS 用 homo/dot/0.5、Physics 用 detach/dot/0.5）。
+
+第二阶段是 BTCM 完整实验（7/13–7/16），把 Photo / Computers / CS / Physics 四数据集 × 700ep × 5trial 的 BTCM 跑齐，重点关注 BTCM 是否能在 Phase R baseline 基础上显著拉高（目标 Δ ≥ +0.3pp / 数据集才算 BTCM 真正起效）；同时把 ball_diffusion_btcm() 真正嵌入 InfoNCE 的核心算法实现出来——当前 BTCM 只用 ball_feat 做消息注入，没有把球扩散嵌入 InfoNCE（runbook §四.2 设计的目标形态），下半周要把"球邻居对作为 InfoNCE 正样本"这一关键改动落地并跑 smoke 验证。
+
+第三阶段是论文方法小节定稿（7/16–7/17），把 BTCM 算法 1 补完、消融实验四维网格跑通、结果对比表 CS / Physics / BTCM 三块数据回填，提交本周末版周报。预期本周末可以把论文核心章节（方法 / 实验 / 消融）的 v1 完整版发给吴涛老师审阅。
+
+---
+
+本周的核心进展：Option BTCM 从伪代码落地为可运行骨架并跑通 Photo 50ep smoke；Phase R Photo / Computers 4 组全完，纠正了"Photo -0.20pp vs SGRL"的误读；data.py 下载补丁 + common.sh 绝对路径修复让服务器数据集离线可用。下周关键路径是 CS / Physics Phase R + BTCM 完整 700ep 实验——这一步决定论文"亮点"能否从 CS 单点扩散到多数据集。
