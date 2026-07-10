@@ -1,0 +1,113 @@
+=== analyze_results.py ===
+[INFO] Found datasets: ['CS', 'Computers', 'Photo', 'Physics']
+[INFO] CS: 336 rows, fields: ['gb_quity', 'gb_sim', 'gb_alpha', 'gb_beta', 'gb_K', 'gb_w_mode', 'gb_knn', 'ball_loss_weight', 'ball_angle_thresh', 'ball_uniform_tau', 'ball_infonce_weight', 'ball_infonce_temp']
+[SAVE] analysis/CS_gb_summary.csv | Top-3: mean=0.9428+-0.0000, max=0.9428 (n=1)
+[INFO] Computers: 74 rows, fields: ['gb_quity', 'gb_sim', 'gb_alpha', 'gb_beta', 'gb_K', 'gb_w_mode', 'gb_knn', 'ball_loss_weight', 'ball_angle_thresh', 'ball_uniform_tau', 'ball_infonce_weight', 'ball_infonce_temp']
+[SAVE] analysis/Computers_gb_summary.csv | Top-3: mean=0.8997+-0.0007, max=0.9006 (n=5)
+[INFO] Photo: 385 rows, fields: ['gb_quity', 'gb_sim', 'gb_alpha', 'gb_beta', 'gb_K', 'gb_w_mode', 'gb_knn', 'ball_loss_weight', 'ball_angle_thresh', 'ball_uniform_tau', 'ball_infonce_weight', 'ball_infonce_temp']
+[SAVE] analysis/Photo_gb_summary.csv | Top-3: mean=0.9371+-0.0012, max=0.9379 (n=6)
+[INFO] Physics: 17 rows, fields: ['gb_quity', 'gb_sim', 'gb_alpha', 'gb_beta', 'gb_K', 'gb_w_mode', 'gb_knn', 'ball_loss_weight', 'ball_angle_thresh', 'ball_uniform_tau', 'ball_infonce_weight', 'ball_infonce_temp']
+[SAVE] analysis/Physics_gb_summary.csv | Top-3: mean=0.9621+-0.0002, max=0.9624 (n=5)
+[SAVE] analysis/overall_topk.csv
+
+=== Best Results (Mean) ===
+  CS: 0.942751+-0.000000 (max=0.942751)
+  CS: 0.942751+-0.000000 (max=0.942751)
+  CS: 0.942592+-0.000000 (max=0.942592)
+  Computers: 0.899667+-0.000739 (max=0.900624)
+
+=== Best Max per Dataset ===
+  CS: 0.942751
+  Computers: 0.900624
+  Photo: 0.937854
+  Physics: 0.962433
+
+=== experiments_status.py ===
+
+==================================================
+  SGRL 实验现状汇总
+==================================================
+
+【数据集概览】
+----------------------------------------
+  Computers   :   74 条记录,  5 个 trials
+  Photo       :  391 条记录,  5 个 trials
+  CS          :  336 条记录,  5 个 trials
+  Physics     :   17 条记录,  5 个 trials
+【各数据集最佳结果 (clf_mean)】
+----------------------------------------
+
+  CS:
+    最佳准确率: 0.942751 (±2.15e-07)
+    Trial: 1
+    配置: gb_quity=detach, gb_sim=dot, gb_alpha=0.3, gb_K=5
+
+  Computers:
+    最佳准确率: 0.900624 (±1.89e-06)
+    Trial: 4
+    配置: gb_quity=homo, gb_sim=dot, gb_alpha=0.7, gb_K=10
+
+  Photo:
+    最佳准确率: 0.939434 (±7.54e-07)
+    Trial: 1
+    配置: gb_quity=homo, gb_sim=cos, gb_alpha=0.3, gb_K=10
+
+  Physics:
+    最佳准确率: 0.962433 (±1.98e-07)
+    Trial: 3
+    配置: gb_quity=detach, gb_sim=dot, gb_alpha=0.3, gb_K=10
+【实验配置分布】
+----------------------------------------
+
+  gb_quity (粒球质量):
+    detach    :  586 次
+    homo      :  230 次
+    edges     :    2 次
+
+  gb_sim (相似度):
+    dot       :  626 次
+    cos       :  192 次
+
+  gb_alpha 分布:
+    0.3:  532 次
+    0.5:    4 次
+    0.6:   49 次
+    0.7:  233 次
+
+  gb_K 分布:
+    K= 3:    2 次
+    K= 5:  246 次
+    K=10:  335 次
+    K=20:  235 次
+【日志文件统计】
+----------------------------------------
+  CUDA日志:     16 个
+  训练日志:     61 个
+  粒球计数:      4 个
+【缺失的实验配置建议】
+----------------------------------------
+
+  已有的完整实验组合数:
+    CS: 3
+    Computers: 4
+    Photo: 11
+    Physics: 3
+
+==================================================
+  报告生成时间: 2026-07-01 14:53:34
+==================================================
+
+=== overall_topk.csv (head) ===
+dataset,mean,std,max,num_trials,stat_type,gb_quity,gb_sim,gb_alpha,gb_beta,gb_K,gb_w_mode,gb_knn,ball_loss_weight,ball_angle_thresh,ball_uniform_tau,ball_infonce_weight,ball_infonce_temp
+CS,0.942751,0.000000,0.942751,1,mean,detach,dot,0.3,0.3,5.0,center,5.0,0.05,25.0,0.1,0.02,0.2
+CS,0.942751,0.000000,0.942751,1,mean,detach,dot,0.3,0.3,5.0,center,5.0,0.05,15.0,0.1,0.02,0.2
+CS,0.942592,0.000000,0.942592,1,mean,detach,dot,0.3,0.2,5.0,center,10.0,0.05,25.0,0.1,0.02,0.2
+Computers,0.899667,0.000739,0.900624,5,mean,homo,dot,0.7,0.2,10.0,topo+center,10.0,0.05,15.0,0.1,0.02,0.2
+Computers,0.899642,0.000700,0.900564,5,mean,detach,dot,0.7,0.2,10.0,topo+center,10.0,0.05,15.0,0.1,0.02,0.2
+Computers,0.899140,0.000000,0.899140,1,mean,detach,dot,0.7,0.1,5.0,topo+center,10.0,0.05,15.0,0.1,0.02,0.2
+Photo,0.937082,0.001179,0.937854,6,mean,detach,dot,0.3,0.2,10.0,topo+center,10.0,0.05,15.0,0.1,0.02,0.2
+Photo,0.936329,0.000000,0.936329,1,mean,homo,cos,0.3,0.2,5.0,center,5.0,0.05,15.0,0.1,0.02,0.2
+Photo,0.936329,0.000000,0.936329,1,mean,homo,cos,0.3,0.2,5.0,center,5.0,0.05,25.0,0.1,0.02,0.2
+Physics,0.962148,0.000245,0.962433,5,mean,detach,dot,0.3,0.2,10.0,topo+center,10.0,0.05,15.0,0.1,0.02,0.2
+Physics,0.962032,0.000210,0.962372,5,mean,homo,cos,0.3,0.2,10.0,topo+center,10.0,0.05,15.0,0.1,0.02,0.2
+Physics,0.961309,0.000000,0.961309,1,mean,detach,dot,0.6,0.2,10.0,topo+center,10.0,0.05,15.0,0.1,0.02,0.2
