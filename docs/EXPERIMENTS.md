@@ -60,7 +60,30 @@
 
 ---
 
-## 6. 失败假设登记
+## 6. Phase R：Photo / Computers 复跑验证（2026-07-08）
+
+服务器侧 `scripts/phases/phaseR_repeat_validation.sh`（PID 555977），4 组 × 700ep × 5trial，总耗时 1h44min：
+
+| 组别 | 数据集 | 配置 | 5 trials mean | vs SGRL | Δ vs baseline |
+|------|--------|------|---------------|---------|---------------|
+| R-A | Photo | Phase 0 baseline（`--use_gb` 不开，SGRL 等价） | 0.9391 ± 0.0007 | -0.04pp | — |
+| R-B | Photo | Stage-B Top-1（quity=detach, sim=dot, α=0.3, K=10） | 0.9380 ± 0.0008 | -0.15pp | **-0.11pp** |
+| R-C | Computers | Phase 0 baseline | 0.9004 ± 0.0002 | -0.19pp | — |
+| R-D | Computers | Stage-B Top-1（quity=homo, sim=dot, α=0.7） | 0.8998 ± 0.0005 | -0.25pp | **-0.06pp** |
+
+**关键结论**：
+
+1. 之前 "Photo -0.20pp vs SGRL" 的 finding **不准确** —— Phase 0 baseline 自身就 -0.04pp，**SGRL 的 93.95% 本身就是上限附近**
+2. Stage-B Top-1 vs baseline 仅差 **-0.11pp（Photo）** 和 **-0.06pp（Computers）**，在 SGRL 标准差 ±0.5pp 范围内
+3. **粒球扩散（GBGCL）对 Photo/Computers 没有显著增益**，基本就是 SGRL 噪声水平
+4. BTCM 才是 GBGCL 论文真正的差异化方向，需要把球扩散嵌入 InfoNCE 才能拉开差距
+5. CS / Physics 还没跑过 Phase R，本周内补跑（CS 94.15% / Physics 96.23% 是 SGRL 最强数据集，需单独评估强基线上是否退化）
+
+结果文件：`results/phaseR/{Photo,Computers}_summary.csv`；分析脚本：`tools/analyze_phaseR.py`。
+
+---
+
+## 7. 失败假设登记
 
 | 假设 | 结果 |
 |------|------|
@@ -68,10 +91,11 @@
 | Online 残差吸收粒球信息 | Option A v2 显著变差 |
 | 多 quity 投票自动选最优 | Photo 上三 quity 权重接近 |
 | 仅增大球级 loss | +0.03%，不足 |
+| GBGCL-Stage-B 在 Photo 上比 SGRL 退化 -0.20pp | Phase R 否定：baseline 自身就 -0.04pp，Stage-B Top-1 仅再降 -0.11pp（噪声内） |
 
 ---
 
-## 7. 待跑实验（与 ROADMAP 对齐）
+## 8. 待跑实验（与 ROADMAP 对齐）
 
 ```bash
 # E7 增量扩散快速验证
@@ -89,7 +113,7 @@ $env:SWEEP_STAGE="A"; python tools/sweepX.py
 
 ---
 
-## 8. 变更日志
+## 9. 变更日志
 
 | 日期 | 事件 |
 |------|------|
@@ -97,3 +121,4 @@ $env:SWEEP_STAGE="A"; python tools/sweepX.py
 | 2026-05-12 | Option A/B/C 系统对比完成 |
 | 2026-05-09 | Option A2 Ensemble 实现 |
 | 2026-04 | Phase1 sweepX 搜索空间扩充 |
+| 2026-07-08 | Phase R Photo/Computers 完成；BTCM scaffold 落地（Photo 50ep 0.8897 smoke） |
