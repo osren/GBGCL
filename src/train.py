@@ -432,6 +432,13 @@ def run(args):
                 or_embeds, pr_embeds = online_model.embed(data.x, data.edge_index, slsp_adj, args.num_hop,
                                                          ball_feat=ball_tensor_eval)
                 embeds = (or_embeds + pr_embeds).cpu().numpy()
+            if args.export_embed_dir:
+                os.makedirs(args.export_embed_dir, exist_ok=True)
+                tag = args.export_embed_tag
+                np.save(os.path.join(args.export_embed_dir, f"{tag}_embeds.npy"), embeds)
+                np.save(os.path.join(args.export_embed_dir, f"{tag}_labels.npy"),
+                        data.y.cpu().numpy())
+                print(f"[export] saved {tag}_embeds.npy / {tag}_labels.npy -> {args.export_embed_dir}")
             scores = fit_logistic_regression(embeds, data.y.cpu().numpy())
             clf_mean, clf_var = float(np.mean(scores)), float(np.var(scores))
 
@@ -532,6 +539,11 @@ if __name__ == '__main__':
                         help='Fuse ball-emb into TCM message passing (Stage 2 / RUNBOOK §四)')
     parser.add_argument('--gb_ball_emb_dim', type=int, default=1024,
                         help='Ball embedding dim; must match H_ball.size(1) at train time')
+
+    parser.add_argument('--export_embed_dir', type=str, default=None,
+                        help='If set, save eval embeddings + labels as <tag>_embeds.npy / <tag>_labels.npy')
+    parser.add_argument('--export_embed_tag', type=str, default='embed',
+                        help='Filename prefix when --export_embed_dir is set')
 
     args = parser.parse_args()
     run(args)

@@ -1,0 +1,13 @@
+---
+description: Prefer F: drive for clones, installs, caches, and temp files; avoid C:
+alwaysApply: true
+---
+
+# Prefer F: Drive
+
+- **Never** clone repos, download installers, create caches, unpack archives, or install **skills/plugins** onto `C:` (including `~/.claude/skills`, `%USERPROFILE%`, `%TEMP%` on C).
+- Skills always land under `F:\tools\<repo>/` and are linked into `F:\GBGCL\.claude\skills\` (or other `F:\` project paths). Never `cp` into `C:\Users\...\ .claude\skills`.
+- Prefer `F:\` paths (e.g. `F:\tools\`, `F:\GBGCL\`, or project-local dirs under this repo).
+- Redirect `$env:TEMP` / `$env:TMP` → `F:\tools\tmp` for any download/extract work.
+- `C:` is often near-full; treat writes there as last resort and warn the user first.
+- When the user says install skills with default permissions / no confirmation: proceed without asking.

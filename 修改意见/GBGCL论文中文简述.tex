@@ -1,0 +1,156 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\setCJKmainfont{Microsoft YaHei}
+\setCJKsansfont{Microsoft YaHei}
+\setmainfont{Times New Roman}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+
+\title{\textbf{GBGCL 论文中文简述}\\[0.4em]\large 供内容核对用}
+\author{Cheng Tan \quad|\quad 生成日期：2026-08-25}
+\date{}
+
+\begin{document}
+\maketitle
+
+\noindent
+本文档为 \texttt{论文写作/main.tex} 的中文内容摘要，便于核对标题、方法描述、实验数字与结论是否与代码及实验记录一致。对应英文稿约 5 页（1--4 页正文 + 第 5 页参考文献，共 20 条，均为 2021--2025 年文献）。
+
+\section{基本信息}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{@{}p{3.2cm}p{11cm}@{}}
+\toprule
+\textbf{项目} & \textbf{内容} \\
+\midrule
+英文标题 & GBGCL: Granular Ball Graph Contrastive Learning with Ball-Aware Topology Encoding \\
+中文意译 & 基于粒球感知拓扑编码的粒球图对比学习 \\
+作者 & 谭程（*），重庆邮电大学，重庆 400065 \\
+邮箱 & \texttt{1529924810@qq.com} \\
+关键词 & 图对比学习、表示散射、粒球计算、自监督学习 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{摘要（核心主张）}
+
+\begin{enumerate}
+  \item \textbf{背景}：SGRL（NeurIPS 2024）通过 RSM（表示散射）与 TCM（拓扑约束）在无负样本、弱增广设定下取得强性能，但 TCM 仅在\textbf{节点邻接}上传播，\textbf{中观社区结构}利用不足。
+  \item \textbf{方法}：提出 \textbf{GBGCL}——构建质量引导粒球、在粒球图上扩散，并通过 \textbf{BTCM}（Ball-aware Topology Convolution Module）将粒球嵌入注入\textbf{双编码器}（online + target），而非仅作并行辅助分支。
+  \item \textbf{结果}：在 SGRL 协议下，四个数据集上 \textbf{full GBGCL 均略超 SGRL（+0.05$\sim$0.09 个百分点）}；消融表明增益来自 \textbf{BTCM}，而非并行 write-back alone。
+\end{enumerate}
+
+\section{Introduction（动机与贡献）}
+
+\subsection{问题链}
+\begin{itemize}
+  \item GNN 需大量标签；GCL 利用图结构自监督学习节点表示。
+  \item SGRL 用 RSM + TCM + EMA 自举，在 CS、Computers 等同质图 benchmark 上达到 SOTA。
+  \item \textbf{局限}：TCM 仅做 $\hat{A}^k$ 节点级聚合，\textbf{中观尺度}（介于单节点与全图之间的社区）未进入主编码器。
+  \item 粒球计算支持多粒度划分；但若只做并行扩散 + write-back，测试时仍用 $\mathrm{concat}(H_o, H_{pr})$，粒球信号\textbf{几乎进不了下游探针}；全局散射（分散）与粒球内扩散（凝聚）还可能\textbf{相互抵消}。
+\end{itemize}
+
+\subsection{方法概述（Figure~1 六阶段）}
+\begin{enumerate}
+  \item[(a)] 输入图 $(X,A)$
+  \item[(b)] 双 SGRL 编码器（online $f_\theta$ + EMA target $f_\phi$）
+  \item[(c)] 质量引导粒球划分，节点分配 $\beta(i)$
+  \item[(d)] 粒球图上 $K$ 步消息传递得 $H_{\mathrm{ball}}$
+  \item[(e)] 节点 write-back + \textbf{BTCM 注入}
+  \item[(f)] RSM / TCM / 对齐损失；评估用 $\mathrm{concat}(H_o, H_{pr})$
+\end{enumerate}
+
+\subsection{两条贡献}
+\begin{itemize}
+  \item 将 GBGCL 形式化为 SGRL 的多粒度扩展；\textbf{BTCM = BallConv 替换标准 GCN}，对称用于双编码器。
+  \item 四数据集实验：full GBGCL 超 SGRL 0.05--0.09 pp；消融证明 \textbf{BTCM 是决定性组件}。
+\end{itemize}
+
+\section{Preliminaries（预备知识）}
+
+\begin{itemize}
+  \item 图 $\mathcal{G}=(V,E)$，特征 $X$，邻接 $A$，度归一化邻接 $\hat{A}$。
+  \item GCL：无标签训练编码器 $f$，线性探针评估下游任务。
+  \item SGRL 骨架：online 参数 $\theta$ + target 参数 $\phi$（EMA）；target 做 RSM，online 做 TCM + predictor 对齐。
+  \item \textbf{评估协议}：$\mathrm{concat}(\text{online 嵌入}, \text{predictor 嵌入})$ + 逻辑回归。
+\end{itemize}
+
+\section{Methodology（方法细节）}
+
+\subsection{RSM + TCM 骨干（与 SGRL 一致）}
+\begin{itemize}
+  \item \textbf{RSM}：target 嵌入 $\ell_2$ 归一化后，最小化到全局中心 $\mathbf{c}$ 的距离。
+  \item \textbf{TCM}：$H_{\mathrm{online}}^{\mathrm{topo}} = \hat{A}^k H_{\mathrm{online}} + H_{\mathrm{online}}$。
+  \item \textbf{对齐损失} $\mathcal{L}_{\mathrm{align}}$：predictor 与 target 余弦相似度最大化。
+  \item EMA：$\phi \leftarrow \tau\phi + (1-\tau)\theta$。
+\end{itemize}
+
+\subsection{粒球扩散模块}
+\begin{itemize}
+  \item \textbf{划分}：\texttt{Granular} 按质量（homo / detach / edges）递归分裂为球 $\mathcal{B}$。
+  \item \textbf{粒球图}：亲和矩阵 $W$；$K$ 步扩散得 $Z_{\mathrm{ball}}$。
+  \item \textbf{Write-back}：$z_i = \alpha h_i + (1-\alpha)\, z_{\mathrm{ball}}[\beta(i)]$。
+  \item \textbf{粒球级损失}：ball scatter + InfoNCE（权重 0.05 / 0.02）。
+\end{itemize}
+
+\subsection{BTCM（核心创新）}
+\begin{itemize}
+  \item \textbf{动机}：无 BTCM 时 Photo 上 $\cos(h, z_{\mathrm{new}})\approx 0.9996$，\texttt{h\_z\_diff} 仅 2--4\%。
+  \item \textbf{BallConv}：替换 GCN，消息 $m_{ij}=\mathrm{PReLU}(\mathrm{BN}(W_m[h_i\|h_j\|B_i\|B_j]))$。
+  \item \textbf{Full GBGCL} = SGRL + 粒球扩散 + 粒球损失 + BTCM；\textbf{w/o BTCM} = 仅并行分支。
+\end{itemize}
+
+\section{Experiment（实验）}
+
+\subsection{设置}
+数据集：Computers、Photo、Co.CS、Co.Physics。协议：1 层编码器，hidden 1024，700 epoch，5 trials，冻结嵌入 + 逻辑回归。最优超参：CS(detach,dot,$\alpha{=}0.3$)、Photo(homo,cos,0.3)、Physics(detach,dot,0.3)、Computers(homo,dot,0.7)。
+
+\subsection{主表结果（Table~1，\%）}
+
+\begin{center}
+\small
+\begin{tabular}{lcccc}
+\toprule
+\textbf{方法} & \textbf{Computers} & \textbf{Photo} & \textbf{Co.CS} & \textbf{Co.Physics} \\
+\midrule
+SGRL & 90.23$\pm$0.03 & 93.95$\pm$0.03 & 94.15$\pm$0.04 & 96.23$\pm$0.01 \\
+GBGCL w/o BTCM & 89.97$\pm$0.08 & 93.87$\pm$0.07 & 93.83$\pm$0.06 & 96.21$\pm$0.03 \\
+\textbf{GBGCL (full)} & \textbf{90.31$\pm$0.06} & \textbf{94.02$\pm$0.05} & \textbf{94.22$\pm$0.05} & \textbf{96.28$\pm$0.02} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{机制诊断（Photo）}
+无 BTCM：$\cos\approx 0.9996$，\texttt{h\_z\_diff} 2--4\%；有 BTCM：$\cos\approx 0.992$，\texttt{h\_z\_diff} 8--12\%；粒球纯度均 $\sim$90.7\%。
+
+\subsection{消融（Photo）}
+SGRL-equiv.\ 93.50；w/o BTCM 93.87；feature concat 93.38；online residual 92.86；\textbf{full +BTCM 94.02}。
+
+\section{Conclusion（结论）}
+
+GBGCL 在 SGRL 之上用粒球扩散与 BTCM 注入双编码器，四 benchmark 稳定略超 SGRL；消融归因于 BTCM 而非并行 write-back。
+
+\section{建议重点核对项}
+
+\begin{enumerate}
+  \item 主表与消融数字是否与 \texttt{results/} CSV 一致。
+  \item w/o BTCM 是否略低于 SGRL（论文核心论证）。
+  \item 机制指标是否有日志支撑。
+  \item 超参是否与 sweep 最优一致。
+  \item 评估协议是否与 \texttt{src/train.py} 一致。
+  \item 作者/单位/邮箱是否为定稿版本。
+  \item 参考文献 20 条均为 2021--2025；Table~1 经典基线引 SGRL。
+\end{enumerate}
+
+\vspace{1em}
+\noindent\rule{\textwidth}{0.4pt}\\
+\small
+\noindent 源文件：\texttt{修改意见/GBGCL论文中文简述.tex}\\
+对应英文稿：\texttt{论文写作/main.tex}
+
+\end{document}
