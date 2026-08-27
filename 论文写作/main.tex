@@ -49,7 +49,7 @@ graph contrastive learning, representation scattering, granular ball computing, 
 \label{sec:intro}
 
 Graph Neural Networks (GNNs) have achieved impressive performance on social, citation, and co-purchase networks~\cite{luo2024tunedgnn}, yet supervised training typically requires costly labels.
-Graph Contrastive Learning (GCL)~\cite{liu2022graphssl,he2024sgrl} addresses this limitation by learning from proxy tasks defined on the graph itself.
+Graph Contrastive Learning (GCL)~\cite{liu2022graphssl,wu2021self,ju2024gclsurvey,he2024sgrl,xiao2024graphecl} addresses this limitation by learning from proxy tasks defined on the graph itself.
 Among recent advances, SGRL~\cite{he2024sgrl} reveals that explicit \emph{representation scattering}---pushing embeddings away from a global center while preserving topology---can match or exceed classical contrastive pipelines without negative sampling.
 
 SGRL introduces a Representation Scattering Mechanism (RSM) on the target encoder and a Topology-based Constraint Mechanism (TCM) on the online encoder, coupled with bootstrapping-style alignment and exponential moving average (EMA) updates~\cite{thakoor2021bgrl,sun2024sgcl}.
@@ -57,7 +57,7 @@ It reports state-of-the-art node classification accuracy on homophilous benchmar
 Nevertheless, TCM aggregates neighbors only at the \emph{node} level via $\hat{A}^{k}$.
 Meso-scale structures---communities that sit between individual nodes and the full graph---are not modeled as first-class signals in the encoder.
 
-Granular ball computing~\cite{wang2023gbknn,xia2025gbgc,xia2025sgbgc} partitions data into quality-controlled balls and supports multi-granularity reasoning.
+Granular ball computing~\cite{wang2023gbknn,xia2022gbgen,xia2023gbsurvey,xia2024gbct,xia2025gbgc,xia2025sgbgc,su2025mgbcc} partitions data into quality-controlled balls and supports multi-granularity reasoning.
 A natural extension of SGRL is to construct balls from graph topology and embeddings, diffuse information on a ball graph, and couple the resulting meso-scale topology with scattering-based learning.
 However, simply attaching ball diffusion as a parallel branch---through write-back or lightly weighted auxiliary losses---may fail to alter the embeddings used at test time, which in SGRL are concatenated online and predictor outputs.
 Moreover, global scattering encourages dispersion while intra-ball diffusion encourages local cohesion; without routing ball structure into the main encoder pathway, these objectives can largely cancel in practice.
@@ -192,7 +192,7 @@ With BTCM enabled, gradients from $\mathcal{L}_{\mathrm{align}}$ and ball-level 
 \label{sec:experiments}
 
 We evaluate GBGCL on four widely used benchmarks: Amazon-Computers and Amazon-Photo~\cite{luo2024tunedgnn}, Coauthor-CS (Co.CS), and Coauthor-Physics (Co.Physics).
-We compare against representative self-supervised baselines reported in SGRL~\cite{he2024sgrl}: raw features, DGI, GRACE, BGRL~\cite{thakoor2021bgrl}, and MVGRL; recent graph SSL methods include GraphMAE~\cite{hou2022graphmae} and CARL-G~\cite{shiao2023carlg}.
+We compare against representative self-supervised baselines reported in SGRL~\cite{he2024sgrl}: raw features, DGI~\cite{velickovic2019dgi}, GRACE~\cite{zhu2020grace}, BGRL~\cite{thakoor2021bgrl}, and MVGRL; recent graph SSL methods include GraphMAE~\cite{hou2022graphmae}, CARL-G~\cite{shiao2023carlg}, and transfer-oriented benchmarks~\cite{song2025gstbench}.
 We additionally report SGRL~\cite{he2024sgrl} and two GBGCL variants: \emph{w/o BTCM} (parallel diffusion only) and \emph{full} (with BTCM, Sec.~\ref{sec:btcm}).
 Following SGRL's node classification protocol, we train a 1-layer BallConv/GCN encoder (hidden size 1024, Adam lr $10^{-3}$, 700 epochs, 5 trials, seed 66666) and evaluate with logistic regression on frozen concatenated online/predictor embeddings.
 Hyperparameters are selected by grid search (Stage-A 150 ep, Stage-B 700 ep); best settings per dataset: Co.CS (detach, dot, $\alpha{=}0.3$), Photo (homo, cos, 0.3), Co.Physics (detach, dot, 0.3), Computers (homo, dot, 0.7).
