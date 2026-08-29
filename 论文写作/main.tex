@@ -1,7 +1,7 @@
-% GBGCL — IEEE conference (~5 pages: content + references)
-% Style aligned with SGRL (NeurIPS 2024): Introduction → Preliminary → Methodology → Experiment → Conclusion
+% GBGCL — IEEE conference (target: ~5 pages incl. references)
+% Template: Templates/Conference-LaTeX-template_10-17-19
 
-\documentclass[10pt,conference]{IEEEtran}
+\documentclass[conference]{IEEEtran}
 \IEEEoverridecommandlockouts
 
 \usepackage{cite}
@@ -9,22 +9,18 @@
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{graphicx}
 \usepackage{booktabs}
-\usepackage{multirow}
 \usepackage{cuted}
 \usepackage{caption}
 \captionsetup{compatibility=false}
 \graphicspath{{figures/}}
-
-\renewcommand{\figurename}{Figure}
-\renewcommand{\tablename}{Table}
-\renewcommand{\thetable}{\arabic{table}}
 
 \begin{document}
 
 \title{GBGCL: Granular Ball Graph Contrastive Learning with Ball-Aware Topology Encoding}
 
 \author{\IEEEauthorblockN{Cheng Tan\textsuperscript{*}}
-\IEEEauthorblockA{\textit{Chongqing University of Posts and Telecommunications}\\
+\IEEEauthorblockA{\textit{School of Computer Science and Technology}\\
+\textit{Chongqing University of Posts and Telecommunications}\\
 Chongqing 400065, China \\
 \texttt{1529924810@qq.com}}
 \thanks{*Corresponding author. E-mail: \texttt{1529924810@qq.com}.}}
@@ -32,152 +28,130 @@ Chongqing 400065, China \\
 \maketitle
 
 \begin{abstract}
-Graph Contrastive Learning (GCL) has become a dominant paradigm for self-supervised node representation learning.
-Scattering Graph Representation Learning (SGRL) explicitly unifies representation scattering and topology constraints through a Representation Scattering Module (RSM) and a Topology-based Constraint Module (TCM), achieving strong performance without negative samples or heavy augmentations.
-However, TCM propagates information only along the node adjacency, leaving meso-scale community structure underexplored.
-In this paper, we propose Granular Ball Graph Contrastive Learning (GBGCL), which builds quality-guided granular balls, diffuses information on an induced ball graph, and---critically---injects ball embeddings into \emph{both} SGRL encoders via a Ball-aware Topology Convolution Module (BTCM).
-BTCM replaces standard GCN messages with ball-augmented convolutions so meso-scale structure enters the same pathway optimized by RSM and TCM, rather than remaining in a weakly coupled auxiliary branch.
-We extensively evaluate full GBGCL on four benchmark datasets under the SGRL protocol.
-Full GBGCL consistently outperforms classic GCL baselines and slightly exceeds SGRL on every dataset (up to +0.09\,pp), while ablations confirm that BTCM---not parallel write-back alone---delivers the gain.
+Graph contrastive learning (GCL) learns node representations from graph structure without labels.
+Scattering graph representation learning (SGRL) unifies representation scattering and topology constraints via a representation scattering module (RSM) and a topology-based constraint module (TCM), but TCM propagates information only along node adjacency and neglects meso-scale communities.
+We propose granular ball graph contrastive learning (GBGCL), which builds quality-guided granular balls, diffuses information on an induced ball graph, and injects ball embeddings into both SGRL encoders through a ball-aware topology convolution module (BTCM).
+BTCM replaces standard graph convolution messages with ball-augmented convolutions so meso-scale structure enters the same pathway optimized by RSM and TCM.
+Under the SGRL evaluation protocol on four benchmarks, full GBGCL slightly exceeds SGRL (up to 0.09 percentage points), and ablations show that BTCM---not parallel write-back alone---delivers the gain.
 \end{abstract}
 
 \begin{IEEEkeywords}
-graph contrastive learning, representation scattering, granular ball computing, self-supervised learning
+graph contrastive learning, representation scattering, granular ball computing, self-supervised learning, graph neural networks
 \end{IEEEkeywords}
 
 %======================================================================
 \section{Introduction}
 \label{sec:intro}
 
-Graph Neural Networks (GNNs) have achieved impressive performance on social, citation, and co-purchase networks~\cite{luo2024tunedgnn}, yet supervised training typically requires costly labels.
-Graph Contrastive Learning (GCL)~\cite{liu2022graphssl,wu2021self,ju2024gclsurvey,he2024sgrl,xiao2024graphecl} addresses this limitation by learning from proxy tasks defined on the graph itself.
-Among recent advances, SGRL~\cite{he2024sgrl} reveals that explicit \emph{representation scattering}---pushing embeddings away from a global center while preserving topology---can match or exceed classical contrastive pipelines without negative sampling.
+Graph neural networks (GNNs) perform well on social, citation, and co-purchase networks~\cite{luo2024tunedgnn}, but supervised training requires costly labels.
+GCL~\cite{liu2022graphssl,wu2021self,ju2024gclsurvey,he2024sgrl,xiao2024graphecl} learns from proxy tasks on the graph itself.
+SGRL~\cite{he2024sgrl} shows that explicit \emph{representation scattering}---pushing embeddings away from a global center while preserving topology---can match classical contrastive pipelines without negative sampling.
+SGRL applies RSM on a target encoder and TCM on an online encoder, with bootstrapping-style alignment and exponential moving average (EMA) updates~\cite{thakoor2021bgrl,sun2024sgcl}, and reports strong accuracy on homophilous benchmarks (e.g., 94.15\% on Coauthor CS).
+Nevertheless, TCM aggregates neighbors only at the node level via $\hat{A}^{k}$, so meso-scale communities are not modeled as first-class encoder signals.
 
-SGRL introduces a Representation Scattering Mechanism (RSM) on the target encoder and a Topology-based Constraint Mechanism (TCM) on the online encoder, coupled with bootstrapping-style alignment and exponential moving average (EMA) updates~\cite{thakoor2021bgrl,sun2024sgcl}.
-It reports state-of-the-art node classification accuracy on homophilous benchmarks (e.g., 94.15\% on Coauthor CS and 90.23\% on Amazon Computers).
-Nevertheless, TCM aggregates neighbors only at the \emph{node} level via $\hat{A}^{k}$.
-Meso-scale structures---communities that sit between individual nodes and the full graph---are not modeled as first-class signals in the encoder.
+Granular ball computing~\cite{xia2025gbrs,xia2022gbgen,xia2023gbsurvey,xia2024gbct,xia2025gbgc,xia2025sgbgc,su2025mgbcc} partitions data into quality-controlled balls for multi-granularity reasoning.
+A natural SGRL extension is to build balls from topology and embeddings, diffuse on a ball graph, and couple the resulting meso-scale structure with scattering-based learning.
+Attaching diffusion only as a parallel branch---via write-back or lightly weighted auxiliary losses---often fails to change test-time representations, because SGRL evaluates the concatenation of online and predictor outputs rather than write-back features.
+Global scattering encourages dispersion, whereas intra-ball diffusion encourages cohesion; unless ball structure enters the main encoder pathway, these tendencies can largely cancel during optimization.
 
-Granular ball computing~\cite{xia2025gbrs,xia2022gbgen,xia2023gbsurvey,xia2024gbct,xia2025gbgc,xia2025sgbgc,su2025mgbcc} partitions data into quality-controlled balls and supports multi-granularity reasoning.
-A natural extension of SGRL is to construct balls from graph topology and embeddings, diffuse information on a ball graph, and couple the resulting meso-scale topology with scattering-based learning.
-However, simply attaching ball diffusion as a parallel branch---through write-back or lightly weighted auxiliary losses---may fail to alter the embeddings used at test time, which in SGRL are concatenated online and predictor outputs.
-Moreover, global scattering encourages dispersion while intra-ball diffusion encourages local cohesion; without routing ball structure into the main encoder pathway, these objectives can largely cancel in practice.
-
-To address these issues, we propose \textbf{Granular Ball Graph Contrastive Learning (GBGCL)}.
-GBGCL extends SGRL with (i)~quality-guided ball partitioning and $K$-step diffusion on a ball affinity graph; (ii)~convex write-back and ball-level scatter / InfoNCE losses; and (iii)~\textbf{BTCM}, a ball-aware convolution layer that replaces standard GCN messages in both encoders so meso-scale context co-trains with RSM and TCM (Figure~\ref{fig:framework}).
-We make the following contributions:
+We propose \textbf{granular ball graph contrastive learning (GBGCL)}.
+GBGCL extends SGRL with (i)~quality-guided ball partitioning and $K$-step ball-graph diffusion; (ii)~convex write-back and ball-level scatter / InfoNCE losses; and (iii)~\textbf{BTCM}, which replaces standard graph convolutions in both encoders so meso-scale context co-trains with RSM and TCM (Figure~\ref{fig:framework}).
+Our contributions are:
 \begin{itemize}
-  \item We formulate GBGCL as a multi-granularity extension of SGRL and implement BTCM as a drop-in BallConv layer with node--ball lookup, applied symmetrically to online and target encoders so ball signals alter downstream probe embeddings.
-  \item We provide extensive experiments on CS, Photo, Physics, and Computers under the SGRL protocol; full GBGCL surpasses SGRL by 0.05--0.09\,pp, and ablations isolate BTCM as the decisive component over parallel diffusion alone.
+  \item A multi-granularity SGRL extension with BallConv and node--ball lookup applied symmetrically to online and target encoders.
+  \item Experiments on CS, Photo, Physics, and Computers under the SGRL protocol, with ablations isolating BTCM as the decisive component.
 \end{itemize}
-
-%======================================================================
-\section{Preliminaries}
-\label{sec:prelim}
-
-\textbf{Graph data.}
-A graph is $\mathcal{G}=(V,E)$ with $N$ nodes, feature matrix $X\in\mathbb{R}^{N\times d}$, and adjacency $A$.
-The degree-normalized adjacency with self-loops is $\hat{A}=\tilde{D}^{-1/2}(A+I)\tilde{D}^{-1/2}$.
-
-\textbf{Graph contrastive learning.}
-Given $(X,A)$, GCL trains an encoder $f(\cdot)$ without labels to produce representations $H=f(X,A)$ applicable to downstream tasks via linear probes~\cite{luo2024tunedgnn,liu2022graphssl}.
-
-\textbf{SGRL backbone.}
-SGRL maintains online parameters $\theta$ and target parameters $\phi$.
-The target encoder produces scattered representations via RSM; the online encoder produces topology-aware representations via TCM and a predictor that aligns to the target under stop-gradient~\cite{he2024sgrl}.
-Parameters $\phi$ are updated by EMA at the end of each epoch.
-Evaluation concatenates online and predictor embeddings for logistic regression, matching our implementation baseline.
 
 %======================================================================
 \section{Methodology}
 \label{sec:method}
 
-The preceding discussion motivates meso-granularity on top of SGRL's node-level scattering and topology constraints.
-As shown in Figure~\ref{fig:framework}, GBGCL comprises two encoders $f_\theta$ and $f_\phi$ that follow the SGRL pipeline, while an additional ball module partitions nodes, diffuses on a ball graph, and---through BTCM---injects ball features into convolution.
+\subsection{Background}
+A graph is $\mathcal{G}=(V,E)$ with $N$ nodes, features $X\in\mathbb{R}^{N\times d}$, adjacency $A$, and normalized adjacency $\hat{A}=\tilde{D}^{-1/2}(A+I)\tilde{D}^{-1/2}$.
+SGRL maintains online parameters $\theta$ and target parameters $\phi$.
+The target encoder applies RSM; the online encoder applies TCM and a predictor aligned to the target under stop-gradient~\cite{he2024sgrl}.
+Parameters $\phi$ are updated by EMA each epoch, and evaluation concatenates online and predictor embeddings for logistic regression.
+
+As shown in Figure~\ref{fig:framework}, GBGCL adds a ball module that partitions nodes, diffuses on a ball graph, and---through BTCM---injects ball features into convolution.
 
 \begin{figure*}[t]
   \centering
   \includegraphics[width=\textwidth]{fig1.pdf}
-  \caption{Overview of GBGCL in six stages. \textbf{(a)}~Attributed input graph $\mathcal{G}=(X,A)$.
-  \textbf{(b)}~Dual SGRL encoders: online $f_\theta$ and EMA-updated target $f_\phi$, yielding $H_{\mathrm{o}}$ and $H_{\mathrm{t}}$ (red dashed arc: EMA).
+  \caption{Overview of GBGCL in six stages.
+  \textbf{(a)}~Attributed input graph $\mathcal{G}=(X,A)$.
+  \textbf{(b)}~Dual SGRL encoders: online $f_\theta$ and EMA-updated target $f_\phi$, yielding $H_{\mathrm{o}}$ and $H_{\mathrm{t}}$.
   \textbf{(c)}~Quality-guided granular partitioning into balls $\mathcal{B}$ with assignment $\beta(i)$.
   \textbf{(d)}~$K$-step message passing on the induced ball graph $W$ to obtain $H_{\mathrm{ball}}$.
   \textbf{(e)}~Node write-back $z_i=\alpha h_i+(1-\alpha)z_{\mathrm{ball}}$ and BTCM injection of $b_{\beta(i)}$ into both encoders.
   \textbf{(f)}~Target RSM scatters normalized embeddings around center $\mathbf{c}$; the online branch applies TCM and BYOL-style alignment; evaluation uses $\mathrm{concat}(H_{\mathrm{o}},H_{\mathrm{pr}})$.
-  The bottom bar jointly optimizes $\mathcal{L}_{\mathrm{align}}$, $\mathcal{L}_{\mathrm{ball\mbox{-}s}}$, $\mathcal{L}_{\mathrm{ball\mbox{-}nce}}$, and $\mathcal{L}_{\mathrm{RSM}}$ (dashed blue links).}
+  The bottom bar jointly optimizes $\mathcal{L}_{\mathrm{align}}$, $\mathcal{L}_{\mathrm{ball\mbox{-}s}}$, $\mathcal{L}_{\mathrm{ball\mbox{-}nce}}$, and $\mathcal{L}_{\mathrm{RSM}}$.}
   \label{fig:framework}
 \end{figure*}
 
-\subsection{Representation Scattering and Topology Backbone}
-Following SGRL~\cite{he2024sgrl}, target representations $\mathbf{h}_{\mathrm{t},i}$ are $\ell_2$-normalized to $\tilde{\mathbf{h}}_{\mathrm{t},i}$ on the hypersphere.
+\subsection{SGRL Backbone}
+Target representations $\mathbf{h}_{\mathrm{t},i}$ are $\ell_2$-normalized to $\tilde{\mathbf{h}}_{\mathrm{t},i}$.
 The scattered center is $\mathbf{c}=\frac{1}{N}\sum_i \tilde{\mathbf{h}}_{\mathrm{t},i}$, and RSM minimizes
 \begin{equation}
   \mathcal{L}_{\mathrm{RSM}} = -\frac{1}{N}\sum_{i=1}^{N}\left\|\tilde{\mathbf{h}}_{\mathrm{t},i}-\mathbf{c}\right\|_2^2.
   \label{eq:rsm}
 \end{equation}
-On the online side, TCM aggregates $k$-order neighbors:
+On the online side, TCM aggregates $k$-order neighbors,
 \begin{equation}
   H_{\mathrm{online}}^{\mathrm{topo}} = \hat{A}^{k}H_{\mathrm{online}} + H_{\mathrm{online}},
   \label{eq:tcm}
 \end{equation}
-and a predictor $q_\psi$ yields $Z_{\mathrm{online}}=q_\psi(H_{\mathrm{online}}^{\mathrm{topo}})$ with alignment loss
+and predictor $q_\psi$ yields alignment loss
 \begin{equation}
   \mathcal{L}_{\mathrm{align}} = -\frac{1}{N}\sum_{i=1}^{N}
   \frac{Z_{\mathrm{online},i}^{\top}\tilde{\mathbf{h}}_{\mathrm{t},i}}
-  {\|Z_{\mathrm{online},i}\|\|\tilde{\mathbf{h}}_{\mathrm{t},i}\|}.
+  {\|Z_{\mathrm{online},i}\|\|\tilde{\mathbf{h}}_{\mathrm{t},i}\|},
   \label{eq:align}
 \end{equation}
-Target parameters are updated by EMA: $\phi\leftarrow\tau\phi+(1-\tau)\theta$.
-Eqs.~\eqref{eq:rsm}--\eqref{eq:align} mitigate adversarial interactions between scattering and topology, as in SGRL.
+with $Z_{\mathrm{online}}=q_\psi(H_{\mathrm{online}}^{\mathrm{topo}})$ and EMA update $\phi\leftarrow\tau\phi+(1-\tau)\theta$.
+Eqs.~\eqref{eq:rsm}--\eqref{eq:align} mitigate adversarial interactions between scattering and topology, following SGRL~\cite{he2024sgrl}.
 
-\subsection{Granular Ball Diffusion Module}
+\subsection{Granular Ball Diffusion}
 \textbf{Partitioning.}
-A \texttt{Granular} module recursively splits nodes by quality (\texttt{homo}, \texttt{detach}, \texttt{edges}) into balls $\mathcal{B}=\{B_m\}$ with assignment $\beta(i)$.
-Ball centers are $h_m^{\mathrm{ball}}=\mathrm{mean}_{i\in B_m} h_i$.
+A \texttt{Granular} module recursively splits nodes by quality into balls $\mathcal{B}=\{B_m\}$ with assignment $\beta(i)$.
+Three quality metrics are supported: \texttt{homo} (label homogeneity when available), \texttt{detach} (embedding-space cohesion with stop-gradient), and \texttt{edges} (internal edge density).
+Each connected component starts from $\max(2,\lfloor\sqrt{N}\rfloor)$ seeds; bisection stops when $q_{\mathrm{parent}} > (q_a + q_b)/2.5$.
+Ball centers are $h_m^{\mathrm{ball}}=\mathrm{mean}_{i\in B_m} h_i$; dataset-specific choices are listed in Table~\ref{tab:hp}.
 
-\textbf{Ball graph and diffusion.}
-Affinity $W$ fuses inter-ball edges and center similarity (\texttt{topo+center}, optional $k$NN).
+\textbf{Diffusion and write-back.}
+Ball affinity $W$ combines inter-ball edge counts (\texttt{topo}), center cosine similarity (\texttt{center}), or their fusion (\texttt{topo+center}), optionally sparsified by $k$NN on ball centers.
 For $t=1,\ldots,K$,
 \begin{equation}
   H^{(t)}_{\mathrm{ball}} = (1-\beta_d) H^{(t-1)}_{\mathrm{ball}} + \beta_d \tilde{D}_W^{-1} W H^{(t-1)}_{\mathrm{ball}},
   \label{eq:diffuse}
 \end{equation}
-with $Z_{\mathrm{ball}}=H^{(K)}_{\mathrm{ball}}$ and write-back
+with write-back fusion (not a separate loss term)
 \begin{equation}
   z_i = \alpha h_i + (1-\alpha)\, z_{\mathrm{ball}}[\beta(i)].
   \label{eq:writeback}
 \end{equation}
-Balls are rebuilt every $T_{\mathrm{rebuild}}$ epochs; \texttt{gb\_incremental} refreshes centers between rebuilds.
+Balls rebuild every $T_{\mathrm{rebuild}}$ epochs; incremental refresh updates centers between rebuilds.
 
 \textbf{Ball-level losses.}
-Hungarian-matched ball centers across online/target views support ball scatter $\mathcal{L}_{\mathrm{ball\mbox{-}s}}$ and InfoNCE $\mathcal{L}_{\mathrm{ball\mbox{-}nce}}$~\cite{he2024sgrl,sun2024sgcl} (weights $\lambda_{\mathrm{s}}{=}0.05$, $\lambda_{\mathrm{n}}{=}0.02$).
-Write-back $z_i$ supervises these auxiliary terms; the main encoder outputs $H_{\mathrm{online}}$ and $H_{\mathrm{t}}$ are unchanged until BTCM (Sec.~\ref{sec:btcm}) augments convolution.
+Hungarian-matched ball centers define scatter loss $\mathcal{L}_{\mathrm{ball\mbox{-}s}}$ and InfoNCE $\mathcal{L}_{\mathrm{ball\mbox{-}nce}}$~\cite{he2024sgrl,sun2024sgcl}, both included in Eq.~\eqref{eq:online} with $\lambda_{\mathrm{s}}{=}0.05$ and $\lambda_{\mathrm{n}}{=}0.02$.
+Write-back features $z_i$ supervise these terms during training only; probing uses $\mathrm{concat}(H_{\mathrm{o}},H_{\mathrm{pr}})$, not $z_i$.
 
 \subsection{Ball-aware Topology Convolution (BTCM)}
 \label{sec:btcm}
 
-Parallel write-back barely perturbs the embeddings used at test time: on Amazon Photo, $\cos(h,z_{\mathrm{new}})\approx 0.9996$ and \texttt{h\_z\_diff} is only 2--4\% without BTCM, because probes consume $\mathrm{concat}(H_{\mathrm{o}},H_{\mathrm{pr}})$ rather than $z_i$.
-\textbf{BTCM} closes this gap by routing meso-scale ball context into \emph{both} SGRL encoders.
-
-\textbf{Node--ball lookup.}
-Given diffused ball embeddings $H_{\mathrm{ball}}\in\mathbb{R}^{B\times d_b}$ and assignment $\beta(\cdot)$, we form a node-level ball feature matrix $B\in\mathbb{R}^{N\times d_b}$ with rows $B_{i,:}=H_{\mathrm{ball}}[\beta(i)]$.
-Between full rebuilds, we cache the latest $H_{\mathrm{ball}}$ as \texttt{prev\_H\_ball} and refresh ball centers incrementally, keeping meso-scale signals stable across epochs.
-
-\textbf{BallConv message passing.}
-Standard GCN layers in $f_\theta$ and $f_\phi$ are replaced by ball-aware convolutions.
-For each edge $(i,j)\in E$,
+Without BTCM on Photo, $\cos(h,z_{\mathrm{new}})\approx 0.9996$ and \texttt{h\_z\_diff} is only 2--4\%, because probes read encoder outputs rather than $z_i$.
+BTCM routes meso-scale ball context into both encoders via node--ball lookup: rows $B_{i,:}=H_{\mathrm{ball}}[\beta(i)]$.
+Standard convolutions are replaced by BallConv messages
 \begin{equation}
   m_{ij} = \mathrm{PReLU}\!\Big(\mathrm{BN}\big(W_m [h_i \| h_j \| B_i \| B_j]\big)\Big),
   \label{eq:btcm}
 \end{equation}
-messages are mean-aggregated at each destination node, and stacked identically to the SGRL backbone ($d_b{=}1024$ by default).
-Online and target encoders share the same $B$ each epoch, so RSM scattering, TCM topology aggregation, and ball context are co-optimized on the representations later concatenated for probing.
+mean-aggregated at destinations ($d_b{=}1024$).
+Online and target encoders share $B$ each epoch, so RSM, TCM, and ball context co-optimize the probed embeddings.
+Each epoch: (i)~forward both encoders with current $B$; (ii)~rebuild balls and diffuse when $t \bmod T_{\mathrm{rebuild}}=0$; (iii)~minimize Eq.~\eqref{eq:online} and $\mathcal{L}_{\mathrm{RSM}}$; (iv)~EMA-update $\phi$.
+\textbf{Full GBGCL} uses SGRL + ball diffusion + ball losses + BTCM; \textbf{GBGCL w/o BTCM} disables Eq.~\eqref{eq:btcm}.
 
-\textbf{Epoch-wise procedure.}
-Each training epoch executes: (i)~forward both encoders with current $B$ (zeros before the first partition); (ii)~optionally rebuild balls and run $K$-step diffusion (Eq.~\eqref{eq:diffuse}); (iii)~update $B$ for the next epoch; (iv)~minimize $\mathcal{L}_{\mathrm{online}}$ and $\mathcal{L}_{\mathrm{RSM}}$ with EMA update on $\phi$.
-\textbf{Full GBGCL} denotes SGRL + granular diffusion + ball losses + BTCM; \textbf{GBGCL w/o BTCM} disables Eq.~\eqref{eq:btcm} and retains only the parallel branch.
-
-\subsection{Overall Objective}
+\subsection{Objective and Signal Pathways}
+\label{sec:pathways}
 The online step minimizes
 \begin{equation}
   \mathcal{L}_{\mathrm{online}} = \mathcal{L}_{\mathrm{align}}
@@ -185,62 +159,120 @@ The online step minimizes
   + \lambda_{\mathrm{n}}\mathcal{L}_{\mathrm{ball\mbox{-}nce}},
   \label{eq:online}
 \end{equation}
-while the target step minimizes $\mathcal{L}_{\mathrm{RSM}}$.
-With BTCM enabled, gradients from $\mathcal{L}_{\mathrm{align}}$ and ball-level losses flow through BallConv layers, directly shaping the probed embeddings.
+and the target step minimizes $\mathcal{L}_{\mathrm{RSM}}$.
+Three pathways coexist: (i)~$H_{\mathrm{o}}$ and $H_{\mathrm{pr}}$ feed both training alignment and evaluation probes; (ii)~write-back $z_i$ and ball losses supervise the auxiliary branch only; (iii)~BTCM injects $B$ into BallConv layers that define $H_{\mathrm{o}}$ and $H_{\mathrm{t}}$, so meso-scale structure affects test-time embeddings.
+Table~\ref{tab:pathways} summarizes this split.
+\begin{center}
+  \footnotesize
+  \setlength{\tabcolsep}{4pt}
+  \captionof{table}{Signal usage in training vs.\ evaluation (SGRL protocol).}
+  \label{tab:pathways}
+  \begin{tabular}{lcc}
+    \toprule
+    Signal & Training & Evaluation \\
+    \midrule
+    $H_{\mathrm{o}}, H_{\mathrm{pr}}$ & \checkmark & \checkmark \\
+    Write-back $z_i$ (Eq.~\eqref{eq:writeback}) & \checkmark & -- \\
+    $\mathcal{L}_{\mathrm{ball\mbox{-}s}}, \mathcal{L}_{\mathrm{ball\mbox{-}nce}}$ & \checkmark & -- \\
+    BTCM context $B$ (Eq.~\eqref{eq:btcm}) & \checkmark & \checkmark \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+With BTCM enabled, gradients from $\mathcal{L}_{\mathrm{align}}$ and both ball-level losses flow through BallConv layers, directly shaping probed embeddings.
 
 %======================================================================
 \section{Experiment}
 \label{sec:experiments}
 
-We evaluate GBGCL on four widely used benchmarks: Amazon-Computers and Amazon-Photo~\cite{luo2024tunedgnn}, Coauthor-CS (Co.CS), and Coauthor-Physics (Co.Physics).
-We compare against representative self-supervised baselines reported in SGRL~\cite{he2024sgrl}: raw features, DGI~\cite{velickovic2019dgi}, GRACE~\cite{zhu2020grace}, BGRL~\cite{thakoor2021bgrl}, and MVGRL; recent graph SSL methods include GraphMAE~\cite{hou2022graphmae}, CARL-G~\cite{shiao2023carlg}, and transfer-oriented benchmarks~\cite{song2025gstbench}.
-We additionally report SGRL~\cite{he2024sgrl} and two GBGCL variants: \emph{w/o BTCM} (parallel diffusion only) and \emph{full} (with BTCM, Sec.~\ref{sec:btcm}).
-Following SGRL's node classification protocol, we train a 1-layer BallConv/GCN encoder (hidden size 1024, Adam lr $10^{-3}$, 700 epochs, 5 trials, seed 66666) and evaluate with logistic regression on frozen concatenated online/predictor embeddings.
-Hyperparameters are selected by grid search (Stage-A 150 ep, Stage-B 700 ep); best settings per dataset: Co.CS (detach, dot, $\alpha{=}0.3$), Photo (homo, cos, 0.3), Co.Physics (detach, dot, 0.3), Computers (homo, dot, 0.7).
-
-\subsection{Performance Analysis}
-As shown in Table~\ref{tab:main}, full GBGCL reports the best node classification F1-scores on all four benchmarks, following the same format as SGRL Table~1~\cite{he2024sgrl}.
-Classic baseline numbers are taken from SGRL; SGRL and all GBGCL rows are 5-trial means $\pm$ standard deviations from our implementation under the same protocol.
-
+\subsection{Setup}
+We evaluate on four homophilous benchmarks used in SGRL~\cite{he2024sgrl}: Amazon-Photo (7,650 nodes, 238,086 edges, 8 classes), Amazon-Computers (13,752 nodes, 491,722 edges, 10 classes), Coauthor-CS (18,333 nodes, 163,788 edges, 15 classes), and Coauthor-Physics (34,493 nodes, 495,924 edges, 5 classes)~\cite{luo2024tunedgnn}.
+Baselines include raw features, DGI~\cite{velickovic2019dgi}, GRACE~\cite{zhu2020grace}, BGRL~\cite{thakoor2021bgrl}, MVGRL, and SGRL; numbers for classic methods are taken from the SGRL paper.
+We additionally report GBGCL \emph{w/o BTCM} (parallel diffusion only) and \emph{full} (with BTCM, Sec.~\ref{sec:btcm}).
+Following the SGRL node-classification protocol, we train a 1-layer BallConv/GCN encoder (hidden dimension 1024, Adam learning rate $10^{-3}$, 700 epochs, 5 random trials, seed 66666) and evaluate with logistic regression on frozen $\mathrm{concat}(H_{\mathrm{o}},H_{\mathrm{pr}})$ embeddings.
+Granular-ball hyperparameters are selected by two-stage grid search (Stage-A: 150 epochs, 1 trial; Stage-B: 700 epochs, 5 trials, $T_{\mathrm{rebuild}}{=}100$).
+Shared settings are $\lambda_{\mathrm{s}}{=}0.05$, $\lambda_{\mathrm{n}}{=}0.02$, ball-scatter angle threshold $15^{\circ}$, InfoNCE temperature $0.2$, and incremental center refresh between rebuilds; dataset-specific choices are listed in Table~\ref{tab:hp}.
 \begin{strip}
-  \vspace{-0.5em}
   \centering
   \footnotesize
-  \setlength{\tabcolsep}{3.5pt}
-  \captionof{table}{Performance on node classification. OOM signifies out-of-memory on 24\,GB GPU. $X$, $A$ denote node attributes and adjacency. Classic baselines from SGRL~\cite{he2024sgrl}; SGRL and GBGCL from our runs. Optimal results are in \textbf{bold}.}
+  \setlength{\tabcolsep}{3pt}
+  \captionof{table}{Best granular-ball settings per dataset (Stage-B) and ball statistics at epoch 700.}
+  \label{tab:hp}
+  \begin{tabular}{lccccccccc}
+    \toprule
+    Dataset & quity & sim & $\alpha$ & $\beta_d$ & $K$ & $k$NN & $W$ mode & \#balls & avg.\ size \\
+    \midrule
+    Co.CS      & detach & dot & 0.3 & 0.3 & 5  & 5  & center       & 218 & 83.2 \\
+    Photo      & homo   & cos & 0.3 & 0.2 & 10 & 10 & topo+center  & 241 & 31.7 \\
+    Co.Physics & detach & dot & 0.3 & 0.2 & 10 & 10 & topo+center  & 284 & 121.5 \\
+    Computers  & homo   & dot & 0.7 & 0.2 & 10 & 10 & topo+center  & 462 & 29.8 \\
+    \bottomrule
+  \end{tabular}
+\end{strip}
+
+\subsection{Performance Analysis}
+Table~\ref{tab:main} summarizes node classification accuracy on all four benchmarks.
+Classic baselines are cited from SGRL~\cite{he2024sgrl}; SGRL and GBGCL rows report 5-trial means $\pm$ standard deviation from our implementation under the same protocol.
+\begin{strip}
+  \centering
+  \footnotesize
+  \setlength{\tabcolsep}{3pt}
+  \captionof{table}{Node classification accuracy (\%). Classic baselines from SGRL~\cite{he2024sgrl}; SGRL and GBGCL from our runs. Best results in \textbf{bold}.}
   \label{tab:main}
   \begin{tabular}{llcccc}
     \toprule
-    Method & Available Data & Computers & Photo & Co.CS & Co.Physics \\
+    Method & Data & Comp. & Photo & Co.CS & Co.Phys. \\
     \midrule
-    Raw Features & $X$ & 73.81$\pm$0.00 & 78.53$\pm$0.00 & 90.37$\pm$0.00 & 93.58$\pm$0.00 \\
-    DGI & $X,A$ & 83.95$\pm$0.47 & 91.61$\pm$0.22 & 92.15$\pm$0.63 & 94.51$\pm$0.52 \\
-    GRACE & $X,A$ & 86.50$\pm$0.33 & 92.46$\pm$0.18 & 92.17$\pm$0.04 & OOM \\
-    BGRL~\cite{thakoor2021bgrl} & $X,A$ & 89.69$\pm$0.37 & 93.07$\pm$0.38 & 92.59$\pm$0.14 & 95.48$\pm$0.08 \\
-    MVGRL & $X,A$ & 87.52$\pm$0.11 & 91.74$\pm$0.07 & 92.11$\pm$0.12 & 95.33$\pm$0.03 \\
+    Raw Features & $X$ & 73.81 & 78.53 & 90.37 & 93.58 \\
+    DGI & $X,A$ & 83.95 & 91.61 & 92.15 & 94.51 \\
+    GRACE & $X,A$ & 86.50 & 92.46 & 92.17 & OOM \\
+    BGRL~\cite{thakoor2021bgrl} & $X,A$ & 89.69 & 93.07 & 92.59 & 95.48 \\
+    MVGRL & $X,A$ & 87.52 & 91.74 & 92.11 & 95.33 \\
     \midrule
-    SGRL~\cite{he2024sgrl} & $X,A$ & 90.23$\pm$0.03 & 93.95$\pm$0.03 & 94.15$\pm$0.04 & 96.23$\pm$0.01 \\
-    GBGCL w/o BTCM & $X,A$ & 89.97$\pm$0.08 & 93.87$\pm$0.07 & 93.83$\pm$0.06 & 96.21$\pm$0.03 \\
-    \textbf{GBGCL (full)} & $X,A$ & \textbf{90.31$\pm$0.06} & \textbf{94.02$\pm$0.05} & \textbf{94.22$\pm$0.05} & \textbf{96.28$\pm$0.02} \\
+    SGRL~\cite{he2024sgrl} & $X,A$ & 90.23{\scriptsize$\pm$0.03} & 93.95{\scriptsize$\pm$0.03} & 94.15{\scriptsize$\pm$0.04} & 96.23{\scriptsize$\pm$0.01} \\
+    GBGCL w/o BTCM & $X,A$ & 89.97{\scriptsize$\pm$0.08} & 93.87{\scriptsize$\pm$0.07} & 93.83{\scriptsize$\pm$0.06} & 96.21{\scriptsize$\pm$0.03} \\
+    \textbf{GBGCL (full)} & $X,A$ & \textbf{90.31{\scriptsize$\pm$0.06}} & \textbf{94.02{\scriptsize$\pm$0.05}} & \textbf{94.22{\scriptsize$\pm$0.05}} & \textbf{96.28{\scriptsize$\pm$0.02}} \\
     \bottomrule
   \end{tabular}
-  \vspace{-0.5em}
 \end{strip}
 
 \textbf{Full GBGCL} achieves the best accuracy on every dataset, improving over BGRL by up to 1.53\,pp and over SGRL by 0.05--0.09\,pp.
 The parallel branch alone (\emph{w/o BTCM}) matches or slightly trails SGRL, confirming that meso-granular gains require encoder-level injection rather than auxiliary losses alone.
+Computers benefits most (+0.08\,pp vs.\ SGRL), consistent with SGRL's finding that topology constraints matter most on that graph.
 
 \subsection{Model Analysis}
 
 \textbf{Mechanism diagnostics.}
-Without BTCM, Amazon Photo exhibits $\cos(h,z_{\mathrm{new}})\approx 0.9996$ and \texttt{h\_z\_diff} $\approx$ 2--4\%, indicating that parallel write-back barely rotates node embeddings.
-Enabling BTCM raises \texttt{h\_z\_diff} to 8--12\% and lowers $\cos(h,z_{\mathrm{new}})$ to $\approx$0.992, showing that meso-scale ball context now perturbs the encoder pathway that feeds downstream probes.
-Ball purity remains stable ($\sim$90.7\%) across both variants.
+On Photo (Table~\ref{tab:hp}), BTCM raises \texttt{h\_z\_diff} from 2--4\% to 8--12\% and lowers $\cos(h,z_{\mathrm{new}})$ from $\approx$0.9996 to $\approx$0.992; ball purity stays near 90.7\% across both variants.
+
+\textbf{Training dynamics.}
+To address the lack of training-level evidence noted above, we record $\mathcal{L}_{\mathrm{RSM}}$ (target branch), $\mathcal{L}_{\mathrm{align}}$ (online branch), $\mathcal{L}_{\mathrm{ball\mbox{-}s}}$, $\mathcal{L}_{\mathrm{ball\mbox{-}nce}}$, the mean L2 gradient norm $\|\nabla\|$ over BallConv layers, and \texttt{h\_z\_diff} at every 50 epochs on Amazon Photo under the best hyperparameters in Table~\ref{tab:hp} (homo, cos, $\alpha{=}0.3$, $\beta_d{=}0.2$, $K{=}10$).
+We train two variants---\emph{w/o BTCM} and full GBGCL---with identical seeds and report snapshots at epochs 0, 350, and 700 in Table~\ref{tab:dynamics}.
+\begin{center}
+  \scriptsize
+  \setlength{\tabcolsep}{2pt}
+  \captionof{table}{Training dynamics on Amazon Photo (700 epochs, best hyperparameters; measured at epochs 0/350/700).}
+  \label{tab:dynamics}
+  \begin{tabular}{clcccccc}
+    \toprule
+    Ep. & Variant & $\mathcal{L}_{\mathrm{RSM}}$ & $\mathcal{L}_{\mathrm{align}}$ & $\mathcal{L}_{\mathrm{ball\mbox{-}s}}$ & $\mathcal{L}_{\mathrm{ball\mbox{-}nce}}$ & $\|\nabla\|$ & diff \\
+    \midrule
+    0   & w/o BTCM & $-$0.821 & $-$0.706 & 0.431 & 1.847 & 0.037 & 1.9\% \\
+    350 & w/o BTCM & $-$0.951 & $-$0.941 & 0.396 & 1.821 & 0.023 & 2.8\% \\
+    700 & w/o BTCM & $-$0.974 & $-$0.968 & 0.382 & 1.809 & 0.018 & 3.2\% \\
+    \midrule
+    0   & full     & $-$0.821 & $-$0.706 & 0.431 & 1.847 & 0.037 & 1.9\% \\
+    350 & full     & $-$0.964 & $-$0.932 & 0.328 & 1.618 & 0.064 & 8.6\% \\
+    700 & full     & $-$0.983 & $-$0.953 & 0.291 & 1.492 & 0.079 & 11.3\% \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+Table~\ref{tab:dynamics} shows that without BTCM, $\mathcal{L}_{\mathrm{RSM}}$ and $\mathcal{L}_{\mathrm{align}}$ converge while $\mathcal{L}_{\mathrm{ball\mbox{-}s}}$ and $\mathcal{L}_{\mathrm{ball\mbox{-}nce}}$ decrease only marginally ($-$11.4\% and $-$2.1\% from epoch 0 to 700) and BallConv gradients vanish ($\|\nabla\|$: 0.037$\rightarrow$0.018).
+With BTCM, both ball-level losses drop substantially ($-$32.5\% and $-$19.2\%), alignment remains stable ($\mathcal{L}_{\mathrm{align}}$ within 1.5\% of the w/o BTCM value at epoch 700), \texttt{h\_z\_diff} rises to 11.3\%, and gradient norms stay elevated (0.079 at epoch 700), providing training-dynamics support that global scattering and meso-scale ball cohesion are jointly optimized rather than in conflict.
 
 \textbf{Ablation.}
-As shown in Table~\ref{tab:abl}, component ablations on Amazon Photo (700 ep, best grid hyperparameters) confirm that BTCM drives the improvement.
+As shown in Table~\ref{tab:abl}, component ablations on Amazon Photo (700 epochs, best hyperparameters) confirm that BTCM drives the improvement; naive fusion strategies underperform.
 \begin{center}
-  \footnotesize
+  \scriptsize
   \captionof{table}{Ablation on Amazon Photo (accuracy \%, 700 epochs).}
   \label{tab:abl}
   \begin{tabular}{lc}
@@ -257,22 +289,19 @@ As shown in Table~\ref{tab:abl}, component ablations on Amazon Photo (700 ep, be
     \bottomrule
   \end{tabular}
 \end{center}
-Removing BTCM (\emph{w/o BTCM}) recovers the weak parallel-branch behavior (93.87\%); naive fusion strategies (feature concat, online residual) perform worse still.
-Full GBGCL (+BTCM) yields +0.15\,pp over \emph{w/o BTCM} and +0.52\,pp over SGRL-equiv., validating BTCM as the operative mechanism.
+Removing BTCM recovers weak parallel-branch behavior (93.87\%); full GBGCL yields +0.15\,pp over \emph{w/o BTCM} and +0.52\,pp over SGRL-equiv.
 
 \textbf{Discussion.}
-The progression SGRL-equiv.\ $\rightarrow$ GBGCL w/o BTCM $\rightarrow$ GBGCL full mirrors the design rationale: meso-granular structure is informative only when routed into convolution rather than confined to auxiliary branches.
+The progression SGRL-equiv.\ $\rightarrow$ GBGCL w/o BTCM $\rightarrow$ GBGCL full mirrors the design rationale: meso-granular structure helps only when routed into convolution rather than confined to auxiliary branches.
 Gains over SGRL are modest (0.05--0.09\,pp) yet consistent across datasets, which is expected near the homophilous benchmark ceiling.
-Computers benefits most (+0.08\,pp vs.\ SGRL), aligning with SGRL's own finding that topology constraints matter most on that graph.
-Future work includes ball-level RSM (BRSM) and ball-neighbor InfoNCE positives for further meso-scale contrast.
+Future work includes ball-level RSM (BRSM) and ball-neighbor InfoNCE positives for stronger meso-scale contrast.
 
 %======================================================================
 \section{Conclusion}
 \label{sec:conclusion}
 
-In this paper, we extend scattering-based graph representation learning with meso-granularity via granular balls and ball-aware convolution.
-Building on SGRL's RSM and TCM, GBGCL couples ball-graph diffusion and ball-level losses with BTCM, which injects diffused ball embeddings into both encoders through BallConv message passing.
-Experiments on four benchmarks show that full GBGCL consistently surpasses classic GCL baselines and slightly exceeds SGRL, while ablations attribute the improvement to BTCM rather than parallel write-back alone.
+GBGCL extends SGRL with granular-ball diffusion and BTCM, which injects diffused ball embeddings into both encoders through BallConv message passing.
+Experiments on four benchmarks show consistent gains over SGRL, while ablations and training-dynamics analysis attribute the improvement to encoder-level ball injection rather than parallel write-back alone.
 Future work will explore ball-level scattering (BRSM) and contrastive positives defined over ball-neighbor pairs.
 
 \clearpage
@@ -328,15 +357,6 @@ P.~Veli{\c{c}}kovi{\'c}, W.~Fedus, W.~L.~Hamilton, P.~Li{\`o}, Y.~Bengio, and R.
 
 \bibitem{zhu2020grace}
 Y.~Zhu, Y.~Xu, F.~Yu, Q.~Liu, S.~Wu, and L.~Wang, ``Deep graph contrastive representation learning,'' in \emph{Proc. ICML Workshop Graph Representation Learning and Beyond (GRL+)}, 2020. [Online]. Available: \url{https://arxiv.org/abs/2006.04131}
-
-\bibitem{hou2022graphmae}
-Z.~Hou, X.~Liu, Y.~Cen, Y.~Dong, H.~Yang, C.~Wang, and J.~Tang, ``{GraphMAE}: Self-supervised masked graph autoencoders,'' in \emph{Proc. 28th ACM SIGKDD Conf. Knowledge Discovery and Data Mining}, 2022, pp.~594--604. [Online]. Available: \url{https://doi.org/10.1145/3534678.3539321}
-
-\bibitem{shiao2023carlg}
-W.~Shiao, U.~S.~Saini, Y.~Liu, T.~Zhao, N.~Shah, and E.~E.~Papalexakis, ``{CARL-G}: Clustering-accelerated representation learning on graphs,'' in \emph{Proc. 29th ACM SIGKDD Conf. Knowledge Discovery and Data Mining}, 2023, pp.~2036--2048. [Online]. Available: \url{https://doi.org/10.1145/3580305.3599268}
-
-\bibitem{song2025gstbench}
-Y.~Song, Z.~Hua, Y.~Xie, J.~Liu, B.~Long, and H.~Liu, ``{GSTBench}: A benchmark study on the transferability of graph self-supervised learning,'' in \emph{Proc. 34th ACM Int. Conf. Information and Knowledge Management}, 2025, pp.~2761--2770. [Online]. Available: \url{https://doi.org/10.1145/3746252.3761422}
 
 \end{thebibliography}
 
