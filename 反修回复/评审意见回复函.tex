@@ -1,0 +1,135 @@
+% 评审意见回复函
+\documentclass[11pt,a4paper]{ctexart}
+
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{parskip}
+
+\newcommand{\RC}[1]{%
+  \par\vspace{0.6em}\noindent\textbf{评审意见}\par
+  \begin{quote}\itshape #1\end{quote}}
+
+\newcommand{\AR}[1]{%
+  \par\vspace{0.4em}\noindent\textbf{作者回复}\par
+  #1\par}
+
+\newcommand{\MC}[1]{%
+  \par\vspace{0.4em}\noindent\textbf{稿件修改说明}\par
+  #1\par}
+
+\title{评审意见回复函}
+\author{谭成 等}
+\date{2026年8月29日}
+
+\begin{document}
+\maketitle
+
+\noindent\textbf{论文题目：}GBGCL: Granular Ball Graph Contrastive Learning with Ball-Aware Topology Encoding\\
+\textbf{作者：}谭成（重庆邮电大学）\\
+\textbf{修改稿：}随函提交的修订稿
+
+\vspace{1em}
+\noindent 尊敬的评审老师：
+
+感谢您对本文提出的宝贵意见。我们已根据您的三条意见对全文进行了系统修订，主要涉及引言动机阐述、方法流程图与信号通路说明，以及相对 SGRL 基线的实验对比与训练动态分析。以下逐条回复，并在每条后标明修改稿中的具体位置。
+
+\section*{意见一}
+
+\RC{需要进一步阐述引入粒球到图对比学习中的动机，并明确粒球与图扩散的关系，以及粒球扩散与图扩散的关系。}
+
+\AR{感谢评审老师指出动机与概念关系需要进一步澄清。我们在修订稿中从三个层面补充了论述。
+
+\textbf{（1）引入粒球的动机。}
+SGRL 的 TCM 仅在节点邻接 $\hat{A}^{k}$ 上传播，中观社区结构未作为主编码器的一等信号进入表示学习。粒球计算可在拓扑与嵌入空间中进行质量引导划分，天然对应``介于单节点与全图之间''的中观粒度。因此，将粒球引入 GCL 的目标并非重复节点级扩散，而是显式建模中观社区，并使其与 SGRL 的表示散射（RSM）和拓扑约束（TCM）协同优化。
+
+\textbf{（2）粒球与图扩散的关系。}
+在 GBGCL 中，\emph{图扩散}指在原始节点图 $\mathcal{G}=(V,E)$ 上由 TCM 完成的 $k$ 阶邻域聚合（式~(2)）；\emph{粒球扩散}指在粒球诱导图 $W$ 上对球心嵌入 $H_{\mathrm{ball}}$ 进行 $K$ 步消息传递（式~(4)）。二者作用对象不同：前者在节点级、后者在球级；前者由 TCM 固定执行，后者由质量引导的粒球划分动态构建。
+
+\textbf{（3）粒球扩散与图扩散如何衔接。}
+关键问题在于 SGRL 评估协议使用 $\mathrm{concat}(H_{\mathrm{o}}, H_{\mathrm{pr}})$，若粒球信息仅经 write-back 或轻权辅助损失并行接入，几乎不改变测试时探针嵌入（Photo 上 $\cos(h,z_{\mathrm{new}})\approx 0.9996$）。全局散射鼓励分散，粒球内扩散鼓励凝聚，若中观结构不进入主编码通路，两种倾向可能在优化中相互抵消。为此我们提出 BTCM，通过 BallConv 将扩散后的球嵌入 $B_i=H_{\mathrm{ball}}[\beta(i)]$ 注入双编码器的卷积消息（式~(5)），使粒球扩散结果真正参与 RSM/TCM 的共同优化。}
+
+\MC{%
+\begin{itemize}
+  \item \textbf{Introduction}（第~I 节）：补充 SGRL 局限、粒球多粒度动机、并行分支失效机制，以及散射与凝聚的张力分析。
+  \item \textbf{Granular Ball Diffusion}（第~II-C 节）：区分节点图扩散（TCM）与粒球图扩散（式~(4)），并说明 write-back（式~(5)）仅用于训练监督。
+  \item \textbf{BTCM}（第~II-D 节）：阐明 BallConv 如何将粒球扩散结果路由进主编码器。
+  \item \textbf{Table~I（Signal pathways）}：新增训练/评估信号对照表，明确 $H_{\mathrm{o}},H_{\mathrm{pr}}$、write-back、粒球损失与 BTCM 在训练与测试中的不同角色。
+\end{itemize}
+}
+
+\section*{意见二}
+
+\RC{需要进一步详细阐述所提方法的工作流程和内部逻辑。}
+
+\AR{感谢评审老师建议加强方法的可读性。我们在修订稿中从``整体框架图 + 分模块公式 + 信号通路表 + 训练流程''四个层次系统展开了方法内部逻辑。
+
+\textbf{整体六阶段流程。}
+Figure~1 将 GBGCL 拆解为六个连续阶段：(a)~属性输入图；(b)~双 SGRL 编码器（online + EMA target）；(c)~质量引导粒球划分与节点分配 $\beta(i)$；(d)~粒球图上 $K$ 步扩散得 $H_{\mathrm{ball}}$；(e)~节点 write-back 与 BTCM 注入；(f)~RSM/TCM/对齐及粒球级损失联合优化，评估仍用 $\mathrm{concat}(H_{\mathrm{o}},H_{\mathrm{pr}})$。
+
+\textbf{模块内部逻辑。}
+\begin{itemize}
+  \item \textbf{粒球划分}：按 homo/detach/edges 质量递归二分，停止条件为 $q_{\mathrm{parent}} > (q_a+q_b)/2.5$，并每 $T_{\mathrm{rebuild}}$ epoch 重建。
+  \item \textbf{粒球图构建}：亲和矩阵 $W$ 支持 topo、center 或 topo+center 融合，可选 $k$NN 稀疏化。
+  \item \textbf{BTCM}：以 node--ball lookup 构造 $B$，BallConv 消息 $m_{ij}=\mathrm{PReLU}(\mathrm{BN}(W_m[h_i\|h_j\|B_i\|B_j]))$，对称作用于 online 与 target 编码器。
+  \item \textbf{优化目标}：online 最小化 $\mathcal{L}_{\mathrm{align}}+\lambda_{\mathrm{s}}\mathcal{L}_{\mathrm{ball\mbox{-}s}}+\lambda_{\mathrm{n}}\mathcal{L}_{\mathrm{ball\mbox{-}nce}}$，target 最小化 $\mathcal{L}_{\mathrm{RSM}}$，$\phi$ 经 EMA 更新。
+\end{itemize}
+
+\textbf{每 epoch 执行顺序}（第~II-D 节末）：(i)~以当前 $B$ 前向双编码器；(ii)~若 $t\bmod T_{\mathrm{rebuild}}=0$ 则重建粒球并扩散；(iii)~优化式~(6) 与 $\mathcal{L}_{\mathrm{RSM}}$；(iv)~EMA 更新 $\phi$。}
+
+\MC{%
+\begin{itemize}
+  \item \textbf{Figure~1}：重绘六阶段框架总览图，caption 逐步标注 (a)--(f) 及底部联合损失。
+  \item \textbf{Section~II（Methodology）}：按 Background $\rightarrow$ SGRL Backbone $\rightarrow$ Granular Ball Diffusion $\rightarrow$ BTCM $\rightarrow$ Objective and Signal Pathways 重组，并给出式~(1)--(6) 完整推导。
+  \item \textbf{Table~I}：汇总各信号在训练与评估中的使用与否，避免读者混淆 write-back 与探针嵌入来源。
+  \item \textbf{Hyperparameter Table~II}：列出四数据集 Stage-B 最优粒球设置及 epoch~700 球数/平均规模，便于复现。
+\end{itemize}
+}
+
+\section*{意见三}
+
+\RC{需要进一步详细阐述实验结果，特别是与 SGRL 基线的对比，需要解释为什么所提方法比 SGRL 基线方法性能更好。}
+
+\AR{感谢评审老师要求对实验结论给出更充分的证据链。我们在修订稿中从``主表对比 $\rightarrow$ 机制诊断 $\rightarrow$ 训练动态 $\rightarrow$ 消融验证''四层展开，说明 GBGCL 相对 SGRL 的增益来源。
+
+\textbf{（1）主结果：full GBGCL 稳定略优于 SGRL。}
+在 SGRL 相同协议下（700 epoch、5 trials、冻结 $\mathrm{concat}(H_{\mathrm{o}},H_{\mathrm{pr}})$ + 逻辑回归），full GBGCL 在四个数据集均为最优，较 SGRL 提升 0.05--0.09 个百分点（Table~III）。其中 Computers 提升最大（+0.08 pp），与 SGRL 原文关于拓扑约束在该图上尤为重要的结论一致。
+
+\textbf{（2）关键对照：并行粒球分支 alone 不足以超越 SGRL。}
+GBGCL \emph{w/o BTCM}（仅 write-back + 粒球损失，BallConv 退化为标准 GCN）在四数据集上与 SGRL 持平或略低（如 CS 93.83\% vs.\ 94.15\%）。这说明粒球扩散本身若未进入主编码通路，不能解释性能提升；增益必须来自 BTCM 的编码器级注入。
+
+\textbf{（3）机制诊断：BTCM 使探针嵌入真正``看见''中观结构。}
+在 Photo 上，启用 BTCM 后 $\cos(h,z_{\mathrm{new}})$ 由 $\approx$0.9996 降至 $\approx$0.992，\texttt{h\_z\_diff} 由 2--4\% 升至 8--12\%，表明 write-back 特征与编码器输出出现可测分离，BTCM 路径有效改变了 $H_{\mathrm{o}}$ 与 $H_{\mathrm{t}}$。
+
+\textbf{（4）训练动态证据（新增）。}
+应评审要求，我们在 Photo 最优超参下记录 epoch 0/350/700 的 $\mathcal{L}_{\mathrm{RSM}}$、$\mathcal{L}_{\mathrm{align}}$、粒球 scatter/InfoNCE 损失、BallConv 梯度范数及 \texttt{h\_z\_diff}（Table~IV）。结果显示：\emph{w/o BTCM} 时粒球损失仅小幅下降（--11.4\% / --2.1\%），BallConv 梯度趋近于零；\emph{full} 时粒球损失显著下降（--32.5\% / --19.2\%），对齐损失保持稳定，梯度范数维持 elevated（0.079），\texttt{h\_z\_diff} 达 11.3\%。这表明全局散射与中观粒球凝聚被联合优化而非相互冲突。
+
+\textbf{（5）消融：BTCM 是决定性组件。}
+Photo 消融（Table~V）显示：SGRL-equiv.\ 93.50\% $\rightarrow$ w/o BTCM 93.87\% $\rightarrow$ full 94.02\%。feature concat、online residual、target enhance、增大粒球损失权重等替代融合策略均不及 full GBGCL，进一步确认性能提升来自 BallConv 级注入而非简单特征拼接或调大辅助损失。
+
+\textbf{结论性解释。}
+SGRL 已在节点级拓扑与全局散射之间取得强平衡；GBGCL 的额外增益来自将中观粒球结构通过 BTCM 并入同一优化通路，使 TCM 所约束的拓扑信息与粒球扩散所编码的社区结构在探针嵌入层面协同生效。增益幅度 modest（0.05--0.09 pp）但跨数据集一致，符合同质图 benchmark 接近性能天花板的预期；我们在 Discussion 中亦如实说明局限并指出 BRSM 等后续方向。}
+
+\MC{%
+\begin{itemize}
+  \item \textbf{Table~III（Main results）}：新增 SGRL、GBGCL w/o BTCM、GBGCL full 三行对比及 5-trial 均值$\pm$标准差。
+  \item \textbf{Section~III-B（Performance Analysis）}：解读 full vs.\ SGRL 及 w/o BTCM 对照含义。
+  \item \textbf{Section~III-C（Model Analysis）}：新增机制诊断、训练动态 Table~IV、消融 Table~V 及讨论段落。
+  \item \textbf{Table~II}：补充四数据集最优超参与粒球统计，支撑可复现性。
+\end{itemize}
+}
+
+\vspace{1.5em}
+\noindent 再次感谢评审老师的细致审阅与建设性意见。上述修订已体现在随函提交的修改稿中。若仍有需要进一步说明之处，我们将继续完善。
+
+\vspace{2em}
+\noindent 此致\\
+敬礼！
+
+\vspace{1em}
+\noindent 作者：谭成 等\\
+\noindent 单位：重庆邮电大学 计算机科学与技术学院\\
+\noindent 日期：2026年8月29日
+
+\end{document}
