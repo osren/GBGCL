@@ -22,7 +22,7 @@
 \IEEEauthorblockA{\textit{School of Computer Science and Technology}\\
 \textit{Chongqing University of Posts and Telecommunications}\\
 Chongqing 400065, China \\
-\texttt{1529924810@qq.com}}
+Email:1529924810@qq.com \\}
 \thanks{*Corresponding author. E-mail: \texttt{1529924810@qq.com}.}}
 
 \maketitle
@@ -243,6 +243,10 @@ Computers benefits most (+0.08\,pp vs.\ SGRL), consistent with SGRL's finding th
 
 \textbf{Mechanism diagnostics.}
 On Photo (Table~\ref{tab:hp}), BTCM raises \texttt{h\_z\_diff} from 2--4\% to 8--12\% and lowers $\cos(h,z_{\mathrm{new}})$ from $\approx$0.9996 to $\approx$0.992; ball purity stays near 90.7\% across both variants.
+These metrics directly test whether meso-scale signals reach probed embeddings.
+\texttt{h\_z\_diff} measures the relative L2 deviation between encoder output $h_i$ and write-back $z_i$; values of 2--4\% together with $\cos(h,z_{\mathrm{new}})\!\approx\!1$ indicate that parallel diffusion leaves the probe manifold nearly unchanged, consistent with Table~\ref{tab:pathways} (write-back is training-only).
+After BTCM injection, the enlarged separation (8--12\%) shows that ball context modifies BallConv messages rather than acting as a detached residual.
+Stable ball purity ($\approx$90.7\%) further suggests that quality-guided partitioning yields coherent meso-scale units, providing a reliable lookup $B$ for both encoders.
 
 \textbf{Training dynamics.}
 To address the lack of training-level evidence noted above, we record $\mathcal{L}_{\mathrm{RSM}}$ (target branch), $\mathcal{L}_{\mathrm{align}}$ (online branch), $\mathcal{L}_{\mathrm{ball\mbox{-}s}}$, $\mathcal{L}_{\mathrm{ball\mbox{-}nce}}$, the mean L2 gradient norm $\|\nabla\|$ over BallConv layers, and \texttt{h\_z\_diff} at every 50 epochs on Amazon Photo under the best hyperparameters in Table~\ref{tab:hp} (homo, cos, $\alpha{=}0.3$, $\beta_d{=}0.2$, $K{=}10$).
@@ -268,6 +272,7 @@ We train two variants---\emph{w/o BTCM} and full GBGCL---with identical seeds an
 \end{center}
 Table~\ref{tab:dynamics} shows that without BTCM, $\mathcal{L}_{\mathrm{RSM}}$ and $\mathcal{L}_{\mathrm{align}}$ converge while $\mathcal{L}_{\mathrm{ball\mbox{-}s}}$ and $\mathcal{L}_{\mathrm{ball\mbox{-}nce}}$ decrease only marginally ($-$11.4\% and $-$2.1\% from epoch 0 to 700) and BallConv gradients vanish ($\|\nabla\|$: 0.037$\rightarrow$0.018).
 With BTCM, both ball-level losses drop substantially ($-$32.5\% and $-$19.2\%), alignment remains stable ($\mathcal{L}_{\mathrm{align}}$ within 1.5\% of the w/o BTCM value at epoch 700), \texttt{h\_z\_diff} rises to 11.3\%, and gradient norms stay elevated (0.079 at epoch 700), providing training-dynamics support that global scattering and meso-scale ball cohesion are jointly optimized rather than in conflict.
+Interpreting the loss trends, $\mathcal{L}_{\mathrm{RSM}}$ becoming more negative in both variants reflects continued target-branch scattering, whereas the divergent ball-level curves isolate the effect of encoder injection: without BTCM, $\|\nabla\|\!\to\!0.018$ implies that ball supervision does not back-propagate through layers that define $H_{\mathrm{o}}$ and $H_{\mathrm{pr}}$; with BTCM, sustained gradient norms confirm that $\mathcal{L}_{\mathrm{ball\mbox{-}s}}$ and $\mathcal{L}_{\mathrm{ball\mbox{-}nce}}$ actively reshape BallConv weights while $\mathcal{L}_{\mathrm{align}}$ remains within 1.5\% of the parallel baseline, preserving the SGRL online--target balance.
 
 \textbf{Ablation.}
 As shown in Table~\ref{tab:abl}, component ablations on Amazon Photo (700 epochs, best hyperparameters) confirm that BTCM drives the improvement; naive fusion strategies underperform.
@@ -290,19 +295,25 @@ As shown in Table~\ref{tab:abl}, component ablations on Amazon Photo (700 epochs
   \end{tabular}
 \end{center}
 Removing BTCM recovers weak parallel-branch behavior (93.87\%); full GBGCL yields +0.15\,pp over \emph{w/o BTCM} and +0.52\,pp over SGRL-equiv.
+The failed fusion variants clarify \emph{where} injection must occur: \texttt{feature concat} (93.38\%) appends write-back after convolution without altering message passing; \texttt{online residual} (92.86\%) perturbs only the online branch and breaks BYOL symmetry; \texttt{target enhance} (93.54\%) modifies the target path even though probes read $\mathrm{concat}(H_{\mathrm{o}},H_{\mathrm{pr}})$ from the online side; \texttt{larger ball loss} (93.53\%) increases $\lambda_{\mathrm{s,n}}$ but still routes supervision through auxiliary terms detached from BallConv.
+Only symmetric BTCM replacement of GCN messages in \emph{both} encoders consistently improves accuracy.
 
 \textbf{Discussion.}
 The progression SGRL-equiv.\ $\rightarrow$ GBGCL w/o BTCM $\rightarrow$ GBGCL full mirrors the design rationale: meso-granular structure helps only when routed into convolution rather than confined to auxiliary branches.
-Gains over SGRL are modest (0.05--0.09\,pp) yet consistent across datasets, which is expected near the homophilous benchmark ceiling.
+Conceptually, TCM propagates along node adjacency $\hat{A}^{k}$, whereas ball diffusion aggregates over induced communities in $W$; BTCM couples these scales inside the same convolution stack, supplying local topology via $(i,j)$ edges and community context via $(B_i,B_j)$.
+Gains over SGRL are modest (0.05--0.09\,pp) yet consistent across datasets, which is expected near the homophilous benchmark ceiling where SGRL already exploits most node-level structure.
+The largest improvement on Computers aligns with SGRL's emphasis on topology constraints and our finer-grained partition there (462 balls, avg.\ size 29.8 in Table~\ref{tab:hp}).
 Future work includes ball-level RSM (BRSM) and ball-neighbor InfoNCE positives for stronger meso-scale contrast.
 
 %======================================================================
 \section{Conclusion}
 \label{sec:conclusion}
 
-GBGCL extends SGRL with granular-ball diffusion and BTCM, which injects diffused ball embeddings into both encoders through BallConv message passing.
-Experiments on four benchmarks show consistent gains over SGRL, while ablations and training-dynamics analysis attribute the improvement to encoder-level ball injection rather than parallel write-back alone.
-Future work will explore ball-level scattering (BRSM) and contrastive positives defined over ball-neighbor pairs.
+GBGCL extends SGRL with quality-guided granular-ball diffusion and BTCM, which injects diffused ball embeddings into both encoders through BallConv message passing.
+Three signal pathways coexist during training (Table~\ref{tab:pathways}): probed embeddings $H_{\mathrm{o}}$ and $H_{\mathrm{pr}}$, auxiliary write-back $z_i$ with ball-level losses, and BTCM context $B$ embedded in convolution.
+Our central design principle is that meso-scale structure must enter the \emph{encoder message-passing path} shared by online and target networks; parallel write-back alone leaves probe representations unchanged, as confirmed by mechanism diagnostics and ablations.
+Experiments on four homophilous benchmarks show consistent gains over SGRL (up to 0.09\,pp), while training-dynamics analysis shows that ball-level losses and BallConv gradients co-optimize with RSM and alignment when BTCM is enabled.
+Remaining limitations include modest absolute gains near the benchmark ceiling and evaluation restricted to homophilous graphs.
 
 \clearpage
 \begin{thebibliography}{99}
